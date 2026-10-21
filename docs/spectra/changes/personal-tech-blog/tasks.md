@@ -31,7 +31,7 @@
   - 依「日期以台北時區顯示」做一個共用的日期格式函式，輸出 `Asia/Taipei` 時區的 `YYYY-MM-DD`。
   - 上一篇／下一篇依 `pubDate` 由舊到新排序，沒有相鄰文章時不顯示該連結。
   - 驗證：`pubDate` 設成 `2026-10-20T20:00:00Z` 時頁面顯示 `2026-10-21`；`dist/<slug>.html` 含 title、description、`/tags/<tag>` 連結和 `<figure>`；準備日期分別為 2026-01-01、2026-02-01、2026-03-01 的三篇文章，三頁的上一篇／下一篇都和 spec 範例一致。[after: 3.2]
-- [ ] 3.4 依「文章頁輸出 BlogPosting 結構化資料」實作 Article structured data：每篇文章頁的 `<head>` 輸出唯一一段 `application/ld+json`，欄位對應 design.md 的表格，`<` 轉義成 `<`；非文章頁不輸出。驗證：解析 `dist/<slug>.html` 的 JSON-LD，逐一對照 spec 欄位對應範例表的 6 種情況都相符；`dist/about.html` 不含 `BlogPosting`；把一篇文章頁的 JSON-LD 貼到 Google Rich Results Test，沒有錯誤。[after: 3.3]
+- [x] 3.4 依「文章頁輸出 BlogPosting 結構化資料」實作 Article structured data：每篇文章頁的 `<head>` 輸出唯一一段 `application/ld+json`，欄位對應 design.md 的表格，`<` 轉義成 `<`；非文章頁不輸出。驗證：解析 `dist/<slug>.html` 的 JSON-LD，逐一對照 spec 欄位對應範例表的 6 種情況都相符；`dist/about.html` 不含 `BlogPosting`；把一篇文章頁的 JSON-LD 貼到 Google Rich Results Test，沒有錯誤。[after: 3.3]
 
 ## 4. 列表與 feed
 
