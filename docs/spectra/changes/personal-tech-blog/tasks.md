@@ -65,6 +65,7 @@
   - 四個 giscus 設定欄位都有值時，文章頁在上一篇／下一篇之後輸出 `https://giscus.app/client.js`，帶 `data-mapping="pathname"`、`data-loading="lazy"`、`data-lang="zh-TW"`。
   - 任一欄位為空，或不是文章頁時，不輸出這段 script。
   - 驗證：填入測試用的設定值建置後，`dist/<slug>.html` 含 `giscus.app/client.js`，`dist/about.html` 不含；清空 `categoryId` 重建後，所有頁面都不含，且建置成功。[after: 3.4]
+- [ ] 6.2 依 giscus comment section on article pages 與 Comment theme follows the site theme 調整留言區：留言區改成文章卡片下方獨立的卡片，標題「留言討論」；giscus 主題在載入時依 `data-theme` 選 `light` 或 `transparent_dark`，切換網站主題時用 `postMessage` 通知 giscus 同步。另外，關於我、隱私權政策、聯絡我三頁的麵包屑改成顯示頁面標題（例如 `~ / 隱私權政策`）。驗證：填入 giscus 設定後建置，文章頁有「留言討論」卡片且位於文章卡片之後；在瀏覽器依 spec 主題範例表切換兩次，giscus iframe 的主題都相符；`dist/privacy.html` 麵包屑為 `~ / 隱私權政策`。[after: 6.1]
 
 ## 7. 部署與收尾
 

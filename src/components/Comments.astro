@@ -7,25 +7,57 @@ const { repo, repoId, category, categoryId } = siteConfig.giscus;
 
 {
   giscusEnabled && (
-    <section aria-label="留言" class="mt-10 border-t border-border pt-6">
-      <script
-        is:inline
-        src="https://giscus.app/client.js"
+    <section aria-labelledby="comments-heading" class="mt-6 rounded-2xl border border-border bg-card p-6 sm:p-10">
+      <h2 id="comments-heading" class="font-mono text-sm text-muted-fg">
+        留言討論
+      </h2>
+      <div
+        class="giscus mt-6"
+        data-giscus-loader
         data-repo={repo}
         data-repo-id={repoId}
         data-category={category}
         data-category-id={categoryId}
-        data-mapping="pathname"
-        data-strict="1"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-TW"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async
       />
     </section>
   )
 }
+
+<script is:inline>
+  // 依目前網站主題載入 giscus，並在切換主題時通知 iframe 同步。
+  (function () {
+    var holder = document.querySelector('[data-giscus-loader]');
+    if (!holder) return;
+
+    var themeFor = function () {
+      return document.documentElement.dataset.theme === 'dark' ? 'transparent_dark' : 'light';
+    };
+
+    var script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    var attrs = {
+      'data-repo': holder.dataset.repo,
+      'data-repo-id': holder.dataset.repoId,
+      'data-category': holder.dataset.category,
+      'data-category-id': holder.dataset.categoryId,
+      'data-mapping': 'pathname',
+      'data-strict': '1',
+      'data-reactions-enabled': '1',
+      'data-emit-metadata': '0',
+      'data-input-position': 'top',
+      'data-theme': themeFor(),
+      'data-lang': 'zh-TW',
+      'data-loading': 'lazy',
+    };
+    for (var name in attrs) script.setAttribute(name, attrs[name]);
+    holder.appendChild(script);
+
+    new MutationObserver(function () {
+      var frame = document.querySelector('iframe.giscus-frame');
+      if (!frame || !frame.contentWindow) return;
+      frame.contentWindow.postMessage({ giscus: { setConfig: { theme: themeFor() } } }, 'https://giscus.app');
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  })();
+</script>

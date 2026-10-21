@@ -1,7 +1,6 @@
 ---
 // 關於我、隱私權政策、聯絡我這類固定頁面的外框。
 import BaseLayout from './BaseLayout.astro';
-import { canonicalPath } from '../lib/url';
 
 interface Props {
   title: string;
@@ -9,14 +8,15 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const slug = canonicalPath(Astro.url.pathname).slice(1);
 ---
 
 <BaseLayout title={title} description={description}>
   <article class="rounded-2xl border border-border bg-card p-6 sm:p-10">
-    <p class="font-mono text-sm text-muted-fg">
-      <a href="/" class="hover:text-accent">~</a> / <span class="text-accent">{slug}</span>
-    </p>
+    <nav aria-label="麵包屑" class="flex flex-wrap gap-x-1.5 font-mono text-sm text-muted-fg">
+      <a href="/" class="hover:text-accent">~</a>
+      <span aria-hidden="true">/</span>
+      <span class="text-accent" aria-current="page">{title}</span>
+    </nav>
     <h1 class="mt-6 text-3xl font-semibold">{title}</h1>
     <div class="prose prose-themed mt-8 max-w-none">
       <slot />
