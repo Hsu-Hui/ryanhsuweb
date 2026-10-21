@@ -1,0 +1,106 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* dark: 變體跟著 <html data-theme="dark"> 走，而不是只看系統設定。 */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* 淺色主題的 token。深色值在下方 [data-theme="dark"] 覆蓋。 */
+@theme {
+  --color-bg: #f8fafc;
+  --color-card: #ffffff;
+  --color-fg: #0f172a;
+  --color-muted-fg: #475569;
+  --color-border: #e2e8f0;
+  --color-accent: #0e7490;
+  --color-grid: rgb(226 232 240 / 50%);
+
+  --font-sans: "IBM Plex Sans", "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-card: #1b2336;
+  --color-fg: #f8fafc;
+  --color-muted-fg: #94a3b8;
+  --color-border: #334155;
+  --color-accent: #22d3ee;
+  --color-grid: rgb(30 41 59 / 33%);
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    background-image:
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  a,
+  button {
+    cursor: pointer;
+    transition-property: color, background-color, border-color;
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* 文章內文排版改用主題 token，深淺色自動切換。 */
+@utility prose-themed {
+  --tw-prose-body: var(--color-fg);
+  --tw-prose-headings: var(--color-fg);
+  --tw-prose-lead: var(--color-muted-fg);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-bold: var(--color-fg);
+  --tw-prose-counters: var(--color-muted-fg);
+  --tw-prose-bullets: var(--color-muted-fg);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-fg);
+  --tw-prose-quote-borders: var(--color-accent);
+  --tw-prose-captions: var(--color-muted-fg);
+  --tw-prose-code: var(--color-fg);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+}
+
+/* Shiki 雙主題：深色時改用 --shiki-dark 系列變數，切換主題不需要重新產生 HTML。 */
+.astro-code {
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-family: var(--font-mono);
+}
+
+[data-theme="dark"] .astro-code,
+[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,44 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { siteConfig } from '../site.config';
+---
+
+<PageLayout title="隱私權政策" description={`${siteConfig.siteTitle} 如何使用 cookie 與處理訪客資料。`}>
+  <p>本政策說明 {siteConfig.siteTitle}（以下稱「本網站」）在你瀏覽時會收集哪些資料，以及這些資料如何被使用。</p>
+
+  <h2>廣告與 cookie</h2>
+  <p>本網站使用 Google AdSense 顯示廣告。</p>
+  <ul>
+    <li>
+      Google 等第三方供應商會使用 cookie，根據你先前造訪本網站或其他網站的紀錄來放送廣告。
+    </li>
+    <li>
+      Google 使用廣告 cookie，讓 Google 和合作夥伴能根據你造訪本網站及網路上其他網站的紀錄，向你顯示廣告。
+    </li>
+    <li>
+      你可以前往 <a href="https://adssettings.google.com" rel="noopener">Google 廣告設定</a>停用個人化廣告，或前往
+      <a href="https://www.aboutads.info" rel="noopener">www.aboutads.info</a> 停用第三方供應商用於個人化廣告的 cookie。
+    </li>
+  </ul>
+  <p>
+    來自歐洲經濟區、英國及瑞士的訪客，會先看到 Google 提供的同意訊息，可以選擇是否同意使用 cookie。詳細說明請參考
+    <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">Google 如何使用合作網站的資訊</a>。
+  </p>
+
+  <h2>留言</h2>
+  <p>
+    文章留言使用 giscus，留言內容儲存在 GitHub Discussions，並依 GitHub 的隱私權政策處理。留言需要登入 GitHub 帳號。
+  </p>
+
+  <h2>其他第三方服務</h2>
+  <ul>
+    <li>網站字體由 Google Fonts 提供，瀏覽時你的瀏覽器會向 Google 的伺服器下載字體檔。</li>
+    <li>網站部署在 Google Firebase Hosting，伺服器會記錄一般的連線資訊（例如 IP 位址）以維持服務運作。</li>
+  </ul>
+
+  <h2>瀏覽器儲存</h2>
+  <p>本網站會在你的瀏覽器儲存你選擇的深色或淺色主題，這筆資料只留在你的裝置上，不會傳送到任何伺服器。</p>
+
+  <h2>聯絡方式</h2>
+  <p>對本政策有任何疑問，請透過<a href="/contact">聯絡頁</a>與我聯繫。</p>
+</PageLayout>

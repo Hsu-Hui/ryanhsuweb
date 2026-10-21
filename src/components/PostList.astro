@@ -1,0 +1,39 @@
+---
+import TagList from './TagList.astro';
+import { formatDate } from '../lib/date';
+import type { Post } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<ul class="flex flex-col gap-4">
+  {
+    posts.map((post) => (
+      <li
+        class="group relative rounded-2xl border border-border bg-card p-5 transition-colors hover:border-accent has-[a:focus-visible]:border-accent sm:p-6"
+        data-post={post.id}
+      >
+        <p class="font-mono text-xs text-muted-fg">
+          <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+        </p>
+        <h2 class="mt-1 text-xl font-semibold">
+          {/* ::after 撐滿整張卡片，點卡片任何地方都會進入文章；標籤在上層，仍可單獨點擊。 */}
+          <a
+            href={`/${post.id}`}
+            class="after:absolute after:inset-0 after:rounded-2xl after:content-[''] group-hover:text-accent focus-visible:outline-none"
+          >
+            {post.data.title}
+          </a>
+        </h2>
+        <p class="mt-2 text-muted-fg">{post.data.description}</p>
+        <div class="relative z-10 mt-3 w-fit">
+          <TagList tags={post.data.tags} />
+        </div>
+      </li>
+    ))
+  }
+</ul>

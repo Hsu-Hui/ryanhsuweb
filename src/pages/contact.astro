@@ -1,0 +1,13 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { siteConfig } from '../site.config';
+---
+
+<PageLayout title="聯絡我" description={`聯絡 ${siteConfig.author} 的方式。`}>
+  <p>如果你對文章內容有疑問、發現錯誤，或想討論合作，可以透過以下方式聯絡我：</p>
+  <ul>
+    <li>Email：<a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></li>
+    <li>文章留言：每篇文章下方都可以用 GitHub 帳號留言。</li>
+  </ul>
+  <p>我會盡量在幾天內回覆。</p>
+</PageLayout>

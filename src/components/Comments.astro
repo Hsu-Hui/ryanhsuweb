@@ -1,0 +1,31 @@
+---
+// giscus 留言區，留言存在 GitHub Discussions。四個設定欄位都有值才輸出。
+import { giscusEnabled, siteConfig } from '../site.config';
+
+const { repo, repoId, category, categoryId } = siteConfig.giscus;
+---
+
+{
+  giscusEnabled && (
+    <section aria-label="留言" class="mt-10 border-t border-border pt-6">
+      <script
+        is:inline
+        src="https://giscus.app/client.js"
+        data-repo={repo}
+        data-repo-id={repoId}
+        data-category={category}
+        data-category-id={categoryId}
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-TW"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+      />
+    </section>
+  )
+}

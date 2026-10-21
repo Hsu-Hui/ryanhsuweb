@@ -1,0 +1,138 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import NavItems from '../components/NavItems.astro';
+import { adsenseEnabled, siteConfig } from '../site.config';
+import { canonicalPath } from '../lib/url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = siteConfig.siteDescription, image } = Astro.props;
+const pageTitle = title ? `${title} | ${siteConfig.siteTitle}` : siteConfig.siteTitle;
+const canonical = new URL(canonicalPath(Astro.url.pathname), Astro.site).href;
+const year = new Date().getFullYear();
+---
+
+<html lang="zh-TW">
+  <head>
+    <script is:inline>
+      // 在畫面繪製前決定主題，避免先閃一下另一種顏色。順序：使用者存過的選擇 → 系統設定。
+      (function () {
+        var theme;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title={siteConfig.siteTitle} href="/rss.xml" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+    />
+    {
+      adsenseEnabled && (
+        <script
+          is:inline
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.adsenseClientId}`}
+          crossorigin="anonymous"
+        />
+      )
+    }
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen antialiased">
+    <div class="mx-auto flex max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
+      <aside class="hidden w-[72px] shrink-0 lg:block">
+        <nav
+          aria-label="主要導覽"
+          class="sticky top-8 mt-6 flex flex-col items-center gap-2 rounded-2xl border border-border bg-card py-5"
+        >
+          <span class="mb-2 text-accent"><Icon name="terminal" class="size-7" /></span>
+          <NavItems />
+        </nav>
+      </aside>
+
+      <div class="min-w-0 flex-1 pt-6 pb-24 lg:pt-8 lg:pb-8">
+        <main>
+          <slot />
+        </main>
+
+        <footer class="mt-10 border-t border-border pt-6 text-sm text-muted-fg">
+          <nav aria-label="網站資訊" class="flex flex-wrap gap-x-6 gap-y-2">
+            <a href="/about" class="hover:text-accent">關於我</a>
+            <a href="/privacy" class="hover:text-accent">隱私權政策</a>
+            <a href="/contact" class="hover:text-accent">聯絡我</a>
+          </nav>
+          <p class="mt-3 font-mono text-xs">© {year} {siteConfig.author}</p>
+        </footer>
+      </div>
+    </div>
+
+    <nav
+      aria-label="主要導覽"
+      class="fixed inset-x-0 bottom-0 z-50 flex justify-around border-t border-border bg-card py-1.5 lg:hidden"
+    >
+      <NavItems />
+    </nav>
+
+    <script>
+      const root = document.documentElement;
+      const toggles = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+      const systemDark = matchMedia('(prefers-color-scheme: dark)');
+
+      function readStored(): string | null {
+        try {
+          return localStorage.getItem('theme');
+        } catch {
+          return null;
+        }
+      }
+
+      function apply(theme: 'light' | 'dark') {
+        root.dataset.theme = theme;
+        const label = theme === 'dark' ? '切換為淺色模式' : '切換為深色模式';
+        toggles.forEach((button) => button.setAttribute('aria-label', label));
+      }
+
+      apply(root.dataset.theme === 'dark' ? 'dark' : 'light');
+
+      toggles.forEach((button) =>
+        button.addEventListener('click', () => {
+          const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          apply(next);
+          try {
+            localStorage.setItem('theme', next);
+          } catch {
+            // 隱私模式等情況無法儲存，只在這一頁生效。
+          }
+        }),
+      );
+
+      // 使用者沒有手動選過時，跟著系統設定即時切換。
+      systemDark.addEventListener('change', (event) => {
+        const stored = readStored();
+        if (stored !== 'light' && stored !== 'dark') apply(event.matches ? 'dark' : 'light');
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+.spectra/
+docs/spectra/.vector-search.db*
+
+# build
+node_modules/
+dist/
+.astro/
+.firebase/
+firebase-debug.log

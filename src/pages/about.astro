@@ -1,0 +1,12 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { siteConfig } from '../site.config';
+---
+
+<PageLayout title="關於我" description={`關於 ${siteConfig.author} 和這個網站。`}>
+  <p>嗨，我是 {siteConfig.author}。這裡記錄我在軟體開發上的學習筆記、踩過的坑，以及做專案時的思考過程。</p>
+  <p>
+    網站本身也是一個練習：用 Astro 建置、部署在 Firebase Hosting，文章以 Markdown 撰寫。建站的過程會整理成文章分享。
+  </p>
+  <p>有任何問題或建議，歡迎到<a href="/contact">聯絡頁</a>找我，或在文章下方留言。</p>
+</PageLayout>

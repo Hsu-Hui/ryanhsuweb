@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Pagination from '../../components/Pagination.astro';
+import PostList from '../../components/PostList.astro';
+import { PAGE_SIZE } from '../../lib/pagination';
+import { getPosts, type Post } from '../../lib/posts';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getPosts();
+  // 第 1 頁由 src/pages/index.astro 負責，這裡只產生 /page/2 之後。
+  return paginate(posts, { pageSize: PAGE_SIZE }).filter((path) => path.params.page !== '1');
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page<Post>;
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title={`第 ${page.currentPage} 頁`}>
+  <h1 class="mb-6 font-mono text-sm text-muted-fg">
+    ~/ <span class="text-accent">文章</span> / 第 {page.currentPage} 頁
+  </h1>
+  <PostList posts={page.data} />
+  <Pagination current={page.currentPage} last={page.lastPage} />
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+// 側欄和手機底部導覽列共用的 5 個項目。
+import Icon from './Icon.astro';
+import { canonicalPath } from '../lib/url';
+
+const links = [
+  { href: '/', label: '首頁', icon: 'home' },
+  { href: '/tags', label: '標籤', icon: 'tag' },
+  { href: '/about', label: '關於我', icon: 'user' },
+  { href: '/rss.xml', label: 'RSS 訂閱', icon: 'rss' },
+] as const;
+
+const current = canonicalPath(Astro.url.pathname);
+const isActive = (href: string) => (href === '/' ? current === '/' : current.startsWith(href));
+const itemClass =
+  'flex size-11 items-center justify-center rounded-xl border border-transparent text-muted-fg hover:border-accent hover:text-accent';
+---
+
+{
+  links.map((link) => (
+    <a
+      href={link.href}
+      aria-label={link.label}
+      title={link.label}
+      aria-current={isActive(link.href) ? 'page' : undefined}
+      class:list={[itemClass, isActive(link.href) && 'text-accent']}
+    >
+      <Icon name={link.icon} />
+    </a>
+  ))
+}
+<button type="button" data-theme-toggle aria-label="切換為深色模式" title="切換主題" class={itemClass}>
+  <Icon name="moon" class="size-6 dark:hidden" />
+  <Icon name="sun" class="hidden size-6 dark:block" />
+</button>
