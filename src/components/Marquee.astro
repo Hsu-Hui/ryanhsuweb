@@ -1,0 +1,59 @@
+---
+// 最新文章跑馬燈。前半段是真正的連結，後面重複的部分只是為了讓循環看起來無縫，
+// 對螢幕閱讀器和鍵盤都隱藏，所以每篇文章只會被讀到一次。
+import type { Post } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+}
+
+const MIN_ITEMS = 8;
+const SECONDS_PER_ITEM = 5;
+
+const { posts } = Astro.props;
+// 文章太少時標題寬度不夠，循環會出現空白，所以先補到至少 MIN_ITEMS 個。
+const fillers = Array.from({ length: Math.max(0, MIN_ITEMS - posts.length) }, (_, i) => posts[i % posts.length]);
+const duration = `${(posts.length + fillers.length) * SECONDS_PER_ITEM}s`;
+const itemClass = 'flex shrink-0 items-center gap-8 pr-8';
+const linkClass = 'whitespace-nowrap hover:text-accent';
+---
+
+{
+  posts.length > 0 && (
+    <section aria-label="最新文章跑馬燈" class="marquee mt-6 flex items-center overflow-hidden rounded-2xl border border-border bg-card">
+      <span class="shrink-0 border-r border-border px-4 py-3 font-mono text-xs text-accent">▶ 最新</span>
+      <div class="marquee-viewport min-w-0 flex-1 overflow-hidden py-3">
+        <div class="marquee-track flex w-max" style={`--marquee-duration: ${duration}`}>
+          <ul class={itemClass}>
+            {posts.map((post) => (
+              <li class="flex items-center gap-8">
+                <a href={`/${post.id}`} class={linkClass}>
+                  {post.data.title}
+                </a>
+                <span aria-hidden="true" class="text-accent">◆</span>
+              </li>
+            ))}
+            {fillers.map((post) => (
+              <li aria-hidden="true" class="marquee-copy flex items-center gap-8">
+                <a href={`/${post.id}`} tabindex="-1" class={linkClass}>
+                  {post.data.title}
+                </a>
+                <span class="text-accent">◆</span>
+              </li>
+            ))}
+          </ul>
+          <ul aria-hidden="true" class:list={[itemClass, 'marquee-copy']}>
+            {[...posts, ...fillers].map((post) => (
+              <li class="flex items-center gap-8">
+                <a href={`/${post.id}`} tabindex="-1" class={linkClass}>
+                  {post.data.title}
+                </a>
+                <span class="text-accent">◆</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )
+}

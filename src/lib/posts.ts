@@ -9,6 +9,7 @@ export const RESERVED_SLUGS = new Set([
   'contact',
   'tags',
   'page',
+  'posts',
   'rss.xml',
   'sitemap-index.xml',
   'ads.txt',
@@ -27,4 +28,13 @@ export async function getPosts(): Promise<Post[]> {
   }
 
   return posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+}
+
+/** 所有用過的標籤和篇數，依篇數由多到少，同篇數依名稱排序。 */
+export function countTags(posts: Post[]): [string, number][] {
+  const counts = new Map<string, number>();
+  for (const post of posts) {
+    for (const tag of post.data.tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+  return [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 }

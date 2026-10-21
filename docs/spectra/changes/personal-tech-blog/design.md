@@ -18,7 +18,7 @@
 
 - 網頁後台或 CMS（不採用：會多一個要維護的服務）。
 - 站內搜尋、電子報訂閱、多語系。
-- 標籤頁分頁。只有首頁分頁。
+- 文章頁 `/posts` 與標籤頁分頁。依年份分組的單頁列表在文章數量到數百篇前都還好讀。
 - HUD／科幻介面那種全等寬字體、掃描線、發光動畫的風格（不採用：長篇中文難讀，無障礙風險高）。
 - 控制 AdSense 廣告本身的配色。廣告外觀由 Google 決定。
 - 手動指定廣告欄位位置。第一版只用自動廣告。
@@ -55,7 +55,7 @@ frontmatter 不符合 schema 時建置失敗，錯誤訊息會指出是哪個檔
 
 文章頁由 `src/pages/[slug].astro` 產生，slug 取自檔名（不含副檔名），網址是 `/<slug>`。
 
-固定頁面使用保留 slug：`about`、`privacy`、`contact`、`tags`、`page`、`rss.xml`、`sitemap-index.xml`、`ads.txt`、`robots.txt`、`404`。文章檔名如果和保留 slug 相同，建置失敗並列出衝突的檔名，不會默默覆蓋。
+固定頁面使用保留 slug：`about`、`privacy`、`contact`、`tags`、`page`、`posts`、`rss.xml`、`sitemap-index.xml`、`ads.txt`、`robots.txt`、`404`。文章檔名如果和保留 slug 相同，建置失敗並列出衝突的檔名，不會默默覆蓋。
 
 ### 網站設定集中在 site.config.ts
 
@@ -124,7 +124,7 @@ frontmatter 不符合 schema 時建置失敗，錯誤訊息會指出是哪個檔
 **科技元素**
 
 - 頁面背景是 20px 間距的淡格線。
-- 麵包屑顯示成 `~/ 文章 / <文章標題>`，首頁和分頁的列表標題顯示成 `~/ 文章`。
+- 麵包屑顯示成 `~/ 文章 / <文章標題>`，文章頁的標題顯示成 `~/ 文章`。
 - 文章列表的整張卡片都可以點擊進入文章：標題連結用 `::after` 撐滿整張卡片（`relative` 卡片加上 `after:absolute after:inset-0`），標籤連結疊在上層（`relative z-10`），點標籤仍然進入標籤頁。這樣每張卡片只有一個文章連結，螢幕閱讀器讀到的連結名稱就是文章標題，不會把整段摘要都念成連結文字。
 - 標籤顯示成 `#tag`，加上 accent 色細框。
 - 卡片和連結在 hover、focus 時出現 accent 色細框。
@@ -149,14 +149,29 @@ frontmatter 不符合 schema 時建置失敗，錯誤訊息會指出是哪個檔
 
 在 `astro.config.mjs` 的 `markdown.shikiConfig` 設定 `themes: { light: 'github-light', dark: 'github-dark' }`。在 `[data-theme="dark"]` 底下改用 Shiki 輸出的 `--shiki-dark` 變數，這樣切換主題時程式碼區塊不用重新產生 HTML。
 
-### 首頁分頁每頁 10 篇
+### 首頁改為精選內容，完整列表移到文章頁
 
-- 用 Astro 的 `paginate()`，每頁 10 篇，依 `pubDate` 由新到舊排列。
-- 第 1 頁是 `src/pages/index.astro`，網址 `/`。第 2 頁起由 `src/pages/page/[page].astro` 產生，網址 `/page/2`、`/page/3`……
-- 不產生 `/page/1`，避免和 `/` 內容重複。
-- 每頁底部顯示上一頁／下一頁，以及「第 N / M 頁」。
-- 只有一頁時不顯示分頁區塊。
-- 10 篇是依閱讀習慣選的預設值，以後要改只需要改一個常數。
+取代本 change 先前的「首頁分頁每頁 10 篇」。原因是使用者要求首頁改版：加上跑馬燈與最新文章，完整列表移到獨立的文章頁。設計參考 leerob.com、antfu.me、joshwcomeau.com 這類工程師個人網站的共通做法：不放大橫幅，用名字和一兩句介紹開場，最新文章用一行一篇的精簡列表，文章總表依年份分組並可依主題篩選。
+
+- 首頁（`src/pages/index.astro`）由上到下：終端機風格的開場（`$ whoami`、作者名稱、`siteDescription`、三個連結）、跑馬燈、`~/ 最新文章`（最新 5 篇）、`~/ 依主題瀏覽`（所有標籤與篇數）。
+- 移除 `src/pages/page/[page].astro`、`Pagination.astro` 與 `PAGE_SIZE`。舊的 `/page/<n>` 由 `firebase.json` 的 `redirects` 以 301 轉到 `/posts`，避免外部舊連結失效。
+- 導覽列的「標籤」改成「文章」，連到 `/posts`。`/tags` 與 `/tags/<tag>` 保留，給文章頁上的標籤連結與搜尋引擎使用。
+
+### 跑馬燈以 CSS 動畫無限循環
+
+- 內容是最新 8 篇文章的標題。為了無縫循環，標題清單會重複一份接在後面，用 CSS `@keyframes` 把整條往左移動 50%。
+- 複製出來的那一份加上 `aria-hidden="true"`，裡面的連結加上 `tabindex="-1"`，讓螢幕閱讀器和鍵盤只會遇到每個標題一次。
+- 文章很少時，標題寬度可能不到畫面寬度，循環會出現空白。所以在建置時先把清單重複到至少 8 個項目，再複製一份做循環。
+- 滑鼠移上去或裡面的連結取得焦點時，用 `animation-play-state: paused` 暫停。
+- `prefers-reduced-motion: reduce` 時不播放動畫，隱藏複製的那一份，標題改成會換行的靜態列表。
+- 速度依項目數量計算，大約每個標題 5 秒，讓不同文章數量時的移動速度看起來差不多。
+
+### 文章頁依年份分組並以標籤篩選
+
+- `src/pages/posts.astro` 在建置時輸出所有文章，依年份分組，每一列有 `data-tags` 屬性。
+- 篩選列的每個標籤是 `<a href="/tags/<tag>">`，沒有 JavaScript 時就是普通的標籤頁連結。有 JavaScript 時攔截點擊，在頁面內篩選，並用 `history.replaceState` 更新成 `/posts?tag=<tag>`，所以篩選結果可以分享、重新整理後也會保留。
+- 篩選後沒有文章的年份整組隱藏。選中的按鈕加上 `aria-pressed="true"`。
+- `?tag=` 是不存在的標籤時，回到「全部」，不顯示空白頁面。
 
 ### Tailwind CSS v4 經由 Vite plugin 載入
 
@@ -178,7 +193,7 @@ frontmatter 不符合 schema 時建置失敗，錯誤訊息會指出是哪個檔
 
 ### 網址不帶結尾斜線並由 Firebase 轉址
 
-- Astro 設定 `trailingSlash: 'never'`、`build.format: 'file'`，建置出 `dist/about.html`、`dist/<slug>.html`、`dist/page/2.html`、`dist/tags/<tag>.html` 這種檔案。
+- Astro 設定 `trailingSlash: 'never'`、`build.format: 'file'`，建置出 `dist/about.html`、`dist/<slug>.html`、`dist/posts.html`、`dist/tags/<tag>.html` 這種檔案。
 - Firebase 的 `cleanUrls` 用 `/about` 提供 `about.html`，並把 `/about.html` 301 轉址到 `/about`。`trailingSlash: false` 把 `/about/` 301 轉址到 `/about`。
 - canonical、sitemap、RSS、站內連結全部使用不帶斜線的網址。
 - 不採用帶斜線的版本（`/about/`），因為提案一開始就訂了文章網址是 `網域/<slug>`。
@@ -221,7 +236,7 @@ Sitemap: <siteUrl>/sitemap-index.xml
 
 - 在 `src/content/posts/` 新增 `hello-world.md` 並建置，會發生以下事情：
   - `/hello-world` 出現文章頁。
-  - 首頁第 1 頁最上方出現這篇文章（依 `pubDate` 由新到舊排序）。文章超過 10 篇時，較舊的文章依序出現在 `/page/2` 之後。
+  - 首頁的 `~/ 最新文章` 和跑馬燈最前面出現這篇文章，`/posts` 的當年分組最上方也出現這篇。
   - 文章的每個標籤都有 `/tags/<tag>` 頁面，並列出這篇。
   - `sitemap-index.xml` 和 `rss.xml` 都包含 `/hello-world`。
 - 每個頁面共用同一個外框，包含 AdSense script（有設定時）、桌機側欄、手機底部導覽列和頁尾。頁尾連到 `/about`、`/privacy`、`/contact`。
@@ -257,7 +272,7 @@ Sitemap: <siteUrl>/sitemap-index.xml
   - 有設定發布商 ID 時，還要有 `dist/ads.txt`
 - 用瀏覽器在 1280px 和 375px 兩種寬度檢查外框：前者顯示側欄、不顯示底部導覽列，後者相反。
 - 用瀏覽器分別模擬系統深色和淺色，確認初始主題正確。切換後重新整理，主題要維持。
-- 用 11 篇範例文章建置時，`dist/page/2.html` 存在，`dist/page/1.html` 不存在。
+- 建置後 `dist/posts.html` 存在，`dist/page/` 不存在；在 Firebase 模擬器請求 `/page/2` 會 301 轉到 `/posts`。
 - 在專案根目錄執行 `npx firebase-tools emulators:start --only hosting`，用 `curl -I` 確認：`/about` 回 200，`/about/` 和 `/about.html` 都回 301 並轉到 `/about`，不存在的路徑回 404。
 - 用 Google 的 Rich Results Test（或 schema.org validator）檢查一篇文章頁的 JSON-LD，沒有錯誤。
 
@@ -277,4 +292,5 @@ Sitemap: <siteUrl>/sitemap-index.xml
 - [giscus 要求留言者有 GitHub 帳號] → 技術文章的讀者大多有 GitHub 帳號，可以接受。
 - [深色模式下 AdSense 廣告可能是白底，和頁面不協調] → 廣告外觀由 Google 控制，網站無法調整。這是已知限制，接受。
 - [Noto Sans TC 字檔很大，會拖慢首次載入] → Google Fonts 會依頁面實際用到的字分段下載，加上 `display=swap` 先用系統字體顯示。上線後用 Lighthouse 量測，如果 LCP 太慢，再改成只用系統中文字體。
-- [標籤頁不分頁，熱門標籤的文章很多時頁面會變長] → 已列為 Non-Goal，真的有需要再處理。
+- [文章頁和標籤頁不分頁，文章很多時頁面會變長] → 已列為 Non-Goal，真的有需要再處理。
+- [跑馬燈會持續移動，可能干擾閱讀或造成不適] → 只放在首頁一條，滑鼠移上去會暫停，系統開啟減少動態效果時完全不動。

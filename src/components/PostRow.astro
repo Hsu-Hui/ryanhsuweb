@@ -1,0 +1,33 @@
+---
+// 一行一篇的精簡文章列，首頁最新文章和文章頁共用。
+import { formatDate } from '../lib/date';
+import type { Post } from '../lib/posts';
+
+interface Props {
+  post: Post;
+  /** full 顯示 YYYY-MM-DD；monthDay 只顯示 MM-DD（文章頁已經依年份分組）。 */
+  dateFormat?: 'full' | 'monthDay';
+}
+
+const { post, dateFormat = 'full' } = Astro.props;
+const date = formatDate(post.data.pubDate);
+---
+
+<li
+  data-post={post.id}
+  data-tags={JSON.stringify(post.data.tags)}
+  class="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-3"
+>
+  <time
+    datetime={post.data.pubDate.toISOString()}
+    class:list={['shrink-0 font-mono text-sm text-muted-fg', dateFormat === 'full' ? 'w-24' : 'w-12']}
+  >
+    {dateFormat === 'full' ? date : date.slice(5)}
+  </time>
+  <a href={`/${post.id}`} class="min-w-0 flex-1 font-medium break-words hover:text-accent">
+    {post.data.title}
+  </a>
+  <span class="flex flex-wrap gap-2 font-mono text-xs text-muted-fg">
+    {post.data.tags.map((tag) => <span>#{tag}</span>)}
+  </span>
+</li>

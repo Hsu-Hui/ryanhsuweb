@@ -34,7 +34,7 @@ Each article SHALL be one Markdown file in `src/content/posts/`. The frontmatter
 
 ### Requirement: Article URL is derived from the file name
 
-The system SHALL serve each article at `/<slug>`, where `<slug>` is the article file name without the `.md` extension. The build MUST fail when a slug equals a reserved slug: `about`, `privacy`, `contact`, `tags`, `page`, `rss.xml`, `sitemap-index.xml`, `ads.txt`, `robots.txt`, `404`.
+The system SHALL serve each article at `/<slug>`, where `<slug>` is the article file name without the `.md` extension. The build MUST fail when a slug equals a reserved slug: `about`, `privacy`, `contact`, `tags`, `page`, `posts`, `rss.xml`, `sitemap-index.xml`, `ads.txt`, `robots.txt`, `404`.
 
 #### Scenario: Article is served at its slug
 

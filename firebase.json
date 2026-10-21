@@ -3,6 +3,13 @@
     "public": "dist",
     "cleanUrls": true,
     "trailingSlash": false,
+    "redirects": [
+      {
+        "regex": "^/page/\\d+/?$",
+        "destination": "/posts",
+        "type": 301
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*"

@@ -3,7 +3,7 @@
 個人技術部落格。用 [Astro](https://astro.build) 建置成純靜態網站，部署在 Firebase Hosting，並放 Google AdSense 廣告。
 
 - 每篇文章是一個 Markdown 檔，push 之後自動上線。
-- 首頁、標籤頁、sitemap、RSS、`robots.txt`、`ads.txt` 都在建置時自動產生。
+- 首頁（最新文章跑馬燈、最新 5 篇）、文章頁 `/posts`（依年份分組、可用標籤篩選）、標籤頁、sitemap、RSS、`robots.txt`、`ads.txt` 都在建置時自動產生。
 - 支援深色模式（跟隨系統，也可以手動切換）。
 
 這份文件從「新增文章」開始，一路寫到「網站上線、開始放廣告」，照順序做就能完成。
@@ -41,7 +41,7 @@ cover: https://example.com/cover.png   # 選填：社群分享圖
 注意事項：
 
 - `title`、`description`、`pubDate` 必填。少填或格式錯誤時，`npm run build` 會失敗，並指出是哪個檔案的哪個欄位。
-- 檔名不能用以下這些名字，因為已經被固定頁面佔用：`about`、`privacy`、`contact`、`tags`、`page`、`rss.xml`、`sitemap-index.xml`、`ads.txt`、`robots.txt`、`404`。
+- 檔名不能用以下這些名字，因為已經被固定頁面佔用：`about`、`privacy`、`contact`、`tags`、`page`、`posts`、`rss.xml`、`sitemap-index.xml`、`ads.txt`、`robots.txt`、`404`。
 - 文章用到的圖片放在 `public/images/<文章檔名>/`，在文章裡用 `/images/<文章檔名>/xxx.png` 引用。
 - 還沒寫完的文章不要放進 `src/content/posts/`，放進去 push 就會上線。
 
@@ -145,7 +145,10 @@ Firebase 會從 GitHub 拉程式碼自動部署，所以要先把專案變成一
   "hosting": {
     "public": "dist",
     "cleanUrls": true,
-    "trailingSlash": false
+    "trailingSlash": false,
+    "redirects": [
+      { "regex": "^/page/\\d+/?$", "destination": "/posts", "type": 301 }
+    ]
   }
 }
 ```
@@ -157,6 +160,7 @@ Firebase 會從 GitHub 拉程式碼自動部署，所以要先把專案變成一
 | `/about` | 正常顯示 |
 | `/about/` | 301 轉址到 `/about` |
 | `/about.html` | 301 轉址到 `/about` |
+| `/page/2`（舊的首頁分頁網址） | 301 轉址到 `/posts` |
 | 不存在的網址 | 顯示 404 頁面 |
 
 部署前想在本機確認，可以用 Firebase 模擬器：
@@ -214,7 +218,6 @@ AdSense 規定，要向歐洲經濟區、英國和瑞士的訪客顯示廣告，
 ### 已知限制
 
 - 深色模式下，廣告的配色由 Google 決定，可能會出現白底的廣告。網站沒辦法調整。
-- giscus 留言區的配色跟著系統的深淺色設定，不會跟著網站的主題切換按鈕。
 
 ---
 
@@ -226,7 +229,7 @@ src/
 ├── content.config.ts     文章 frontmatter 的格式定義
 ├── content/posts/        文章（一篇一個 .md）
 ├── layouts/              共用外框
-├── components/           導覽列、文章列表、分頁、留言區等元件
+├── components/           導覽列、文章列表、跑馬燈、留言區等元件
 ├── lib/                  文章查詢、日期格式、結構化資料等工具
 ├── pages/                各頁面與自動產生的檔案（rss.xml、robots.txt、ads.txt）
 └── styles/global.css     顏色 token、字體、深色模式

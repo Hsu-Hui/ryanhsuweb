@@ -88,3 +88,10 @@
     - 在 `dist/` 的 HTML、sitemap 和 RSS 裡搜尋站內網址，除了 `/` 以外，沒有任何網址以 `/` 或 `.html` 結尾。
     - 檢查 README 有涵蓋以上每一項。
     - [after: 3.4, 4.3, 5.1, 5.2, 6.1]
+
+## 8. 首頁改版與文章頁
+
+> 變更說明：首頁改版取代了 4.1 的首頁分頁與 4.4 的首頁卡片列表（見 design.md「首頁改為精選內容，完整列表移到文章頁」）。4.1、4.4 的勾選紀錄保留為歷史，8.2 負責移除分頁並補上舊網址轉址。
+
+- [x] 8.1 依「文章頁依年份分組並以標籤篩選」實作 Posts archive page 與 Posts tag filter：新增 `src/pages/posts.astro`，所有文章依年份分組、每列顯示 `MM-DD`、標題連結和標籤；篩選列有「全部」和每個標籤，點選後在頁面內篩選、隱藏空的年份、設定 `aria-pressed`、以 `history.replaceState` 更新 `?tag=`；`posts` 加入保留 slug；導覽列的「標籤」改成「文章」並連到 `/posts`。驗證：用 spec 年份分組範例（A 2025-12-31、B 2026-03-01、C 2026-01-15）建置，`dist/posts.html` 顯示 2026（B、C）再 2025（A）；在瀏覽器逐一重現 spec 篩選範例表的 5 種情況，可見文章與網址都相符；暫時新增 `src/content/posts/posts.md` 時建置失敗。[after: 7.1]
+- [x] 8.2 依「首頁改為精選內容，完整列表移到文章頁」與「跑馬燈以 CSS 動畫無限循環」實作 Home page、Latest articles marquee 與 Legacy pagination URLs redirect to the posts page，並維持 Article card on tag pages（標籤頁沿用整張可點的卡片）：首頁改成開場介紹、跑馬燈、最新 5 篇、依主題瀏覽；移除 `src/pages/page/[page].astro`、`Pagination.astro` 與 `PAGE_SIZE`；`firebase.json` 加上 `/page/:n` → `/posts` 的 301 轉址。驗證：用 1、3、8 篇文章各建置一次，`~/ 最新文章` 列數符合 spec 範例表；用 10 篇建置時跑馬燈只連到最新 8 篇，複製的那一份有 `aria-hidden="true"` 且連結都是 `tabindex="-1"`；在瀏覽器確認滑鼠移上去時跑馬燈停住，模擬 `prefers-reduced-motion: reduce` 時不移動且改成換行列表；`dist/page/` 不存在；在 Firebase 模擬器請求 `/page/2` 回 301 到 `/posts`；sitemap 含 `/posts` 且不含 `/page/`。[after: 8.1]

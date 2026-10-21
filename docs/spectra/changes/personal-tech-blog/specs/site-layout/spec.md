@@ -20,7 +20,7 @@ Every page SHALL be rendered through one shared base layout that provides the HT
 
 ### Requirement: Responsive navigation
 
-At viewport widths of 1024px and above, the system SHALL show a left sidebar navigation and SHALL hide the bottom navigation bar. Below 1024px, it SHALL show a bottom navigation bar fixed to the viewport bottom and SHALL hide the sidebar. Both navigations SHALL contain exactly five items: links to the home page, `/tags`, `/about`, and `/rss.xml`, and the theme toggle button. Every icon-only item SHALL have an accessible label and a touch target of at least 44×44px. The bottom navigation bar SHALL NOT cover page content when the page is scrolled to the end.
+At viewport widths of 1024px and above, the system SHALL show a left sidebar navigation and SHALL hide the bottom navigation bar. Below 1024px, it SHALL show a bottom navigation bar fixed to the viewport bottom and SHALL hide the sidebar. Both navigations SHALL contain exactly five items: links to the home page, `/posts`, `/about`, and `/rss.xml`, and the theme toggle button. Every icon-only item SHALL have an accessible label and a touch target of at least 44×44px. The bottom navigation bar SHALL NOT cover page content when the page is scrolled to the end.
 
 #### Scenario: Desktop width
 

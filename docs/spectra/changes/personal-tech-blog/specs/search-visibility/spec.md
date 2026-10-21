@@ -73,7 +73,7 @@ Every internal link, canonical link, sitemap entry, and RSS link SHALL use the U
 | `/about/` | 301 | `/about` |
 | `/about.html` | 301 | `/about` |
 | `/hello-world/` | 301 | `/hello-world` |
-| `/page/2/` | 301 | `/page/2` |
+| `/posts/` | 301 | `/posts` |
 | `/does-not-exist` | 404 | (none) |
 
 #### Scenario: Links use canonical form
