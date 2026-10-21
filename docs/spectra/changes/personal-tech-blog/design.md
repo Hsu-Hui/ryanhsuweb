@@ -200,6 +200,17 @@ frontmatter 不符合 schema 時建置失敗，錯誤訊息會指出是哪個檔
 - 有 JavaScript 時，先清空文字，再以每個字約 90ms 的速度逐字打出，後面跟著閃爍的游標。打字過程中，`<h1>` 用 `aria-label` 保持完整標題，螢幕閱讀器不會讀到打到一半的文字。
 - 系統開啟減少動態效果時，不播放打字動畫，直接顯示完整標題。
 
+### 以建置輸出為對象的自動化測試
+
+verify 指出所有 spec 情境都只有手動驗證。測試改成自動化，原則如下：
+
+- 用 Node.js 內建的 `node:test`，不新增依賴。`npm test` 執行 `tests/` 底下所有測試。
+- 每組測試資料（文章與設定）都會複製 `src/`、`astro.config.mjs`、`package.json`、`tsconfig.json` 到暫存資料夾。`node_modules` 用 junction 連回專案，再用 `astro build` 實際建置，對 `dist/` 的輸出做斷言。測的是訪客實際拿到的 HTML、XML 與文字檔，不依賴元件的內部實作。
+- 設定的變化由測試工具改寫暫存資料夾裡的 `site.config.ts` 達成，正式程式碼不需要為了測試增加任何開關。
+- 會在瀏覽器執行的程式（`<head>` 裡的主題判定 script）從建置出的 HTML 取出，在 `node:vm` 中搭配模擬的 `localStorage`、`matchMedia` 執行。
+- Firebase 轉址規則直接讀 `firebase.json` 的 `regex`，對 spec 的路徑表逐一比對；實際的 HTTP 行為仍以模擬器手動確認。
+- 不在自動化範圍內：只影響單一畫面的版面（各寬度的排版、跑馬燈的動畫與暫停、打字動畫的時序、`/posts` 篩選按鈕的點擊互動）。這些需要真正的瀏覽器，改到時在該畫面就看得到，維持手動檢查。
+
 ### 部署到 Firebase Hosting
 
 取代原本規劃的 Cloudflare Pages。原因是使用者選擇使用 GCP。兩者對 SEO 的影響差不多，而 Firebase Hosting 不會預設封鎖 AI 爬蟲，對 GEO 較單純。

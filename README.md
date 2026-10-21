@@ -19,7 +19,22 @@ npm install
 npm run dev      # 本機預覽，預設在 http://localhost:4321
 npm run build    # 建置到 dist/
 npm run check    # 型別與內容檢查
+npm test         # 自動化測試（約 10～15 秒）
 ```
+
+### 自動化測試
+
+`tests/` 底下的測試會用不同的測試文章和設定，各自在暫存資料夾實際建置一次網站，再檢查產生出來的 HTML、sitemap、RSS、`robots.txt`、`ads.txt` 是否符合規格。例如：
+
+- frontmatter 少填欄位時建置會失敗，並指出是哪個欄位
+- 日期以台北時區顯示、文章頁依年份分組
+- AdSense、giscus、GitHub 設定為空時不輸出
+- JSON-LD 欄位、上一篇／下一篇、首頁最新文章與跑馬燈的篇數
+- 深淺色主題判定的 6 種情況、`firebase.json` 的轉址規則
+
+GitHub Actions 部署前會先跑 `npm test`，測試沒過就不會部署。
+
+各種寬度的版面、跑馬燈和打字動畫、`/posts` 篩選按鈕的點擊，需要真正的瀏覽器才能檢查，仍然是手動確認。
 
 ## 2. 新增一篇文章
 
@@ -234,5 +249,6 @@ src/
 ├── lib/                  文章查詢、日期格式、結構化資料等工具
 ├── pages/                各頁面與自動產生的檔案（rss.xml、robots.txt、ads.txt）
 └── styles/global.css     顏色 token、字體、深色模式
+tests/                    自動化測試（npm test）
 firebase.json             Firebase Hosting 的網址與轉址規則
 ```

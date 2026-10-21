@@ -103,3 +103,7 @@
 - [x] 9.1 依「聯絡方式併入關於我並以圖示呈現」實作 Required informational pages、About page profile and contact links 與 Legacy contact URL redirects to the about page：刪除 `src/pages/contact.astro`；`site.config.ts` 新增 `githubUrl`；關於我在介紹文字上方顯示 Julia 的照片（`astro:assets` 轉成 WebP）與信箱、GitHub 圖示連結；頁尾和隱私權政策的聯絡連結改指向 `/about`；`firebase.json` 加上 `/contact` → `/about` 的 301。驗證：`dist/contact.html` 不存在且 `dist/` 沒有任何 `href="/contact"`；依 spec 圖示範例表的三種設定各建置一次，圖示連結都相符；`dist/about.html` 的 `<img>` 是 WebP、有寬高與 `alt="我的貓 Julia"`，輸出的圖檔沒有 EXIF；在 Firebase 模擬器請求 `/contact` 回 301 到 `/about`；sitemap 不含 `/contact`。[after: 8.2]
 - [x] 9.2 依「首頁標題打字動畫」與「導覽列以終端機圖示作為首頁」調整首頁與導覽列：首頁 `<h1>` 改為 `siteDescription` 並以打字動畫呈現，拿掉原本重複的小字；導覽列的首頁項目改用 `>_` 終端機圖示，拿掉側欄上方另外的終端機標誌。驗證：`dist/index.html` 的 `<h1>` 文字是 `Ryan Hsu 的技術筆記` 且開場區塊沒有第二處同樣文字；在瀏覽器觀察標題逐字出現、過程中 `<h1>` 的 `aria-label` 都是完整文字；側欄與底部導覽列都剛好 5 項，第一項是 `>_` 且連到 `/`。[after: 9.1]
 - [x] 9.3 依 About page profile and contact links 的版面需求調整關於我：768px 以上改成左欄照片與圖示、右欄介紹文字；768px 以下照片與圖示置中排在文字上方。`PageLayout` 新增可關閉內文排版（`prose`）的選項，讓關於我自己控制兩欄版面。驗證：在瀏覽器用 1280px、768px、375px 三種寬度檢查，照片、圖示與文字的位置都符合 spec 版面範例表，且三種寬度都沒有水平捲軸。[after: 9.2]
+
+## 10. 自動化測試
+
+- [x] 10.1 依「以建置輸出為對象的自動化測試」新增 `tests/` 與 `npm test`：測試工具能用指定的文章與設定建置暫存網站；測試涵蓋 frontmatter 驗證範例表、保留 slug、`adsenseClientId` 三種設定與 `ads.txt`、giscus 設定完整與不完整、JSON-LD 欄位對應範例表、`robots.txt`、sitemap 與 RSS、首頁最新文章與跑馬燈筆數、`/posts` 年份分組、標籤頁篇數、上一篇／下一篇、台北時區日期、主題判定範例表 6 種情況、`firebase.json` 轉址規則、站內網址不帶結尾斜線。GitHub Actions 部署前先跑 `npm test`。驗證：在專案根目錄執行 `npm test` 全部通過；暫時把 `src/lib/date.ts` 的時區改成 `UTC` 時，台北時區的測試會失敗，改回後通過。[after: 9.3]

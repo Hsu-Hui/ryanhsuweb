@@ -16,7 +16,8 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci && npm run build
+      # 測試沒過就不會建置和部署。
+      - run: npm ci && npm test && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
