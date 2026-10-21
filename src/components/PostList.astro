@@ -20,7 +20,7 @@ const { posts } = Astro.props;
         <p class="font-mono text-xs text-muted-fg">
           <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
         </p>
-        <h2 class="mt-1 text-xl font-semibold">
+        <h2 class="mt-1 text-xl font-semibold break-words">
           {/* ::after 撐滿整張卡片，點卡片任何地方都會進入文章；標籤在上層，仍可單獨點擊。 */}
           <a
             href={`/${post.id}`}

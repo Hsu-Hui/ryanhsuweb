@@ -48,6 +48,7 @@
   - 驗證：用 11 篇文章建置後，sitemap 檔案含 `<siteUrl>/<slug>` 和 `<siteUrl>/page/2`，且不含 `404`；`dist/rss.xml` 每篇文章都有一個 item，link 是絕對網址；`dist/robots.txt` 和 spec 範例完全一致，且沒有 `Disallow`。[after: 4.1, 4.2]
 
 - [x] 4.4 依 Home page article list 的整卡點擊需求調整文章卡片與中文標示：首頁、分頁和標籤頁的文章卡片整張都可點擊進入 `/<slug>`，點 `#tag` 仍然進入 `/tags/<tag>`；列表標題改成 `~/ 文章`，文章頁麵包屑改成 `~/ 文章 / <slug>`（取代 3.3 原本的 `~/ posts / <slug>`）。驗證：在瀏覽器點擊卡片的標題、摘要、日期、卡片空白處，都進入文章頁，點標籤進入標籤頁；`dist/index.html` 每張卡片只有一個指向 `/<slug>` 的連結；`dist/hello-world.html` 的麵包屑顯示 `~/ 文章 / hello-world`。[after: 4.2]
+- [x] 4.5 依 Article page content 把文章頁麵包屑的最後一段從 slug 改成文章標題（取代 4.4 的 `~/ 文章 / <slug>`），標題很長時要能換行、不撐破版面。驗證：`dist/hello-world.html` 的麵包屑文字為 `~ / 文章 / 用 Astro 打造技術部落格` 且不含 `hello-world`；在瀏覽器 375px 寬度下，長標題的麵包屑會換行，頁面沒有水平捲軸。[after: 4.4]
 
 ## 5. AdSense
 

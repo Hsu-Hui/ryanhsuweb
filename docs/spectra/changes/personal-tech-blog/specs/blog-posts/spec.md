@@ -48,12 +48,17 @@ The system SHALL serve each article at `/<slug>`, where `<slug>` is the article 
 
 ### Requirement: Article page content
 
-The article page SHALL show, in order: a breadcrumb rendered as `~/ 文章 / <slug>` whose `~` links to the home page, the title, the publish date, the update date when `updatedDate` is set, tag links to `/tags/<tag>`, the rendered body, and previous/next article links. The page `<title>` and meta description SHALL come from `title` and `description`, and `og:image` SHALL come from `cover` when set. All dates SHALL be displayed in the `Asia/Taipei` time zone as `YYYY-MM-DD`.
+The article page SHALL show, in order: a breadcrumb rendered as `~/ 文章 / <title>` whose `~` links to the home page and whose last segment is the article `title`, the title, the publish date, the update date when `updatedDate` is set, tag links to `/tags/<tag>`, the rendered body, and previous/next article links. The page `<title>` and meta description SHALL come from `title` and `description`, and `og:image` SHALL come from `cover` when set. All dates SHALL be displayed in the `Asia/Taipei` time zone as `YYYY-MM-DD`.
 
 #### Scenario: Metadata is rendered
 
 - **WHEN** an article with `title: "Hello"`, `description: "First post"`, `tags: ["astro"]` is built
 - **THEN** its page has a `<title>` containing `Hello`, a meta description `First post`, and a link to `/tags/astro`
+
+#### Scenario: Breadcrumb shows the article title
+
+- **WHEN** the article `hello-world.md` with `title: "用 Astro 打造技術部落格"` is built
+- **THEN** its breadcrumb reads `~ / 文章 / 用 Astro 打造技術部落格` and does not contain the slug `hello-world`
 
 #### Scenario: Date is shown in Taipei time
 
