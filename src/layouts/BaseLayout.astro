@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import Icon from '../components/Icon.astro';
 import NavItems from '../components/NavItems.astro';
 import { adsenseEnabled, siteConfig } from '../site.config';
 import { canonicalPath } from '../lib/url';
@@ -67,7 +66,6 @@ const year = new Date().getFullYear();
           aria-label="主要導覽"
           class="sticky top-8 mt-6 flex flex-col items-center gap-2 rounded-2xl border border-border bg-card py-5"
         >
-          <span class="mb-2 text-accent"><Icon name="terminal" class="size-7" /></span>
           <NavItems />
         </nav>
       </aside>
@@ -80,9 +78,7 @@ const year = new Date().getFullYear();
         <footer class="mt-10 border-t border-border pt-6 text-sm text-muted-fg">
           <nav aria-label="網站資訊" class="flex flex-wrap gap-x-6 gap-y-2">
             <a href="/about" class="hover:text-accent">關於我</a>
-            <a href="/privacy" class="hover:text-accent">隱私權政策</a>
-            <a href="/contact" class="hover:text-accent">聯絡我</a>
-          </nav>
+            <a href="/privacy" class="hover:text-accent">隱私權政策</a>          </nav>
           <p class="mt-3 font-mono text-xs">© {year} {siteConfig.author}</p>
         </footer>
       </div>

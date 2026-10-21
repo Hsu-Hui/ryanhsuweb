@@ -53,7 +53,8 @@ cover: https://example.com/cover.png   # 選填：社群分享圖
 | --- | --- | --- |
 | `siteUrl` | 網站正式網址，不要加結尾斜線 | 你買的網域，例如 `https://ryanhsu.dev` |
 | `siteTitle`、`siteDescription`、`author` | 網站名稱、描述、作者名字 | 自己決定 |
-| `contactEmail` | 聯絡頁顯示的信箱 | 你想公開的信箱 |
+| `contactEmail` | 關於我頁面的信箱圖示，留空就不顯示 | 你想公開的信箱 |
+| `githubUrl` | 關於我頁面的 GitHub 圖示，留空就不顯示 | 你的 GitHub 個人頁網址 |
 | `adsenseClientId` | AdSense 發布商 ID，格式 `ca-pub-` 加數字 | AdSense 後台 → 帳戶 → 帳戶資訊（見第 9 節） |
 | `giscus.repo`、`repoId`、`category`、`categoryId` | 留言區設定 | [giscus.app](https://giscus.app)（見第 8 節） |
 
@@ -197,7 +198,7 @@ Firebase 預設的 `*.web.app` 和 `*.firebaseapp.com` 網址仍然可以連，�
 ### 申請前
 
 - **先累積足夠的原創文章再申請。** AdSense 審核主要看內容，網站架好不代表會通過。Google 沒有公布需要幾篇，一般經驗是十幾到三十篇有內容的文章。
-- 網站已經有審核需要的頁面：[關於我](/about)、[隱私權政策](/privacy)、[聯絡我](/contact)。上線前記得把聯絡信箱改成真的。
+- 網站已經有審核需要的頁面：[關於我](/about)（含聯絡方式）、[隱私權政策](/privacy)。舊的 `/contact` 網址會 301 轉到關於我。
 
 ### 申請與設定
 

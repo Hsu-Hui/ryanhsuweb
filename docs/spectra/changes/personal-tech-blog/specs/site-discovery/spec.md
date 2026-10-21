@@ -8,12 +8,19 @@ Defines the listing and feed outputs generated automatically from article conten
 
 The home page SHALL show, in order:
 
-1. an introduction block with the prompt `$ whoami`, the configured `author` name, the configured `siteDescription`, and links to `/posts`, `/about`, and `/rss.xml`;
+1. an introduction block with the prompt `$ whoami`, an `<h1>` whose text is the configured `siteDescription` (for example `Ryan Hsu 的技術筆記`) revealed with a typing animation, and links to `/posts`, `/about`, and `/rss.xml`;
 2. the latest-articles marquee;
 3. a section headed `~/ 最新文章` listing the 5 newest articles by `pubDate` descending, each row showing the publish date and the title linked to `/<slug>`, followed by a link `看全部文章` to `/posts`;
 4. a section headed `~/ 依主題瀏覽` listing every tag used by at least one article with its article count, each linking to `/posts?tag=<tag>`.
 
+The full heading text SHALL be present in the built HTML so that search engines and readers without JavaScript see it. The typing animation SHALL type one character at a time with a blinking cursor, SHALL keep the heading's accessible name equal to the full text while typing, and SHALL be skipped (showing the full text immediately) when `prefers-reduced-motion: reduce` is set. No separate subtitle line SHALL repeat the heading text.
+
 When there are no articles, the latest-articles section and the marquee SHALL be omitted and the introduction block SHALL still render.
+
+#### Scenario: Heading text and animation
+
+- **WHEN** the home page is built with `siteDescription` `Ryan Hsu 的技術筆記` and opened in a browser
+- **THEN** `dist/index.html` contains `<h1` with the text `Ryan Hsu 的技術筆記`, the visible text grows one character at a time until it equals the full text, the heading keeps the accessible name `Ryan Hsu 的技術筆記` throughout, and no other element in the introduction block repeats that text
 
 #### Scenario: Latest articles limited to five
 
@@ -118,7 +125,7 @@ The system SHALL generate `/tags`, listing every tag used by at least one articl
 
 ### Requirement: Sitemap
 
-The system SHALL generate `sitemap-index.xml`, using the configured `siteUrl`. Its sitemaps SHALL include the absolute URL of the home page, `/posts`, every article, every tag page, `/about`, `/privacy`, and `/contact`. The 404 page MUST NOT be included.
+The system SHALL generate `sitemap-index.xml`, using the configured `siteUrl`. Its sitemaps SHALL include the absolute URL of the home page, `/posts`, every article, every tag page, `/about`, and `/privacy`. The 404 page MUST NOT be included, and `/contact` MUST NOT be included because it only redirects.
 
 #### Scenario: New article appears in sitemap
 

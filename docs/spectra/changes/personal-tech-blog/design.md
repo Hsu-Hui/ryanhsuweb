@@ -181,6 +181,25 @@ frontmatter 不符合 schema 時建置失敗，錯誤訊息會指出是哪個檔
 
 所有日期一律用 `Asia/Taipei` 時區、`YYYY-MM-DD` 格式顯示。不這樣做的話，在 UTC 的建置機器上，日期可能會差一天。
 
+### 聯絡方式併入關於我並以圖示呈現
+
+取代本 change 先前「三個 AdSense 必備頁面」中獨立的聯絡頁。原因是使用者希望聯絡資訊集中在關於我。AdSense 要求網站提供聯絡方式，但沒有規定要獨立成一頁。
+
+- 刪除 `src/pages/contact.astro`。`firebase.json` 以 `regex` 規則把 `/contact` 301 轉到 `/about`。在 Firebase 模擬器上，只有 `regex` 寫法的轉址會生效，所以和 `/page/<n>` 一樣用 `regex`。
+- `site.config.ts` 新增 `githubUrl`。關於我在介紹文字上方顯示照片，下面一排圖示：信箱（`mailto:`）、GitHub（`rel="me"`），值是空字串時就不顯示那個圖示。
+- 照片原檔放在 `src/assets/about/julia.webp`，用 `astro:assets` 的 `<Image>` 輸出 WebP 並自動帶上寬高。重新編碼時不保留原檔的 metadata，所以 GPS 等 EXIF 資料不會出現在網站上。替代文字是「我的貓 Julia」。
+
+### 導覽列以終端機圖示作為首頁
+
+導覽列第一項「首頁」原本用房子圖示，側欄上方另外還有一個裝飾用的 `>_` 終端機標誌。改成直接用 `>_` 當首頁連結，拿掉房子圖示和額外的標誌，導覽列維持 5 項。
+
+### 首頁標題打字動畫
+
+- `<h1>` 的文字改成 `siteDescription`（`Ryan Hsu 的技術筆記`），拿掉原本在下方重複的小字。
+- 建置出來的 HTML 一律包含完整標題，搜尋引擎和沒有 JavaScript 的讀者都看得到。
+- 有 JavaScript 時，先清空文字，再以每個字約 90ms 的速度逐字打出，後面跟著閃爍的游標。打字過程中，`<h1>` 用 `aria-label` 保持完整標題，螢幕閱讀器不會讀到打到一半的文字。
+- 系統開啟減少動態效果時，不播放打字動畫，直接顯示完整標題。
+
 ### 部署到 Firebase Hosting
 
 取代原本規劃的 Cloudflare Pages。原因是使用者選擇使用 GCP。兩者對 SEO 的影響差不多，而 Firebase Hosting 不會預設封鎖 AI 爬蟲，對 GEO 較單純。

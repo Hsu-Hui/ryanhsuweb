@@ -95,3 +95,11 @@
 
 - [x] 8.1 依「文章頁依年份分組並以標籤篩選」實作 Posts archive page 與 Posts tag filter：新增 `src/pages/posts.astro`，所有文章依年份分組、每列顯示 `MM-DD`、標題連結和標籤；篩選列有「全部」和每個標籤，點選後在頁面內篩選、隱藏空的年份、設定 `aria-pressed`、以 `history.replaceState` 更新 `?tag=`；`posts` 加入保留 slug；導覽列的「標籤」改成「文章」並連到 `/posts`。驗證：用 spec 年份分組範例（A 2025-12-31、B 2026-03-01、C 2026-01-15）建置，`dist/posts.html` 顯示 2026（B、C）再 2025（A）；在瀏覽器逐一重現 spec 篩選範例表的 5 種情況，可見文章與網址都相符；暫時新增 `src/content/posts/posts.md` 時建置失敗。[after: 7.1]
 - [x] 8.2 依「首頁改為精選內容，完整列表移到文章頁」與「跑馬燈以 CSS 動畫無限循環」實作 Home page、Latest articles marquee 與 Legacy pagination URLs redirect to the posts page，並維持 Article card on tag pages（標籤頁沿用整張可點的卡片）：首頁改成開場介紹、跑馬燈、最新 5 篇、依主題瀏覽；移除 `src/pages/page/[page].astro`、`Pagination.astro` 與 `PAGE_SIZE`；`firebase.json` 加上 `/page/:n` → `/posts` 的 301 轉址。驗證：用 1、3、8 篇文章各建置一次，`~/ 最新文章` 列數符合 spec 範例表；用 10 篇建置時跑馬燈只連到最新 8 篇，複製的那一份有 `aria-hidden="true"` 且連結都是 `tabindex="-1"`；在瀏覽器確認滑鼠移上去時跑馬燈停住，模擬 `prefers-reduced-motion: reduce` 時不移動且改成換行列表；`dist/page/` 不存在；在 Firebase 模擬器請求 `/page/2` 回 301 到 `/posts`；sitemap 含 `/posts` 且不含 `/page/`。[after: 8.1]
+
+## 9. 關於我、聯絡方式與首頁標題
+
+> 變更說明：移除聯絡頁，聯絡方式改在關於我頁面以圖示呈現（見 design.md「聯絡方式併入關於我並以圖示呈現」）。5.1 的勾選紀錄保留為歷史，9.1 負責移除 `/contact` 並補上轉址。
+
+- [x] 9.1 依「聯絡方式併入關於我並以圖示呈現」實作 Required informational pages、About page profile and contact links 與 Legacy contact URL redirects to the about page：刪除 `src/pages/contact.astro`；`site.config.ts` 新增 `githubUrl`；關於我在介紹文字上方顯示 Julia 的照片（`astro:assets` 轉成 WebP）與信箱、GitHub 圖示連結；頁尾和隱私權政策的聯絡連結改指向 `/about`；`firebase.json` 加上 `/contact` → `/about` 的 301。驗證：`dist/contact.html` 不存在且 `dist/` 沒有任何 `href="/contact"`；依 spec 圖示範例表的三種設定各建置一次，圖示連結都相符；`dist/about.html` 的 `<img>` 是 WebP、有寬高與 `alt="我的貓 Julia"`，輸出的圖檔沒有 EXIF；在 Firebase 模擬器請求 `/contact` 回 301 到 `/about`；sitemap 不含 `/contact`。[after: 8.2]
+- [x] 9.2 依「首頁標題打字動畫」與「導覽列以終端機圖示作為首頁」調整首頁與導覽列：首頁 `<h1>` 改為 `siteDescription` 並以打字動畫呈現，拿掉原本重複的小字；導覽列的首頁項目改用 `>_` 終端機圖示，拿掉側欄上方另外的終端機標誌。驗證：`dist/index.html` 的 `<h1>` 文字是 `Ryan Hsu 的技術筆記` 且開場區塊沒有第二處同樣文字；在瀏覽器觀察標題逐字出現、過程中 `<h1>` 的 `aria-label` 都是完整文字；側欄與底部導覽列都剛好 5 項，第一項是 `>_` 且連到 `/`。[after: 9.1]
+- [x] 9.3 依 About page profile and contact links 的版面需求調整關於我：768px 以上改成左欄照片與圖示、右欄介紹文字；768px 以下照片與圖示置中排在文字上方。`PageLayout` 新增可關閉內文排版（`prose`）的選項，讓關於我自己控制兩欄版面。驗證：在瀏覽器用 1280px、768px、375px 三種寬度檢查，照片、圖示與文字的位置都符合 spec 版面範例表，且三種寬度都沒有水平捲軸。[after: 9.2]

@@ -6,12 +6,12 @@ Defines the single shared frame that wraps every page of the site, modelled on t
 
 ### Requirement: Shared page frame
 
-Every page SHALL be rendered through one shared base layout that provides the HTML head (charset, viewport, title, meta description, canonical URL, global stylesheet), the navigation, and the footer. The footer SHALL link to `/about`, `/privacy`, and `/contact`.
+Every page SHALL be rendered through one shared base layout that provides the HTML head (charset, viewport, title, meta description, canonical URL, global stylesheet), the navigation, and the footer. The footer SHALL link to `/about` and `/privacy`.
 
 #### Scenario: Footer links on every page
 
-- **WHEN** any generated page (home, article, tag page, about, privacy, contact, 404) is opened
-- **THEN** the page contains footer links to `/about`, `/privacy`, and `/contact`
+- **WHEN** any generated page (home, posts, article, tag page, about, privacy, 404) is opened
+- **THEN** the page contains footer links to `/about` and `/privacy`, and no link to `/contact`
 
 #### Scenario: Canonical URL uses the configured site URL
 
@@ -20,7 +20,7 @@ Every page SHALL be rendered through one shared base layout that provides the HT
 
 ### Requirement: Responsive navigation
 
-At viewport widths of 1024px and above, the system SHALL show a left sidebar navigation and SHALL hide the bottom navigation bar. Below 1024px, it SHALL show a bottom navigation bar fixed to the viewport bottom and SHALL hide the sidebar. Both navigations SHALL contain exactly five items: links to the home page, `/posts`, `/about`, and `/rss.xml`, and the theme toggle button. Every icon-only item SHALL have an accessible label and a touch target of at least 44×44px. The bottom navigation bar SHALL NOT cover page content when the page is scrolled to the end.
+At viewport widths of 1024px and above, the system SHALL show a left sidebar navigation and SHALL hide the bottom navigation bar. Below 1024px, it SHALL show a bottom navigation bar fixed to the viewport bottom and SHALL hide the sidebar. Both navigations SHALL contain exactly five items: links to the home page, `/posts`, `/about`, and `/rss.xml`, and the theme toggle button. The home link SHALL use the terminal icon (`>_`) as the site mark; no separate decorative logo or additional home icon SHALL be shown. Every icon-only item SHALL have an accessible label and a touch target of at least 44×44px. The bottom navigation bar SHALL NOT cover page content when the page is scrolled to the end.
 
 #### Scenario: Desktop width
 

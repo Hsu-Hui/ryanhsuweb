@@ -7,6 +7,8 @@ export const siteConfig = {
   author: 'Ryan Hsu',
   // 聯絡頁顯示的信箱。
   contactEmail: 'a3218484@gmail.com',
+  // 關於我頁面的 GitHub 圖示連結，留空就不顯示。
+  githubUrl: 'https://github.com/Hsu-Hui',
   // AdSense 發布商 ID，格式為 ca-pub- 加數字。
   adsenseClientId: '',
   // 到 https://giscus.app 產生設定後填入。

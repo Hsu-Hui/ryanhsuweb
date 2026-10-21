@@ -5,9 +5,11 @@ import BaseLayout from './BaseLayout.astro';
 interface Props {
   title: string;
   description: string;
+  /** 關掉時內容不套用文章排版，讓頁面自己安排版面（例如關於我的兩欄）。 */
+  prose?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, prose = true } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -18,7 +20,7 @@ const { title, description } = Astro.props;
       <span class="text-accent" aria-current="page">{title}</span>
     </nav>
     <h1 class="mt-6 text-3xl font-semibold">{title}</h1>
-    <div class="prose prose-themed mt-8 max-w-none">
+    <div class:list={['mt-8', prose && 'prose prose-themed max-w-none']}>
       <slot />
     </div>
   </article>

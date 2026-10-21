@@ -1,14 +1,59 @@
 ---
+import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
+import Icon from '../components/Icon.astro';
+import julia from '../assets/about/julia.webp';
 import { siteConfig } from '../site.config';
+
+const { author, contactEmail, githubUrl } = siteConfig;
+const iconLinkClass =
+  'flex size-11 items-center justify-center rounded-xl border border-border text-muted-fg hover:border-accent hover:text-accent';
 ---
 
-<PageLayout title="關於我" description={`關於 ${siteConfig.author} 和這個網站。`}>
-  <p>嗨，我是 {siteConfig.author}，一個喜歡把想法動手做出來的開發者。</p>
-  <p>這個網站是我的技術筆記本。我會把學習新工具的過程、踩過的坑，以及做專案時的思考整理成文章。</p>
-  <p>比起只放最後的答案，我更想記錄「為什麼這樣選」，因為那通常才是下次遇到問題時最有用的部分。</p>
-  <p>在大學的時候就很喜歡做玩具，一直到現在有 AI 輔助可以做更多玩具了。</p>
-  <p>不做專案的時候就是在玩 Pokémon GO。</p>
-  <p>最喜歡的一句話是 Front-End? Back-End? No, Learning never ends.</p>
-  <p>有任何問題或建議，歡迎到<a href="/contact">聯絡頁</a>找我，或直接在文章下方留言。</p>
+<PageLayout title="關於我" description={`關於 ${author} 和這個網站。`} prose={false}>
+  {/* 768px 以上：左欄照片與圖示、右欄文字；以下：照片與圖示置中排在文字上方。 */}
+  <div class="grid gap-8 md:grid-cols-[13rem_minmax(0,1fr)] md:gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]">
+    <div class="flex flex-col items-center gap-4 md:sticky md:top-8 md:self-start">
+      <Image
+        src={julia}
+        alt="我的貓 Julia"
+        width={480}
+        widths={[240, 480]}
+        loading="eager"
+        sizes="(min-width: 1024px) 240px, (min-width: 768px) 208px, 224px"
+        format="webp"
+        class="w-56 rounded-2xl border border-border md:w-full"
+      />
+      <ul class="flex gap-3" aria-label="聯絡方式">
+      {
+        contactEmail && (
+          <li>
+            <a href={`mailto:${contactEmail}`} aria-label={`寄信給 ${author}`} title={`寄信給 ${author}`} class={iconLinkClass}>
+              <Icon name="mail" />
+            </a>
+          </li>
+        )
+      }
+      {
+        githubUrl && (
+          <li>
+            <a href={githubUrl} rel="me" aria-label="GitHub" title="GitHub" class={iconLinkClass}>
+              <Icon name="github" />
+            </a>
+          </li>
+        )
+      }
+      </ul>
+    </div>
+
+    <div class="prose prose-themed max-w-none [&>p:first-child]:mt-0">
+      <p>嗨，我是 {author}，一個喜歡把想法動手做出來的開發者。</p>
+      <p>這個網站是我的技術筆記本。我會把學習新工具的過程、踩過的坑，以及做專案時的思考整理成文章。</p>
+      <p>比起只放最後的答案，我更想記錄「為什麼這樣選」，因為那通常才是下次遇到問題時最有用的部分。</p>
+      <p>在大學的時候就很喜歡做玩具，一直到現在有 AI 輔助可以做更多玩具了。</p>
+      <p>不做專案的時候就是在玩 Pokémon GO。</p>
+      <p>最喜歡的一句話是 Front-End? Back-End? No, Learning never ends.</p>
+      <p>有任何問題或建議，歡迎透過照片下方的信箱或 GitHub 找我，或直接在文章下方留言。</p>
+    </div>
+  </div>
 </PageLayout>
