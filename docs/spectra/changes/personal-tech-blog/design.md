@@ -69,7 +69,7 @@ frontmatter 不符合 schema 時建置失敗，錯誤訊息會指出是哪個檔
 
 ### ads.txt 由設定產生
 
-`src/pages/ads.txt.ts` 在建置時輸出 `google.com, pub-<數字>, DIRECT, f08c47fec0942fa0`，發布商 ID 取自 `adsenseClientId`，和 head 裡的 script 用同一個來源。
+`src/pages/[ads].txt.ts` 在建置時輸出 `google.com, pub-<數字>, DIRECT, f08c47fec0942fa0`，發布商 ID 取自 `adsenseClientId`，和 head 裡的 script 用同一個來源。用動態路由而不是固定的 `ads.txt.ts`，是因為固定路由在靜態建置時一定會輸出檔案；動態路由的 `getStaticPaths` 在 `adsenseClientId` 為空時回傳空陣列，就不會產生 `ads.txt`。
 
 ### giscus 留言使用官方 script
 
@@ -86,7 +86,7 @@ frontmatter 不符合 schema 時建置失敗，錯誤訊息會指出是哪個檔
 | 文章卡片 | `rounded-2xl border`，背景和邊框顏色改用下方「高科技視覺系統以 CSS 變數定義」的 token |
 | 手機底部導覽列 | `lg` 以下顯示，`fixed bottom-0 left-0 right-0`，頁面底部留 `pb-20` 避免被擋住 |
 
-側欄和底部導覽列的項目都是：首頁、標籤、關於我、RSS、主題切換，共 5 項。圖示使用 SVG（Tabler 或 Lucide），不用 emoji。只有圖示的按鈕都要有 `aria-label`，觸控區域至少 44×44px。
+側欄和底部導覽列的項目都是：首頁（`>_` 圖示）、文章、關於我、RSS、主題切換，共 5 項（見「首頁改為精選內容，完整列表移到文章頁」與「導覽列以終端機圖示作為首頁」）。圖示使用 SVG（Tabler 或 Lucide），不用 emoji。只有圖示的按鈕都要有 `aria-label`，觸控區域至少 44×44px。
 
 ### 高科技視覺系統以 CSS 變數定義
 
@@ -258,7 +258,7 @@ Sitemap: <siteUrl>/sitemap-index.xml
   - 首頁的 `~/ 最新文章` 和跑馬燈最前面出現這篇文章，`/posts` 的當年分組最上方也出現這篇。
   - 文章的每個標籤都有 `/tags/<tag>` 頁面，並列出這篇。
   - `sitemap-index.xml` 和 `rss.xml` 都包含 `/hello-world`。
-- 每個頁面共用同一個外框，包含 AdSense script（有設定時）、桌機側欄、手機底部導覽列和頁尾。頁尾連到 `/about`、`/privacy`、`/contact`。
+- 每個頁面共用同一個外框，包含 AdSense script（有設定時）、桌機側欄、手機底部導覽列和頁尾。頁尾連到 `/about`、`/privacy`。
 - 文章頁依序顯示：麵包屑（`~/ 文章 / <文章標題>`）、標題、發布日期、標籤、內文、上一篇／下一篇、giscus 留言區（有設定時）。
 - 第一次來訪時，主題跟隨系統設定。按下切換按鈕後，重新整理或換頁都會維持所選的主題，也不會先閃一下另一種主題。
 
@@ -287,7 +287,7 @@ Sitemap: <siteUrl>/sitemap-index.xml
   - `dist/tags/<tag>.html`
   - `dist/rss.xml`
   - `dist/sitemap-index.xml`、`dist/robots.txt`
-  - `dist/about.html`、`dist/privacy.html`、`dist/contact.html`
+  - `dist/about.html`、`dist/privacy.html`，且 `dist/contact.html` 不存在（見「聯絡方式併入關於我並以圖示呈現」）
   - 有設定發布商 ID 時，還要有 `dist/ads.txt`
 - 用瀏覽器在 1280px 和 375px 兩種寬度檢查外框：前者顯示側欄、不顯示底部導覽列，後者相反。
 - 用瀏覽器分別模擬系統深色和淺色，確認初始主題正確。切換後重新整理，主題要維持。
@@ -297,7 +297,7 @@ Sitemap: <siteUrl>/sitemap-index.xml
 
 **範圍內**
 
-專案根目錄下的 Astro 專案、兩篇範例文章、三個 AdSense 必備頁面的內容初稿、`firebase.json`、Firebase Hosting 從零開始的中文部署教學（寫在 `README.md`）。
+專案根目錄下的 Astro 專案、範例文章（原本兩篇；「用 Astro 打造技術部落格」已依使用者要求刪除，剩下的「用 Spectra 先寫規格再寫程式」之後由使用者重寫，所以程式碼區塊上色與內文 HTML 的情境要等新文章才能在正式網站上觀察）、關於我與隱私權政策兩個 AdSense 必備頁面、`firebase.json`、Firebase Hosting 從零開始的中文部署教學（寫在 `README.md`）。
 
 **範圍外**
 

@@ -27,7 +27,7 @@ const chipClass =
       {
         tags.map(([tag, count]) => (
           <li>
-            <a href={`/tags/${tag}`} class={chipClass} data-filter={tag}>
+            <a href={`/tags/${encodeURIComponent(tag)}`} class={chipClass} data-filter={tag}>
               #{tag} ({count})
             </a>
           </li>

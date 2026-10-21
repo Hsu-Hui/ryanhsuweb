@@ -1,5 +1,5 @@
 ---
-// giscus 留言區，留言存在 GitHub Discussions。四個設定欄位都有值才輸出。
+// giscus 留言區，留言存在 GitHub Discussions。四個設定欄位都有值才輸出（包含下面的載入程式）。
 import { giscusEnabled, siteConfig } from '../site.config';
 
 const { repo, repoId, category, categoryId } = siteConfig.giscus;
@@ -18,46 +18,48 @@ const { repo, repoId, category, categoryId } = siteConfig.giscus;
         data-repo-id={repoId}
         data-category={category}
         data-category-id={categoryId}
+        data-mapping="pathname"
+        data-loading="lazy"
+        data-lang="zh-TW"
       />
+      <script is:inline>
+        // 依目前網站主題載入 giscus，並在切換主題時通知 iframe 同步。
+        (function () {
+          var holder = document.querySelector('[data-giscus-loader]');
+          if (!holder) return;
+
+          var themeFor = function () {
+            return document.documentElement.dataset.theme === 'dark' ? 'transparent_dark' : 'light';
+          };
+
+          var script = document.createElement('script');
+          script.src = 'https://giscus.app/client.js';
+          script.async = true;
+          script.crossOrigin = 'anonymous';
+          var attrs = {
+            'data-repo': holder.dataset.repo,
+            'data-repo-id': holder.dataset.repoId,
+            'data-category': holder.dataset.category,
+            'data-category-id': holder.dataset.categoryId,
+            'data-mapping': holder.dataset.mapping,
+            'data-strict': '1',
+            'data-reactions-enabled': '1',
+            'data-emit-metadata': '0',
+            'data-input-position': 'top',
+            'data-theme': themeFor(),
+            'data-lang': holder.dataset.lang,
+            'data-loading': holder.dataset.loading,
+          };
+          for (var name in attrs) script.setAttribute(name, attrs[name]);
+          holder.appendChild(script);
+
+          new MutationObserver(function () {
+            var frame = document.querySelector('iframe.giscus-frame');
+            if (!frame || !frame.contentWindow) return;
+            frame.contentWindow.postMessage({ giscus: { setConfig: { theme: themeFor() } } }, 'https://giscus.app');
+          }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        })();
+      </script>
     </section>
   )
 }
-
-<script is:inline>
-  // 依目前網站主題載入 giscus，並在切換主題時通知 iframe 同步。
-  (function () {
-    var holder = document.querySelector('[data-giscus-loader]');
-    if (!holder) return;
-
-    var themeFor = function () {
-      return document.documentElement.dataset.theme === 'dark' ? 'transparent_dark' : 'light';
-    };
-
-    var script = document.createElement('script');
-    script.src = 'https://giscus.app/client.js';
-    script.async = true;
-    script.crossOrigin = 'anonymous';
-    var attrs = {
-      'data-repo': holder.dataset.repo,
-      'data-repo-id': holder.dataset.repoId,
-      'data-category': holder.dataset.category,
-      'data-category-id': holder.dataset.categoryId,
-      'data-mapping': 'pathname',
-      'data-strict': '1',
-      'data-reactions-enabled': '1',
-      'data-emit-metadata': '0',
-      'data-input-position': 'top',
-      'data-theme': themeFor(),
-      'data-lang': 'zh-TW',
-      'data-loading': 'lazy',
-    };
-    for (var name in attrs) script.setAttribute(name, attrs[name]);
-    holder.appendChild(script);
-
-    new MutationObserver(function () {
-      var frame = document.querySelector('iframe.giscus-frame');
-      if (!frame || !frame.contentWindow) return;
-      frame.contentWindow.postMessage({ giscus: { setConfig: { theme: themeFor() } } }, 'https://giscus.app');
-    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  })();
-</script>

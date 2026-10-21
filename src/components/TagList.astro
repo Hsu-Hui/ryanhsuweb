@@ -12,7 +12,7 @@ const { tags } = Astro.props;
       {tags.map((tag) => (
         <li>
           <a
-            href={`/tags/${tag}`}
+            href={`/tags/${encodeURIComponent(tag)}`}
             class="inline-block rounded border border-accent/40 px-1.5 py-0.5 text-accent hover:border-accent"
           >
             #{tag}

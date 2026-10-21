@@ -5,7 +5,7 @@ export const siteConfig = {
   siteTitle: 'RyanHsuWeb',
   siteDescription: 'Ryan Hsu 的技術筆記',
   author: 'Ryan Hsu',
-  // 聯絡頁顯示的信箱。
+  // 關於我頁面的信箱圖示，留空就不顯示。
   contactEmail: 'a3218484@gmail.com',
   // 關於我頁面的 GitHub 圖示連結，留空就不顯示。
   githubUrl: 'https://github.com/Hsu-Hui',
