@@ -1,7 +1,7 @@
 // 網站唯一的設定來源。外框、ads.txt、robots.txt、留言區都從這裡讀值。
 // 還沒拿到的值保持空字串即可，相關功能會自動不輸出。
 export const siteConfig = {
-  siteUrl: 'https://example.com',
+  siteUrl: 'https://ryan-hsu.com',
   siteTitle: 'RyanHsuWeb',
   siteDescription: 'Ryan Hsu 的技術筆記',
   author: 'Ryan Hsu',
