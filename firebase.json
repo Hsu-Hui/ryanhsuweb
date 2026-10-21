@@ -3,6 +3,9 @@
     "public": "dist",
     "cleanUrls": true,
     "trailingSlash": false,
-    "ignore": ["firebase.json", "**/.*"]
+    "ignore": [
+      "firebase.json",
+      "**/.*"
+    ]
   }
 }
