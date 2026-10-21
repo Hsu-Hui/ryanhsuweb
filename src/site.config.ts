@@ -11,10 +11,10 @@ export const siteConfig = {
   adsenseClientId: '',
   // 到 https://giscus.app 產生設定後填入。
   giscus: {
-    repo: '',
-    repoId: '',
-    category: '',
-    categoryId: '',
+    repo: 'Hsu-Hui/ryanhsuweb',
+    repoId: 'R_kgDOVSUgIA',
+    category: 'Announcements',
+    categoryId: 'DIC_kwDOVSUgIM4DJRFk',
   },
 };
 
