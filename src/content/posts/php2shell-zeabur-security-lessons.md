@@ -3,7 +3,7 @@
 title: 從 PHP2Shell、Zeabur 到 91APP：三起資安事件後，我檢查了自己的網站
 description: PHP 核心漏洞、雲端憑證失守、電商資料庫遭攻擊，三起不同的資安事件讓我回頭檢查自己的部落格，並用 Spectra 補強 GitHub Actions 與 Firebase 部署流程。
 pubDate: 2026-10-22
-tags: [security, spectra, github-actions, firebase, 91app]
+tags: [security, spectra, github-actions, firebase]
 ---
 其實資安事件一直發生，只是有鬧成多大的新聞和有多少人受害的差別。
 
