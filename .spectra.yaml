@@ -11,7 +11,7 @@ locale: tw
 
 # Workflow toggles
 # tdd: true
-# audit: true
+audit: true
 
 # AI tools to generate instruction files for
 # tools:

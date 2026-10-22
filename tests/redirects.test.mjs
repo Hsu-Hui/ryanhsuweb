@@ -32,3 +32,12 @@ for (const [path, expected] of cases) {
     assert.deepEqual(redirectFor(path), expected);
   });
 }
+
+test('安全標頭：所有路徑都禁止被其他網站嵌入、不猜測檔案類型', () => {
+  const rule = hosting.headers.find((h) => h.source === '**');
+  const headers = Object.fromEntries(rule.headers.map(({ key, value }) => [key, value]));
+  assert.equal(headers['X-Content-Type-Options'], 'nosniff');
+  assert.equal(headers['Referrer-Policy'], 'strict-origin-when-cross-origin');
+  assert.equal(headers['X-Frame-Options'], 'SAMEORIGIN');
+  assert.equal(headers['Content-Security-Policy'], "frame-ancestors 'self'");
+});
