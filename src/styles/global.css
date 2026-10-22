@@ -82,6 +82,21 @@
   --tw-prose-td-borders: var(--color-border);
 }
 
+/* 點目錄跳轉時，標題上方留一點空間，不會貼齊視窗頂端。 */
+.prose :where(h2, h3) {
+  scroll-margin-top: 2rem;
+}
+
+/* 文章目錄的連結：平常用次要文字色，滑鼠移上去或是目前段落時用強調色。 */
+.toc-link {
+  color: var(--color-muted-fg);
+}
+
+.toc-link:hover,
+.toc-link[aria-current="true"] {
+  color: var(--color-accent);
+}
+
 /* Shiki 雙主題：深色時改用 --shiki-dark 系列變數，切換主題不需要重新產生 HTML。 */
 .astro-code {
   border: 1px solid var(--color-border);

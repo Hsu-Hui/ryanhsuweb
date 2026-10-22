@@ -1,0 +1,88 @@
+---
+// 文章目錄。同一份資料有兩種外觀：
+// - panel：1280px 以上的右側懸浮面板
+// - collapsible：1280px 以下放在標頭和內文之間、預設收合的 <details>
+import type { TocEntry } from '../lib/toc';
+
+interface Props {
+  entries: TocEntry[];
+  form: 'panel' | 'collapsible';
+}
+
+const { entries, form } = Astro.props;
+const Wrapper = form === 'panel' ? 'div' : 'details';
+const wrapperClass =
+  form === 'panel' ? 'rounded-2xl border border-border bg-card p-5' : 'mt-6 rounded-xl border border-border px-4 py-3';
+const linkClass = 'toc-link block py-1 break-words';
+---
+
+<Wrapper data-toc={form} class={wrapperClass}>
+  {
+    form === 'panel' ? (
+      <p class="font-mono text-sm text-muted-fg">
+        ~/ <span class="text-accent">目錄</span>
+      </p>
+    ) : (
+      <summary class="cursor-pointer font-mono text-sm text-accent">目錄</summary>
+    )
+  }
+  <nav aria-label="目錄" class="mt-3 text-sm">
+    <ol>
+      {
+        entries.map((entry) => (
+          <li>
+            <a href={`#${entry.slug}`} class={linkClass}>
+              {entry.text}
+            </a>
+            {entry.children.length > 0 && (
+              <ol class="ml-3 border-l border-border pl-3">
+                {entry.children.map((child) => (
+                  <li>
+                    <a href={`#${child.slug}`} class={linkClass}>
+                      {child.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+</Wrapper>
+
+<script>
+  // 只在寬螢幕面板標示目前段落，判斷規則見 currentSectionIndex。收合目錄不標示。
+  import { currentSectionIndex } from '../lib/toc';
+
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc="panel"] a')];
+  const headings = links.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+
+  function update() {
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
+    const tops = headings.map((heading) => heading?.getBoundingClientRect().top ?? Number.POSITIVE_INFINITY);
+    const current = currentSectionIndex(tops, atBottom);
+    links.forEach((link, index) => {
+      if (index === current) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  if (links.length > 0) {
+    let scheduled = false;
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(() => {
+          scheduled = false;
+          update();
+        });
+      },
+      { passive: true },
+    );
+    update();
+  }
+</script>

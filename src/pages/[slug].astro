@@ -3,10 +3,12 @@ import { render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Comments from '../components/Comments.astro';
 import Icon from '../components/Icon.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 import TagList from '../components/TagList.astro';
 import { formatDate } from '../lib/date';
 import { getPosts, type Post } from '../lib/posts';
 import { blogPostingJsonLd } from '../lib/structured-data';
+import { buildToc } from '../lib/toc';
 
 export async function getStaticPaths() {
   // getPosts() 由新到舊，所以 index - 1 是較新的一篇，index + 1 是較舊的一篇。
@@ -25,12 +27,17 @@ interface Props {
 
 const { post, newer, older } = Astro.props;
 const { title, description, pubDate, updatedDate, tags, cover } = post.data;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const jsonLd = blogPostingJsonLd(post, Astro.site!);
+const toc = buildToc(headings);
+const hasToc = toc.length > 0;
 ---
 
 <BaseLayout title={title} description={description} image={cover}>
   <script slot="head" type="application/ld+json" set:html={jsonLd} />
+  {/* 有目錄時，1280px 以上改成兩欄：左邊文章與留言，右邊 240px 的懸浮目錄。 */}
+  <div class:list={[hasToc && 'xl:grid xl:grid-cols-[minmax(0,1fr)_240px] xl:gap-6']}>
+  <div class="min-w-0">
   <article class="rounded-2xl border border-border bg-card p-6 sm:p-10">
     <nav aria-label="麵包屑" class="flex flex-wrap gap-x-1.5 font-mono text-sm text-muted-fg">
       <a href="/" class="hover:text-accent">~</a>
@@ -54,6 +61,13 @@ const jsonLd = blogPostingJsonLd(post, Astro.site!);
         }
       </p>
       <div class="mt-3"><TagList tags={tags} /></div>
+      {
+        hasToc && (
+          <div class="xl:hidden">
+            <TableOfContents entries={toc} form="collapsible" />
+          </div>
+        )
+      }
     </header>
 
     <div class="prose prose-themed mt-8 max-w-none">
@@ -93,4 +107,16 @@ const jsonLd = blogPostingJsonLd(post, Astro.site!);
   </article>
 
   <Comments />
+  </div>
+
+  {
+    hasToc && (
+      <aside aria-label="文章目錄" class="hidden xl:block">
+        <div class="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <TableOfContents entries={toc} form="panel" />
+        </div>
+      </aside>
+    )
+  }
+  </div>
 </BaseLayout>
