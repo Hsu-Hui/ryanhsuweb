@@ -122,6 +122,15 @@ describe('首頁', () => {
     assert.deepEqual(postIds(latest), ['b', 'c', 'a', 'd']);
   });
 
+  test('文章列依序是日期、標題、引文、標籤（引文在窄螢幕顯示）', () => {
+    for (const page of ['index.html', 'posts.html']) {
+      const row = site.read(page).match(/<li[^>]*data-post="b"[\s\S]*?<\/li>/)[0];
+      const order = ['<time', '>Post B<', '>Desc B<', '#css'].map((marker) => row.indexOf(marker));
+      assert.ok(order.every((index) => index !== -1), `${page} 的文章列缺少內容`);
+      assert.deepEqual([...order].sort((a, b) => a - b), order, `${page} 的文章列順序不對`);
+    }
+  });
+
   test('跑馬燈的複製內容對螢幕閱讀器與鍵盤隱藏', () => {
     const marquee = home().slice(home().indexOf('最新文章跑馬燈'), home().indexOf('latest-heading'));
     const copies = [...marquee.matchAll(/<(?:ul|li) aria-hidden="true"[\s\S]*?<\/(?:ul|li)>/g)].map((m) => m[0]);

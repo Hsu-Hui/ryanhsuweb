@@ -1,5 +1,6 @@
 ---
-// 一行一篇的精簡文章列，首頁最新文章和文章頁共用。
+// 文章列，首頁最新文章和文章頁共用。
+// 768px 以上：一行一篇（日期｜標題｜標籤）；以下：由上到下是日期、標題、引文、標籤，方便在手機上閱讀。
 import { formatDate } from '../lib/date';
 import type { Post } from '../lib/posts';
 
@@ -16,18 +17,28 @@ const date = formatDate(post.data.pubDate);
 <li
   data-post={post.id}
   data-tags={JSON.stringify(post.data.tags)}
-  class="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-3"
+  class="py-4 md:flex md:flex-wrap md:items-baseline md:gap-x-4 md:gap-y-1 md:py-3"
 >
   <time
     datetime={post.data.pubDate.toISOString()}
-    class:list={['shrink-0 font-mono text-sm text-muted-fg', dateFormat === 'full' ? 'w-24' : 'w-12']}
+    class:list={['block font-mono text-xs text-muted-fg md:shrink-0 md:text-sm', dateFormat === 'full' ? 'md:w-24' : 'md:w-12']}
   >
     {dateFormat === 'full' ? date : date.slice(5)}
   </time>
-  <a href={`/${post.id}`} class="min-w-0 flex-1 font-medium break-words hover:text-accent">
+  <a
+    href={`/${post.id}`}
+    class="mt-1 block text-lg leading-snug font-semibold break-words hover:text-accent md:mt-0 md:min-w-0 md:flex-1 md:text-base md:font-medium"
+  >
     {post.data.title}
   </a>
-  <span class="flex flex-wrap gap-2 font-mono text-xs text-muted-fg">
-    {post.data.tags.map((tag) => <span>#{tag}</span>)}
-  </span>
+  <p class="mt-1.5 line-clamp-2 text-sm text-muted-fg md:hidden">{post.data.description}</p>
+  {
+    post.data.tags.length > 0 && (
+      <span class="mt-2 flex flex-wrap gap-2 font-mono text-xs text-muted-fg md:mt-0">
+        {post.data.tags.map((tag) => (
+          <span>#{tag}</span>
+        ))}
+      </span>
+    )
+  }
 </li>
