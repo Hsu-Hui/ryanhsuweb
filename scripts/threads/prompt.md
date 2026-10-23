@@ -40,4 +40,14 @@ Zeabur 的故事最讓我有感，一把長期沒換的內部憑證，就讓攻�
 
 ## 輸出
 
-請寫兩則切入角度不同的主文（main 與 alternative），再寫一句放在第一則留言、用來介紹連結的話（reply_intro，20～40 字，不含網址，系統會自動接上連結）。
+`.threads/targets.json` 列出這次要處理的文章（`slug`、`title`、`file`）。逐篇讀完 `file` 指向的文章全文，替每一篇寫一個 JSON 檔到 `.threads/drafts/<slug>.json`，格式如下，不要有其他欄位：
+
+```json
+{
+  "main": "主文",
+  "alternative": "切入角度不同的另一則主文",
+  "reply_intro": "放在第一則留言、介紹連結的一句話（20～40 字，不含網址，系統會自動接上連結）"
+}
+```
+
+只寫這些 JSON 檔，不要修改 repo 裡的其他檔案。

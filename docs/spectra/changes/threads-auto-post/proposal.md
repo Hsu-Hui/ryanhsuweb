@@ -4,7 +4,7 @@
 
 ## What Changes
 
-- 新文章部署到正式站後，自動用 Claude 依固定風格產生兩則 Threads 主文和一則附連結的留言，開成 GitHub Issue（標籤 `threads-draft`），並發 Discord 通知。
+- 新文章部署到正式站後，用 Claude Code GitHub Action（以 Pro 訂閱權杖驗證，不需要 API 金鑰）依固定風格產生兩則 Threads 主文和一則附連結的留言，開成 GitHub Issue（標籤 `threads-draft`），並發 Discord 通知。
 - 在 Issue 修改草稿後加上 `publish` 標籤，自動發到 Threads：先發主文，再用回覆主文的方式發附 UTM 連結的第一則留言，讓兩則在同一個討論串。
 - 發文成功後在 Issue 留言貼文連結、關閉 Issue，並發 Discord 通知；草稿格式錯誤或發文失敗時，在 Issue 與 Discord 說明原因並拿掉 `publish` 標籤。
 - 每週檢查 Threads 權杖是否仍可使用，失效時發 Discord 提醒。
@@ -18,8 +18,8 @@
 
 ## Impact
 
-- 新增程式碼：scripts/threads/（lib、services、draft、publish、check-token、prompt.md）。
+- 新增程式碼：scripts/threads/（lib、services、draft、publish、check-token、prompt.md）。草稿分成 plan（挑文章）、Claude 寫 `.threads/drafts/*.json`、create（開 Issue）三步，Claude 只被允許讀檔和寫草稿 JSON。
 - 新增 workflow：threads-draft.yml、threads-publish.yml、threads-token-check.yml；既有部署 workflow 不變。
 - 新增測試：tests/threads.test.mjs。
-- 新增 devDependency：@anthropic-ai/sdk（只有產生草稿的 workflow 會用到）。
-- 需要的 GitHub Secrets：THREADS_ACCESS_TOKEN、THREADS_USER_ID、DISCORD_WEBHOOK_URL、ANTHROPIC_API_KEY。
+- 不新增任何依賴，腳本只用 Node 內建模組。
+- 需要的 GitHub Secrets：THREADS_ACCESS_TOKEN、THREADS_USER_ID、DISCORD_WEBHOOK_URL、CLAUDE_CODE_OAUTH_TOKEN（在本機執行 `claude setup-token` 產生）。
