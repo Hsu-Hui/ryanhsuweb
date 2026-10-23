@@ -55,6 +55,7 @@ cover: https://example.com/cover.png   # 選填：社群分享圖
 
 注意事項：
 
+- 同一天發兩篇以上時，`pubDate` 寫到時間（例如 `2026-10-21T20:00:00+08:00`），較晚發的會排在前面；頁面上仍只顯示日期。
 - `title`、`description`、`pubDate` 必填。少填或格式錯誤時，`npm run build` 會失敗，並指出是哪個檔案的哪個欄位。
 - 檔名不能用以下這些名字，因為已經被固定頁面佔用：`about`、`privacy`、`contact`、`tags`、`page`、`posts`、`rss.xml`、`sitemap-index.xml`、`ads.txt`、`robots.txt`、`404`。
 - 文章用到的圖片放在 `public/images/<文章檔名>/`，在文章裡用 `/images/<文章檔名>/xxx.png` 引用。

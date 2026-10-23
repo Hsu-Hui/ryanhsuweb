@@ -27,11 +27,11 @@ function homeLists(site) {
 
 const cases = [
   { count: 1, latest: ['p01'], marquee: ['p01'] },
-  { count: 10, latest: ['p10', 'p09', 'p08', 'p07', 'p06'], marquee: ['p10', 'p09', 'p08', 'p07', 'p06', 'p05', 'p04', 'p03'] },
+  { count: 10, latest: ['p10', 'p09', 'p08', 'p07', 'p06', 'p05'], marquee: ['p10', 'p09', 'p08', 'p07', 'p06', 'p05', 'p04', 'p03'] },
 ];
 
 for (const { count, latest, marquee } of cases) {
-  test(`${count} 篇文章：最新文章最多 5 篇、跑馬燈最多 8 篇`, () => {
+  test(`${count} 篇文章：最新文章最多 6 篇、跑馬燈最多 8 篇`, () => {
     const site = buildSite({ posts: makePosts(count) });
     try {
       assert.ok(site.ok, site.output);

@@ -2,11 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import Marquee from '../components/Marquee.astro';
-import PostRow from '../components/PostRow.astro';
+import PostCard from '../components/PostCard.astro';
 import { countTags, getPosts } from '../lib/posts';
 import { siteConfig } from '../site.config';
 
-const LATEST_COUNT = 5;
+const LATEST_COUNT = 6;
 const MARQUEE_COUNT = 8;
 
 const posts = await getPosts();
@@ -52,20 +52,20 @@ const buttonClass =
   {
     posts.length > 0 && (
       <section aria-labelledby="latest-heading" class="mt-6 rounded-2xl border border-border bg-card p-5 sm:p-6">
-        <div class="flex items-baseline justify-between gap-4">
-          <h2 id="latest-heading" class="font-mono text-sm text-muted-fg">
-            ~/ <span class="text-accent">最新文章</span>
-          </h2>
-          <a href="/posts" class="inline-flex items-center gap-1 font-mono text-sm text-accent hover:underline">
-            看全部文章
+        <h2 id="latest-heading" class="font-mono text-sm text-muted-fg">
+          ~/ <span class="text-accent">最新文章</span>
+        </h2>
+        <ul class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.slice(0, LATEST_COUNT).map((post) => (
+            <PostCard post={post} />
+          ))}
+        </ul>
+        <div class="mt-6 flex justify-center">
+          <a href="/posts" class:list={[buttonClass, 'border-accent text-accent']}>
+            顯示更多文章
             <Icon name="arrow-right" class="size-4" />
           </a>
         </div>
-        <ul class="mt-2 divide-y divide-border">
-          {posts.slice(0, LATEST_COUNT).map((post) => (
-            <PostRow post={post} />
-          ))}
-        </ul>
       </section>
     )
   }
