@@ -122,10 +122,14 @@ describe('首頁', () => {
     assert.deepEqual(postIds(latest), ['b', 'c', 'a', 'd']);
   });
 
-  test('文章列依序是日期、標題、引文、標籤（引文在窄螢幕顯示）', () => {
-    for (const page of ['index.html', 'posts.html']) {
+  test('文章列依序是日期、標題、引文、標籤；首頁卡片依序是標籤、標題、引文、日期', () => {
+    const cases = [
+      ['posts.html', ['<time', '>Post B<', '>Desc B<', '#css']],
+      ['index.html', ['#css', '>Post B<', '>Desc B<', '<time']],
+    ];
+    for (const [page, markers] of cases) {
       const row = site.read(page).match(/<li[^>]*data-post="b"[\s\S]*?<\/li>/)[0];
-      const order = ['<time', '>Post B<', '>Desc B<', '#css'].map((marker) => row.indexOf(marker));
+      const order = markers.map((marker) => row.indexOf(marker));
       assert.ok(order.every((index) => index !== -1), `${page} 的文章列缺少內容`);
       assert.deepEqual([...order].sort((a, b) => a - b), order, `${page} 的文章列順序不對`);
     }

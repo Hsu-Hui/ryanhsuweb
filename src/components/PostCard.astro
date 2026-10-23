@@ -1,0 +1,61 @@
+---
+// 首頁最新文章的圖片卡片：封面、標籤、標題、引文、日期，整張卡片就是一個連結。
+import { formatDate } from '../lib/date';
+import type { Post } from '../lib/posts';
+import { siteConfig } from '../site.config';
+
+interface Props {
+  post: Post;
+}
+
+const MAX_TAGS = 2;
+
+const { post } = Astro.props;
+const { title, description, pubDate, tags, cover } = post.data;
+// 封面寫的是正式站的完整網址，換成站內路徑，本機預覽和新文章上線前也看得到圖。
+const coverSrc = cover?.startsWith(siteConfig.siteUrl) ? cover.slice(siteConfig.siteUrl.length) : cover;
+---
+
+<li data-post={post.id}>
+  <a
+    href={`/${post.id}`}
+    class="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-accent"
+  >
+    {
+      coverSrc ? (
+        <img
+          src={coverSrc}
+          alt=""
+          width="1200"
+          height="630"
+          loading="lazy"
+          decoding="async"
+          class="aspect-[1200/630] w-full border-b border-border object-cover"
+        />
+      ) : (
+        <div class="flex aspect-[1200/630] items-center justify-center border-b border-border bg-accent/10 font-mono text-2xl text-accent">
+          ~/
+        </div>
+      )
+    }
+    <div class="flex flex-1 flex-col p-5">
+      {
+        tags.length > 0 && (
+          <span class="flex flex-wrap gap-2 font-mono text-xs">
+            {tags.slice(0, MAX_TAGS).map((tag) => (
+              <span class="rounded border border-accent/40 px-1.5 py-0.5 text-accent">#{tag}</span>
+            ))}
+            {tags.length > MAX_TAGS && (
+              <span class="rounded border border-border px-1.5 py-0.5 text-muted-fg">+{tags.length - MAX_TAGS}</span>
+            )}
+          </span>
+        )
+      }
+      <h3 class="mt-3 text-lg leading-snug font-semibold break-words group-hover:text-accent">{title}</h3>
+      <p class="mt-2 line-clamp-2 text-sm text-muted-fg">{description}</p>
+      <time datetime={pubDate.toISOString()} class="mt-auto pt-4 font-mono text-xs text-muted-fg">
+        {formatDate(pubDate)}
+      </time>
+    </div>
+  </a>
+</li>
