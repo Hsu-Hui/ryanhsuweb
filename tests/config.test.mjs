@@ -5,14 +5,19 @@ import { buildSite, FULL_CONFIG } from './helpers/build-site.mjs';
 
 const POSTS = { a: { data: { title: 'Post A', description: 'D', pubDate: '2026-01-01', tags: ['astro'] } } };
 
-test('AdSense、giscus、GitHub 設定為空時都不輸出', () => {
-  const site = buildSite({ posts: POSTS, config: { ...FULL_CONFIG, adsenseClientId: '', categoryId: '', githubUrl: '' } });
+test('AdSense、GA4、giscus、GitHub 設定為空時都不輸出', () => {
+  const site = buildSite({
+    posts: POSTS,
+    config: { ...FULL_CONFIG, adsenseClientId: '', ga4MeasurementId: '', categoryId: '', githubUrl: '' },
+  });
   try {
     assert.ok(site.ok, site.output);
     assert.equal(site.exists('ads.txt'), false);
     for (const file of site.htmlFiles()) {
       const html = site.read(file);
       assert.doesNotMatch(html, /adsbygoogle/, file);
+      assert.doesNotMatch(html, /googletagmanager|gtag\(/, file);
+      assert.doesNotMatch(html, /Google Analytics/, file);
       assert.doesNotMatch(html, /giscus\.app\/client\.js/, file);
     }
     const about = site.read('about.html');
@@ -40,6 +45,16 @@ test('adsenseClientId 格式錯誤時建置失敗並指出欄位', () => {
   try {
     assert.equal(site.ok, false);
     assert.match(site.output, /adsenseClientId/);
+  } finally {
+    site.cleanup();
+  }
+});
+
+test('ga4MeasurementId 格式錯誤時建置失敗並指出欄位', () => {
+  const site = buildSite({ posts: POSTS, config: { ...FULL_CONFIG, ga4MeasurementId: 'UA-1234' } });
+  try {
+    assert.equal(site.ok, false);
+    assert.match(site.output, /ga4MeasurementId/);
   } finally {
     site.cleanup();
   }

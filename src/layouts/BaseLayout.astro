@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import NavItems from '../components/NavItems.astro';
-import { adsenseEnabled, siteConfig } from '../site.config';
+import { adsenseEnabled, ga4Enabled, siteConfig } from '../site.config';
 import { canonicalPath } from '../lib/url';
 
 interface Props {
@@ -55,6 +55,27 @@ const year = new Date().getFullYear();
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.adsenseClientId}`}
           crossorigin="anonymous"
         />
+      )
+    }
+    {
+      ga4Enabled && (
+        <script
+          is:inline
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.ga4MeasurementId}`}
+        />
+      )
+    }
+    {
+      ga4Enabled && (
+        <script is:inline define:vars={{ ga4MeasurementId: siteConfig.ga4MeasurementId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', ga4MeasurementId);
+        </script>
       )
     }
     <slot name="head" />

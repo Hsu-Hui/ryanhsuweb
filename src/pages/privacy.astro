@@ -1,6 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { siteConfig } from '../site.config';
+import { ga4Enabled, siteConfig } from '../site.config';
 ---
 
 <PageLayout title="隱私權政策" description={`${siteConfig.siteTitle} 如何使用 cookie 與處理訪客資料。`}>
@@ -24,6 +24,21 @@ import { siteConfig } from '../site.config';
     來自歐洲經濟區、英國及瑞士的訪客，會先看到 Google 提供的同意訊息，可以選擇是否同意使用 cookie。詳細說明請參考
     <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">Google 如何使用合作網站的資訊</a>。
   </p>
+
+  {
+    ga4Enabled && (
+      <>
+        <h2>流量分析</h2>
+        <p>
+          本網站使用 Google Analytics 統計瀏覽次數、來源與使用的裝置，用來了解哪些文章有人看。Google Analytics 會使用
+          cookie，收集的資料不包含你的姓名或聯絡方式。你可以安裝
+          <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">Google Analytics 停用瀏覽器外掛程式</a>
+          拒絕被統計，詳細說明請參考
+          <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">Google 如何使用合作網站的資訊</a>。
+        </p>
+      </>
+    )
+  }
 
   <h2>留言</h2>
   <p>
