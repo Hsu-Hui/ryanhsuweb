@@ -1,0 +1,49 @@
+name: Threads 草稿
+on:
+  # 正式站部署成功後才產生草稿，確保文章連結已經能開。
+  workflow_run:
+    workflows: [Deploy to Firebase Hosting on merge]
+    types: [completed]
+  # 手動替指定文章產生草稿，例如補發舊文章。
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 文章檔名（不含 .md），例如 why-i-started-using-home-assistant
+        required: true
+permissions:
+  contents: read
+  issues: write
+# 同時只跑一個，避免兩次部署替同一篇文章開出兩個 Issue。
+concurrency: threads-draft
+jobs:
+  draft:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+      # 草稿腳本只用 Node 內建模組，不需要 npm ci。
+      - id: plan
+        run: node scripts/threads/draft.mjs plan
+        env:
+          THREADS_SLUG: ${{ inputs.slug }}
+      # 用 Pro 訂閱的權杖執行 Claude Code，只允許讀檔和寫草稿 JSON。
+      - if: steps.plan.outputs.count != '0'
+        uses: anthropics/claude-code-action@ae68417a745a5df4b2124873632bd73a2255e6f6 # v1.0.259
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: 請完整閱讀 scripts/threads/prompt.md，照裡面的規則與輸出格式，替 .threads/targets.json 列出的每一篇文章寫 Threads 草稿。
+          claude_args: |
+            --max-turns 30
+            --allowedTools "Read,Glob,Edit(.threads/drafts/**),Write(.threads/drafts/**)"
+      - if: steps.plan.outputs.count != '0'
+        run: node scripts/threads/draft.mjs create
