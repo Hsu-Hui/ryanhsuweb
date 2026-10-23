@@ -5,6 +5,8 @@ export const SITE_URL = 'https://ryan-hsu.com';
 // Threads 單則貼文上限 500 字。
 export const THREADS_MAX_LENGTH = 500;
 export const DRAFT_LABEL = 'threads-draft';
+// 啟用自動化之前的文章已經手動排程發文，只替這個時間之後發布的文章自動產生草稿。
+export const AUTO_DRAFT_SINCE = new Date('2026-10-24T00:00:00+08:00');
 export const PUBLISH_LABEL = 'publish';
 
 const MAIN_HEADING = '## 主文';
