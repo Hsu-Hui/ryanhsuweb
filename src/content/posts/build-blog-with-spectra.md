@@ -1,7 +1,7 @@
 ---
 title: 用 Spectra 從零做出這個部落格：先寫規格，再讓 AI 寫程式
 description: 我用高見龍老師的 Spectra 搭配 Claude Code，兩天內把這個網站從空資料夾做到上線。這篇記錄每個步驟產生了什麼文件、需求中途改變時怎麼處理，以及我覺得值得和不值得的地方。
-pubDate: 2026-10-22
+pubDate: 2026-10-22T19:42:24+08:00
 tags: [spectra, SDD, claude-code, astro, firebase]
 cover: https://ryan-hsu.com/images/build-blog-with-spectra/cover.png
 ---

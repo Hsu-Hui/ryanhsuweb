@@ -1,7 +1,7 @@
 ---
 title: 智能家居系列（二）：我為什麼把 Home Assistant 自動化從 YAML 搬到 AppDaemon
 description: YAML 並沒有不好，但當離家模式開始需要啟動補判斷、狀態驗證、失敗重試與取消排程，我需要的已經不只是一條自動化，而是一個能清楚管理狀態的小程式。
-pubDate: 2026-10-23
+pubDate: 2026-10-23T16:28:05+08:00
 tags: [home-assistant, appdaemon, python, yaml, smart-home]
 cover: https://ryan-hsu.com/images/why-i-moved-home-assistant-automations-to-appdaemon/cover.png
 ---
