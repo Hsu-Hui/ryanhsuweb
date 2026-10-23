@@ -72,17 +72,30 @@ function threads(path, params, method = 'POST') {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// 建立文字貼文容器後再發布；Meta 建議容器建立後等一下再發布，讓伺服器處理完成。
-export async function publishThreadsText(text, replyToId) {
+// 建立貼文容器，等 Threads 處理完（圖片要先被下載）再發布。有 imageUrl 時發圖文貼文。
+export async function publishThreads(text, { imageUrl, replyToId } = {}) {
   const userId = requireEnv('THREADS_USER_ID');
   const container = await threads(`/${userId}/threads`, {
-    media_type: 'TEXT',
+    media_type: imageUrl ? 'IMAGE' : 'TEXT',
     text,
+    ...(imageUrl && { image_url: imageUrl }),
     ...(replyToId && { reply_to_id: replyToId }),
   });
-  await sleep(Number(process.env.THREADS_PUBLISH_DELAY_MS ?? 10_000));
+  await waitForContainer(container.id);
   const published = await threads(`/${userId}/threads_publish`, { creation_id: container.id });
   return published.id;
+}
+
+// Meta 建議建立容器後等一段時間；這裡每隔幾秒查一次狀態，最多等約 1 分鐘。
+async function waitForContainer(id) {
+  const interval = Number(process.env.THREADS_PUBLISH_DELAY_MS ?? 5_000);
+  for (let attempt = 0; attempt < 12; attempt += 1) {
+    await sleep(interval);
+    const { status, error_message: reason } = await threads(`/${id}`, { fields: 'status,error_message' }, 'GET');
+    if (status === 'FINISHED') return;
+    if (status === 'ERROR' || status === 'EXPIRED') throw new Error(`Threads 處理貼文失敗（${status}）：${reason ?? '沒有說明'}`);
+  }
+  throw new Error('Threads 處理貼文逾時');
 }
 
 export async function threadsPermalink(mediaId) {
