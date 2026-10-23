@@ -1,5 +1,7 @@
 .spectra/
-docs/spectra/.vector-search.db*
+
+# 尚未完成的本機文章；完成後再移到 src/content/posts/。
+drafts/
 
 # build
 node_modules/

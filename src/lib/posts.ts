@@ -18,7 +18,10 @@ export const RESERVED_SLUGS = new Set([
   '404',
 ]);
 
-/** 所有文章，依發布日期由新到舊排列。檔名撞到保留 slug 時直接讓建置失敗。 */
+/**
+ * 可公開的文章，依發布日期由新到舊排列。
+ * 本機開發保留未來文章供預覽；正式建置不產生尚未到發布時間的任何輸出。
+ */
 export async function getPosts(): Promise<Post[]> {
   const posts = await getCollection('posts');
 
@@ -28,7 +31,12 @@ export async function getPosts(): Promise<Post[]> {
     throw new Error(`文章檔名和保留的網址衝突，請改名：${files}`);
   }
 
-  return posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+  const now = Date.now();
+  const visiblePosts = import.meta.env.DEV
+    ? posts
+    : posts.filter((post) => post.data.pubDate.getTime() <= now);
+
+  return visiblePosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 }
 
 /** 所有用過的標籤和篇數，依篇數由多到少，同篇數依名稱排序。 */

@@ -6,22 +6,40 @@ on:
   push:
     branches:
       - main
-# 部署正式站只需要讀 repo，避免建置時執行的套件拿到可寫的 token。
+  workflow_dispatch:
+  # 完成稿在 08:00 後才納入正式建置；後兩次排程提供延遲或單次失敗時的補跑機會。
+  schedule:
+    - cron: '1,11,21 8 * * *'
+      timezone: 'Asia/Taipei'
+# 讀取 repo 來建置；讀取 Actions 歷史以避免沒有新文章或已成功時重複部署。
 permissions:
+  actions: read
   contents: read
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Check whether a production deploy is needed
+        id: scheduled_publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SCHEDULED_WORKFLOW_FILE: firebase-hosting-merge.yml
+        run: node scripts/check-scheduled-publish.mjs
       # Astro 7 需要 Node 22.22 以上，固定用和本機相同的 Node 24。
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        if: steps.scheduled_publish.outputs.should_deploy == 'true'
         with:
           node-version: 24
           cache: npm
       # 測試沒過就不會建置和部署。
       - run: npm ci && npm test && npm run build
+        if: steps.scheduled_publish.outputs.should_deploy == 'true'
       - uses: FirebaseExtended/action-hosting-deploy@500ac625ca2dd40cbd15f7659af953801858032a # v0.11.0
+        if: steps.scheduled_publish.outputs.should_deploy == 'true'
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_RYANHSUWEB }}

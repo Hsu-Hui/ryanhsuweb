@@ -36,3 +36,40 @@ test('檔名和保留 slug 相同時建置失敗並列出檔名', () => {
     site.cleanup();
   }
 });
+
+test('正式建置完整排除尚未到發布時間的文章', () => {
+  const site = buildSite({
+    posts: {
+      published: {
+        data: {
+          title: '已發布文章',
+          description: '已經可以公開',
+          pubDate: '2020-01-01T08:00:00+08:00',
+          tags: ['published'],
+        },
+      },
+      scheduled: {
+        data: {
+          title: '排程文章',
+          description: '尚未公開',
+          pubDate: '2099-01-01T08:00:00+08:00',
+          tags: ['scheduled-only'],
+        },
+      },
+    },
+  });
+
+  try {
+    assert.equal(site.ok, true, site.output);
+    assert.equal(site.exists('published.html'), true);
+    assert.equal(site.exists('scheduled.html'), false);
+    assert.equal(site.exists('tags/scheduled-only.html'), false);
+
+    for (const file of ['index.html', 'posts.html', 'tags.html', 'rss.xml', 'sitemap-0.xml', 'published.html']) {
+      const output = site.read(file);
+      assert.doesNotMatch(output, /排程文章|scheduled-only|\/scheduled(?:[<"/]|$)/, `${file} 洩漏未發布文章`);
+    }
+  } finally {
+    site.cleanup();
+  }
+});

@@ -2,7 +2,7 @@
 
 個人技術部落格。用 [Astro](https://astro.build) 建置成純靜態網站，部署在 Firebase Hosting，並放 Google AdSense 廣告。
 
-- 每篇文章是一個 Markdown 檔，push 之後自動上線。
+- 每篇文章是一個 Markdown 檔；立即發布可直接 push，排程文章會在 `pubDate` 到達後自動上線。
 - 首頁（最新文章跑馬燈、最新 5 篇）、文章頁 `/posts`（依年份分組、可用標籤篩選）、標籤頁、sitemap、RSS、`robots.txt`、`ads.txt` 都在建置時自動產生。
 - 支援深色模式（跟隨系統，也可以手動切換）。
 
@@ -59,7 +59,28 @@ cover: https://example.com/cover.png   # 選填：社群分享圖
 - `title`、`description`、`pubDate` 必填。少填或格式錯誤時，`npm run build` 會失敗，並指出是哪個檔案的哪個欄位。
 - 檔名不能用以下這些名字，因為已經被固定頁面佔用：`about`、`privacy`、`contact`、`tags`、`page`、`posts`、`rss.xml`、`sitemap-index.xml`、`ads.txt`、`robots.txt`、`404`。
 - 文章用到的圖片放在 `public/images/<文章檔名>/`，在文章裡用 `/images/<文章檔名>/xxx.png` 引用。
-- 還沒寫完的文章不要放進 `src/content/posts/`，放進去 push 就會上線。
+- 還沒寫完的文章放在專案根目錄的 `drafts/`。這個資料夾已被 Git 忽略，也不屬於 Astro 的文章集合，所以草稿只會留在本機。
+
+### 排程發布
+
+完成稿可以先推送到 GitHub，再由 GitHub Actions 在指定日期自動發布。例如台灣時間 2026 年 11 月 1 日早上 8 點發布：
+
+```yaml
+pubDate: 2026-11-01T08:00:00+08:00
+```
+
+操作順序：
+
+1. 寫作期間把檔案放在 `drafts/<文章檔名>.md`，使用 Git 時不會意外提交。
+2. 完稿後將檔案移到 `src/content/posts/<文章檔名>.md`，設定未來的 `pubDate`。
+3. 在發布日前 commit 並 push 到 `main`。正式建置在時間到達前不會產生文章頁，也不會把文章放進首頁、文章列表、標籤、RSS 或 sitemap。
+4. GitHub Actions 會在每天台灣時間 08:01、08:11、08:21 檢查是否需要發布。後兩次是排程延遲或單次失敗時的補跑機會。
+
+每次排程會先檢查今天是否有已到 `pubDate` 的文章：沒有就直接結束，不安裝套件、不測試、不建置也不部署。如果 08:01 已成功發布，08:11 和 08:21 會從 GitHub Actions 紀錄確認已有涵蓋最新文章的成功部署，同樣直接結束；只有先前失敗或尚未成功時才補跑。若暫時無法查詢 Actions 紀錄，系統會選擇照常部署，避免因判斷服務異常而漏發文章。
+
+`npm run dev` 會顯示未來文章，方便發布前在本機預覽；`npm run build` 則模擬正式站，只輸出已到發布時間的文章。
+
+排程完成稿不能一直留在 `drafts/`：GitHub Actions 無法讀取只存在於你的電腦、尚未推送到 GitHub 的檔案。如果不想讓完成稿提前存在遠端，就必須在發布當天手動移動、commit 和 push，無法使用雲端自動發布。
 
 ## 3. 網站設定：`src/site.config.ts`
 
