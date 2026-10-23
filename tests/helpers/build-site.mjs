@@ -16,6 +16,7 @@ export const FULL_CONFIG = {
   contactEmail: 'me@example.dev',
   githubUrl: 'https://github.com/example',
   adsenseClientId: 'ca-pub-1234567890123456',
+  ga4MeasurementId: 'G-TEST123456',
   repo: 'example/repo',
   repoId: 'R_test',
   category: 'Announcements',

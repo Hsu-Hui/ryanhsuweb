@@ -11,6 +11,8 @@ export const siteConfig = {
   githubUrl: 'https://github.com/Hsu-Hui',
   // AdSense 發布商 ID，格式為 ca-pub- 加數字。
   adsenseClientId: '',
+  // Google Analytics 4 評估 ID，格式為 G- 加英數字，留空就不載入 GA。
+  ga4MeasurementId: 'G-YWF0DXWYFB',
   // 到 https://giscus.app 產生設定後填入。
   giscus: {
     repo: 'Hsu-Hui/ryanhsuweb',
@@ -28,6 +30,16 @@ if (siteConfig.adsenseClientId !== '' && !ADSENSE_CLIENT_ID.test(siteConfig.adse
   );
 }
 
+const GA4_MEASUREMENT_ID = /^G-[A-Z0-9]+$/;
+
+if (siteConfig.ga4MeasurementId !== '' && !GA4_MEASUREMENT_ID.test(siteConfig.ga4MeasurementId)) {
+  throw new Error(
+    `site.config.ts: ga4MeasurementId "${siteConfig.ga4MeasurementId}" 格式錯誤，必須是 G- 加英數字，或留空字串。`,
+  );
+}
+
 export const adsenseEnabled = siteConfig.adsenseClientId !== '';
+
+export const ga4Enabled = siteConfig.ga4MeasurementId !== '';
 
 export const giscusEnabled = Object.values(siteConfig.giscus).every((value) => value !== '');

@@ -198,12 +198,37 @@ describe('sitemap、RSS 與 robots.txt', () => {
   });
 });
 
+describe('Google Analytics', () => {
+  test('每一頁剛好載入一次 GA4 script，並以評估 ID 設定', () => {
+    for (const file of site.htmlFiles()) {
+      const html = site.read(file);
+      const count = html.match(/googletagmanager\.com\/gtag\/js\?id=G-TEST123456/g)?.length ?? 0;
+      assert.equal(count, 1, file);
+      assert.match(html, /gtag\('config', ga4MeasurementId\)/, file);
+      assert.match(html, /"G-TEST123456"/, file);
+    }
+  });
+
+  test('隱私權政策說明使用 Google Analytics', () => {
+    const html = site.read('privacy.html');
+    assert.match(html, /Google Analytics/);
+    assert.match(html, /href="https:\/\/tools\.google\.com\/dlpage\/gaoptout"/);
+  });
+});
+
 describe('AdSense', () => {
   test('每一頁剛好載入一次 AdSense script', () => {
     for (const file of site.htmlFiles()) {
       const count = site.read(file).match(/adsbygoogle\.js\?client=ca-pub-1234567890123456/g)?.length ?? 0;
       assert.equal(count, 1, file);
     }
+  });
+
+  test('隱私權政策說明使用 AdSense，並連到廣告設定', () => {
+    const html = site.read('privacy.html');
+    assert.match(html, /Google AdSense/);
+    assert.match(html, /href="https:\/\/adssettings\.google\.com"/);
+    assert.match(html, /href="\/about"/);
   });
 
   test('ads.txt 內容由發布商 ID 產生', () => {
