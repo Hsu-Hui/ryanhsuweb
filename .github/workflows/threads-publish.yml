@@ -1,0 +1,29 @@
+name: Threads 發文
+on:
+  issues:
+    types: [labeled]
+permissions:
+  issues: write
+jobs:
+  publish:
+    # 只有草稿 Issue 被加上 publish 標籤，而且是 repo 擁有者加的才發文。
+    if: >-
+      github.event.label.name == 'publish' &&
+      contains(github.event.issue.labels.*.name, 'threads-draft') &&
+      github.event.sender.login == github.repository_owner
+    runs-on: ubuntu-latest
+    concurrency: threads-publish-${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          sparse-checkout: scripts/threads
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+      # 發文只用 Node 內建的 fetch，不需要安裝套件。
+      - run: node scripts/threads/publish.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}

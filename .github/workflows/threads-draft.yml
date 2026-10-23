@@ -1,0 +1,36 @@
+name: Threads 草稿
+on:
+  # 正式站部署成功後才產生草稿，確保文章連結已經能開。
+  workflow_run:
+    workflows: [Deploy to Firebase Hosting on merge]
+    types: [completed]
+  # 手動替指定文章產生草稿，例如補發舊文章。
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 文章檔名（不含 .md），例如 why-i-started-using-home-assistant
+        required: true
+permissions:
+  contents: read
+  issues: write
+# 同時只跑一個，避免兩次部署替同一篇文章開出兩個 Issue。
+concurrency: threads-draft
+jobs:
+  draft:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node scripts/threads/draft.mjs
+        env:
+          THREADS_SLUG: ${{ inputs.slug }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
