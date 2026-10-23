@@ -22,7 +22,7 @@ Any page text that refers readers to a way of contacting the owner SHALL link to
 #### Scenario: Privacy policy without AdSense
 
 - **WHEN** `adsenseClientId` is empty and the site is built
-- **THEN** no HTML page under `dist/` contains `AdSense` or a link to `https://adssettings.google.com`, and `/privacy` still exists and its contact sentence links to `/about`
+- **THEN** `/privacy` still exists, does not contain `AdSense` or a link to `https://adssettings.google.com`, and its contact sentence links to `/about`; article content written by the owner is not restricted
 
 #### Scenario: No contact page
 

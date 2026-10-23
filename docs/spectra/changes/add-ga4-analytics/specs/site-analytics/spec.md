@@ -32,7 +32,7 @@ The GA4 script SHALL depend on `ga4MeasurementId` in the site configuration:
 
 ### Requirement: Privacy policy discloses analytics
 
-When `ga4MeasurementId` is set, the privacy policy page at `/privacy` SHALL contain a section stating that the site uses Google Analytics to measure visits and that Google Analytics uses cookies, and SHALL link to the Google Analytics opt-out add-on at `https://tools.google.com/dlpage/gaoptout`. When `ga4MeasurementId` is empty, no generated page SHALL mention `Google Analytics`. The site SHALL NOT add a consent banner of its own for analytics.
+When `ga4MeasurementId` is set, the privacy policy page at `/privacy` SHALL contain a section stating that the site uses Google Analytics to measure visits and that Google Analytics uses cookies, and SHALL link to the Google Analytics opt-out add-on at `https://tools.google.com/dlpage/gaoptout`. When `ga4MeasurementId` is empty, the privacy policy SHALL NOT mention `Google Analytics`; article content written by the owner is not restricted. The site SHALL NOT add a consent banner of its own for analytics.
 
 #### Scenario: Analytics enabled
 
@@ -42,4 +42,4 @@ When `ga4MeasurementId` is set, the privacy policy page at `/privacy` SHALL cont
 #### Scenario: Analytics disabled
 
 - **WHEN** `ga4MeasurementId` is empty and the site is built
-- **THEN** no HTML page under `dist/` contains the text `Google Analytics`
+- **THEN** `/privacy` does not contain the text `Google Analytics`

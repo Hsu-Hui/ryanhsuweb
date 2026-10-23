@@ -48,7 +48,7 @@ AdSense 段落和 GA 段落採同一規則：對應的設定值有填才輸出�
 
 **Acceptance:**
 
-- `npm test` 全部通過，包含：每頁一次 GA script、ID 為空時不輸出 GA 程式碼與文字、ID 為 `UA-1234` 時建置失敗並指出欄位、隱私權頁有停用外掛連結、AdSense ID 為空時沒有任何頁面提到 AdSense、AdSense ID 有設定時隱私權頁有廣告設定連結。
+- `npm test` 全部通過，包含：每頁一次 GA script、ID 為空時不輸出 GA 程式碼與文字、ID 為 `UA-1234` 時建置失敗並指出欄位、隱私權頁有停用外掛連結、AdSense ID 為空時隱私權頁不提到 AdSense、AdSense ID 有設定時隱私權頁有廣告設定連結。
 - 在瀏覽器開啟建置後的頁面，網路請求中出現 `google-analytics.com/g/collect`，`tid` 等於設定的評估 ID、`en=page_view`。
 
 ## Risks / Trade-offs
