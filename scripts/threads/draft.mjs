@@ -6,6 +6,7 @@ import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import {
   DRAFT_LABEL,
   PUBLISH_LABEL,
+  absoluteImageUrl,
   buildUtmUrl,
   isRecent,
   issueTitle,
@@ -28,7 +29,13 @@ async function loadPosts() {
   const files = (await readdir(POSTS_DIR)).filter((file) => file.endsWith('.md'));
   return Promise.all(files.map(async (file) => {
     const { data } = parseFrontmatter(await readFile(new URL(file, POSTS_DIR), 'utf8'));
-    return { slug: file.replace(/\.md$/, ''), title: data.title, pubDate: data.pubDate, file: `src/content/posts/${file}` };
+    return {
+      slug: file.replace(/\.md$/, ''),
+      title: data.title,
+      pubDate: data.pubDate,
+      cover: absoluteImageUrl(data.cover),
+      file: `src/content/posts/${file}`,
+    };
   }));
 }
 
@@ -78,7 +85,7 @@ async function create() {
     const reply = `${draft.reply_intro.trim()} 👉 ${buildUtmUrl(post.slug)}`;
     const issue = await createIssue({
       title: issueTitle(post.title),
-      body: renderIssueBody({ slug: post.slug, main: draft.main, reply, alternative: draft.alternative }),
+      body: renderIssueBody({ slug: post.slug, main: draft.main, reply, alternative: draft.alternative, imageUrl: post.cover }),
       labels: [DRAFT_LABEL],
     });
     const warning = threadsLength(draft.main) > THREADS_MAX_LENGTH ? `\n⚠️ 主文超過 ${THREADS_MAX_LENGTH} 字，發文前要刪短。` : '';

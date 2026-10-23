@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readdir, readFile } from 'node:fs/promises';
 import { describe, test } from 'node:test';
 import {
+  absoluteImageUrl,
   buildUtmUrl,
   isRecent,
   parseFrontmatter,
@@ -49,6 +50,12 @@ test('buildUtmUrl 帶上 threads 來源與文章 slug', () => {
   );
 });
 
+test('absoluteImageUrl 把站內路徑轉成完整網址，空值回傳空字串', () => {
+  assert.equal(absoluteImageUrl('/images/a/cover.png'), 'https://ryan-hsu.com/images/a/cover.png');
+  assert.equal(absoluteImageUrl('https://cdn.example.com/x.png'), 'https://cdn.example.com/x.png');
+  assert.equal(absoluteImageUrl(undefined), '');
+});
+
 test('threadsLength 把 emoji 算成一個字', () => {
   assert.equal(threadsLength('看👉'), 2);
 });
@@ -59,7 +66,23 @@ describe('草稿 Issue', () => {
   test('產生後能解析回主文、留言與 slug，備選主文不會被發出', () => {
     const body = renderIssueBody(draft);
     assert.equal(slugFromIssueBody(body), 'my-post');
-    assert.deepEqual(parseIssueBody(body), { main: draft.main, reply: draft.reply, errors: [] });
+    assert.deepEqual(parseIssueBody(body), { main: draft.main, reply: draft.reply, imageUrl: '', errors: [] });
+  });
+
+  test('封面圖網址能解析回來，Issue 裡同時有圖片預覽', () => {
+    const imageUrl = 'https://ryan-hsu.com/images/my-post/cover.png';
+    const body = renderIssueBody({ ...draft, imageUrl });
+    assert.match(body, /!\[封面圖\]\(https:\/\/ryan-hsu\.com\/images\/my-post\/cover\.png\)/);
+    const parsed = parseIssueBody(body);
+    assert.equal(parsed.imageUrl, imageUrl);
+    assert.equal(parsed.main, draft.main);
+  });
+
+  test('把封面圖網址和預覽刪掉就只發文字', () => {
+    const body = renderIssueBody({ ...draft, imageUrl: 'https://ryan-hsu.com/a.png' })
+      .replace('https://ryan-hsu.com/a.png\n', '')
+      .replace('![封面圖](https://ryan-hsu.com/a.png)', '');
+    assert.equal(parseIssueBody(body).imageUrl, '');
   });
 
   test('在 GitHub 網頁編輯後的 CRLF 換行也能解析', () => {

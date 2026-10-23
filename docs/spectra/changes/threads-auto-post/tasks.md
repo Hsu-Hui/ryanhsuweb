@@ -11,3 +11,7 @@
 ## 3. 權杖檢查
 
 - [x] 3.1 `scripts/threads/check-token.mjs` 與 `threads-token-check.yml`：每週檢查權杖，失效時通知 Discord。
+
+## 4. 封面圖
+
+- [x] 4.1 草稿 Issue 加入「封面圖」段落（frontmatter `cover` 的完整網址加上圖片預覽），發文時有網址就以 `IMAGE` 貼文附上封面，刪掉就只發文字；發布前輪詢容器狀態，圖片處理完成才發布。驗證：`tests/threads.test.mjs` 的封面圖測試通過，以模擬 API 確認主文帶 `image_url`、留言仍是 `TEXT`。
