@@ -9,7 +9,8 @@
 ## 3. 隱私權政策
 
 - [ ] 3.1 [after: 1.1] 實作 Privacy policy discloses analytics：`src/pages/privacy.astro` 在 `ga4Enabled` 時輸出「流量分析」段落，說明 Google Analytics 與 cookie，並連到 `https://tools.google.com/dlpage/gaoptout`；GA 停用時不出現 `Google Analytics` 字樣。驗證：`tests/site.test.mjs` 的「隱私權政策說明使用 Google Analytics」與 `tests/config.test.mjs` 的空設定測試通過。
+- [ ] 3.2 [after: 3.1] 依「隱私權政策的第三方服務說明一律依設定值出現」修改 Required informational pages：`src/pages/privacy.astro` 的「廣告與 cookie」段落只在 `adsenseEnabled` 時輸出，`adsenseClientId` 為空時沒有任何頁面提到 `AdSense` 或連到 `https://adssettings.google.com`。驗證：`tests/site.test.mjs` 的「隱私權政策說明使用 AdSense，並連到廣告設定」與 `tests/config.test.mjs` 的「AdSense、GA4、giscus、GitHub 設定為空時都不輸出」通過。
 
 ## 4. 測試設定
 
-- [ ] 4.1 [after: 2.1, 3.1] 在 `tests/helpers/build-site.mjs` 的 `FULL_CONFIG` 加入 `ga4MeasurementId: 'G-TEST123456'`，讓全功能建置涵蓋 GA4。驗證：`npm test` 全部通過。
+- [ ] 4.1 [after: 2.1, 3.2] 在 `tests/helpers/build-site.mjs` 的 `FULL_CONFIG` 加入 `ga4MeasurementId: 'G-TEST123456'`，讓全功能建置涵蓋 GA4。驗證：`npm test` 全部通過。

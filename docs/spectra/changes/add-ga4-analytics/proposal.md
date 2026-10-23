@@ -7,6 +7,7 @@
 - `src/site.config.ts` 新增 `ga4MeasurementId` 設定欄位（GA4 評估 ID，格式為 `G-` 加大寫英數字）。留空時不載入 GA；非空但格式錯誤時建置失敗，錯誤訊息指出 `ga4MeasurementId`。
 - 設定 ID 後，每一頁的 `<head>` 載入一次 `https://www.googletagmanager.com/gtag/js?id=<ID>`，並以該 ID 呼叫 `gtag('config', …)`，送出預設的 page_view。
 - 隱私權政策 `/privacy` 在 GA 啟用時新增「流量分析」段落，說明使用 Google Analytics 與 cookie，並連到 Google Analytics 停用外掛 `https://tools.google.com/dlpage/gaoptout`。GA 停用時不出現這段文字。
+- 隱私權政策的「廣告與 cookie」段落改成只在 `adsenseClientId` 有設定時出現。目前尚未申請 AdSense，原本無條件寫著「本網站使用 Google AdSense」與歐洲同意訊息，描述了網站實際上沒有在做的事；申請時填入發布商 ID，這段就會自動出現在審核人員看到的頁面上。
 
 ## Non-Goals
 
@@ -22,11 +23,11 @@
 
 ### Modified Capabilities
 
-(none)
+- `adsense-readiness`: Required informational pages 改為只在設定 `adsenseClientId` 時要求隱私權政策說明 AdSense，未設定時不得提及 AdSense。
 
 ## Impact
 
-- Affected specs: site-analytics（新增）
+- Affected specs: site-analytics（新增）、adsense-readiness（修改）
 - Affected code:
   - src/site.config.ts
   - src/layouts/BaseLayout.astro

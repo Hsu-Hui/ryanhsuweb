@@ -18,6 +18,7 @@ test('AdSense、GA4、giscus、GitHub 設定為空時都不輸出', () => {
       assert.doesNotMatch(html, /adsbygoogle/, file);
       assert.doesNotMatch(html, /googletagmanager|gtag\(/, file);
       assert.doesNotMatch(html, /Google Analytics/, file);
+      assert.doesNotMatch(html, /AdSense|adssettings\.google\.com/, file);
       assert.doesNotMatch(html, /giscus\.app\/client\.js/, file);
     }
     const about = site.read('about.html');

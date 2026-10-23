@@ -224,6 +224,13 @@ describe('AdSense', () => {
     }
   });
 
+  test('隱私權政策說明使用 AdSense，並連到廣告設定', () => {
+    const html = site.read('privacy.html');
+    assert.match(html, /Google AdSense/);
+    assert.match(html, /href="https:\/\/adssettings\.google\.com"/);
+    assert.match(html, /href="\/about"/);
+  });
+
   test('ads.txt 內容由發布商 ID 產生', () => {
     assert.equal(site.read('ads.txt').trim(), 'google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0');
   });
