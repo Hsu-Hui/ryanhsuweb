@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "node scripts/create-sitemap-alias.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test \"tests/*.test.mjs\""

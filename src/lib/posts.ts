@@ -11,6 +11,7 @@ export const RESERVED_SLUGS = new Set([
   'page',
   'posts',
   'rss.xml',
+  'sitemap.xml',
   'sitemap-index.xml',
   'ads.txt',
   'robots.txt',

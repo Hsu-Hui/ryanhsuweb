@@ -183,7 +183,7 @@ describe('sitemap、RSS 與 robots.txt', () => {
   });
 
   test('robots.txt 允許所有爬蟲並指向 sitemap', () => {
-    assert.equal(site.read('robots.txt'), 'User-agent: *\nAllow: /\n\nSitemap: https://example.dev/sitemap-index.xml\n');
+    assert.equal(site.read('robots.txt'), 'User-agent: *\nAllow: /\n\nSitemap: https://example.dev/sitemap.xml\n');
   });
 
   test('站內網址除了首頁都不帶結尾斜線或 .html', () => {
