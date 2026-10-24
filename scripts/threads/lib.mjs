@@ -14,7 +14,7 @@ const ALT_HEADING = '## 備選主文（不會發出，想用就貼到上面）';
 
 // 只解析文章用到的欄位：字串、日期與 [a, b] 形式的陣列。
 export function parseFrontmatter(source) {
-  const match = source.trimStart().match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  const match = source.replace(/\r\n/g, '\n').trimStart().match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (!match) throw new Error('找不到 frontmatter');
   const data = {};
   for (const line of match[1].split('\n')) {

@@ -20,6 +20,11 @@ describe('parseFrontmatter', () => {
     assert.equal(body.trim(), '內文');
   });
 
+  test('Windows CRLF 換行與 LF 解析結果相同', () => {
+    const source = '---\ntitle: 標題\ndescription: 描述\npubDate: 2026-10-24T00:00:00+08:00\ntags: [a, b]\n---\n\n第一段\n第二段\n';
+    assert.deepEqual(parseFrontmatter(source.replace(/\n/g, '\r\n')), parseFrontmatter(source));
+  });
+
   test('frontmatter 前面有空行也能解析', () => {
     assert.equal(parseFrontmatter('\n---\ntitle: A\n---\n').data.title, 'A');
   });
