@@ -4,6 +4,7 @@
 // 環境變數 THREADS_SLUG 有值時只處理那一篇，且不檢查發布日期（手動補發舊文章用）。
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import {
+  AUTO_DRAFT_SINCE,
   DRAFT_LABEL,
   PUBLISH_LABEL,
   absoluteImageUrl,
@@ -22,8 +23,6 @@ const POSTS_DIR = new URL('../../src/content/posts/', import.meta.url);
 const WORK_DIR = new URL('../../.threads/', import.meta.url);
 const TARGETS_FILE = new URL('targets.json', WORK_DIR);
 const DRAFTS_DIR = new URL('drafts/', WORK_DIR);
-// 啟用自動化之前的文章已經手動排程發文，只替這個時間之後發布的文章自動產生草稿。
-const AUTO_DRAFT_SINCE = new Date('2026-10-24T00:00:00+08:00');
 
 async function loadPosts() {
   const files = (await readdir(POSTS_DIR)).filter((file) => file.endsWith('.md'));
