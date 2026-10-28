@@ -39,6 +39,21 @@ export async function getPosts(): Promise<Post[]> {
   return visiblePosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 }
 
+/**
+ * 相關文章：排除本篇與 exclude（上一篇、下一篇），相同標籤越多越前面，
+ * 有相同標籤的不足 limit 篇時用最新文章補滿。posts 須已由新到舊排序，同分時穩定排序會保留新文章在前。
+ */
+export function getRelatedPosts(post: Post, posts: Post[], exclude: (Post | undefined)[], limit: number): Post[] {
+  const excluded = new Set([post.id, ...exclude.map((p) => p?.id)]);
+  const tags = new Set(post.data.tags);
+  return posts
+    .filter((candidate) => !excluded.has(candidate.id))
+    .map((candidate) => ({ candidate, score: [...new Set(candidate.data.tags)].filter((tag) => tags.has(tag)).length }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ candidate }) => candidate);
+}
+
 /** 所有用過的標籤和篇數，依篇數由多到少，同篇數依名稱排序。 */
 export function countTags(posts: Post[]): [string, number][] {
   const counts = new Map<string, number>();
