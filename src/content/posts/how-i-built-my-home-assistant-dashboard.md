@@ -2,6 +2,7 @@
 title: 智能家居系列（三）：我怎麼做 Home Assistant 儀表板
 description: 把設備接進 Home Assistant 之後，我沒有急著堆滿卡片，而是從每天怎麼看家裡開始，把客廳、臥室等空間整理成一個能快速理解也方便操作的房間總覽。
 pubDate: 2026-10-23T17:09:34+08:00
+category: smart-home
 tags: [home-assistant, dashboard, smart-home, lovelace]
 cover: https://ryan-hsu.com/images/how-i-built-my-home-assistant-dashboard/cover.png
 ---

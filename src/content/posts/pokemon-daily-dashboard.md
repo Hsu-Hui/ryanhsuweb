@@ -2,6 +2,7 @@
 title: 我做了一個寶可夢每日看板：從錯過秋季遠足限時調查開始
 description: 因為忘記完成秋季遠足限時調查，錯過了喜歡的特殊裝扮皮卡丘，我開始用 AI 規劃一個每天自動整理 Pokémon GO 活動、任務、商品與新聞的個人看板。
 pubDate: 2026-10-23T09:24:39+08:00
+category: life-lab
 tags: [pokemon-go, automation, google-apps-script, github-actions, python]
 cover: https://ryan-hsu.com/images/pokemon-daily-dashboard/cover-04a-soft-gradient.png
 ---

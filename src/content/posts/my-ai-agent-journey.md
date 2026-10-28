@@ -2,6 +2,7 @@
 title: 從 OpenClaw、Codex 到 Claude Code：我換過三個 AI Agent，最後留下兩個
 description: 颱風假待在家，我用 AI Agent 做了這個部落格和一些自動化。這篇記錄我從 OpenClaw、Codex 換到 Claude Code 的原因，以及現在 Claude Code 當主力、Codex 當備援的分工方式。
 pubDate: 2026-10-24T00:26:51+08:00
+category: ai
 tags: [ai-agent, claude-code, codex, openclaw, ollama]
 cover: https://ryan-hsu.com/images/my-ai-agent-journey/cover.png
 ---

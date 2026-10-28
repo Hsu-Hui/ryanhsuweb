@@ -2,6 +2,7 @@
 title: 智能家居系列（四）：後來才理解「遙控」和「自動化」的差別
 description: 能用手機開關設備只是遙控；真正的自動化，是讓窗簾跟著早晨與日落切換、廁所燈依有人或無人反應，並在凌晨關掉容易忘記的空調。
 pubDate: 2026-10-24T00:00:00+08:00
+category: smart-home
 tags: [smart-home, automation, routines]
 cover: https://ryan-hsu.com/images/smart-home-vs-remote-control/cover-option-1.png
 ---

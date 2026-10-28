@@ -2,6 +2,7 @@
 title: 智能家居系列（六）：Home Assistant Green 壞掉怎麼辦？我的備份與復原計畫
 description: 當自動化、儀表板與 AppDaemon 都集中在 Home Assistant Green，我需要的不只是備份檔，而是一套包含外部副本、加密金鑰與復原演練的故障計畫。
 pubDate: 2026-10-26T00:00:00+08:00
+category: smart-home
 tags: [home-assistant, smart-home, backup, disaster-recovery]
 cover: https://ryan-hsu.com/images/home-assistant-green-backup-recovery-plan/cover-option-1.png
 ---

@@ -3,6 +3,7 @@
 title: 從 PHP2Shell、Zeabur 到 91APP：三起資安事件後，我檢查了自己的網站
 description: PHP 核心漏洞、雲端憑證失守、電商資料庫遭攻擊，三起不同的資安事件讓我回頭檢查自己的部落格，並用 Spectra 補強 GitHub Actions 與 Firebase 部署流程。
 pubDate: 2026-10-22T22:02:06+08:00
+category: ai
 tags: [security, spectra, github-actions, firebase]
 cover: https://ryan-hsu.com/images/php2shell-zeabur-security-lessons/cover.png
 ---

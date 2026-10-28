@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { buildSite, FULL_CONFIG } from './helpers/build-site.mjs';
 
-const POSTS = { a: { data: { title: 'Post A', description: 'D', pubDate: '2026-01-01', tags: ['astro'] } } };
+const POSTS = { a: { data: { title: 'Post A', description: 'D', pubDate: '2026-01-01', category: 'ai', tags: ['astro'] } } };
 
 test('AdSense、GA4、giscus、GitHub 設定為空時都不輸出', () => {
   const site = buildSite({
