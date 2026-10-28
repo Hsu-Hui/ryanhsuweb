@@ -1,11 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostRow from '../components/PostRow.astro';
+import { CATEGORIES, type Category } from '../lib/categories';
 import { formatDate } from '../lib/date';
 import { countTags, getPosts } from '../lib/posts';
 
 const posts = await getPosts();
 const tags = countTags(posts);
+const categories = (Object.entries(CATEGORIES) as [Category, string][]).map(
+  ([key, label]) => [key, label, posts.filter((post) => post.data.category === key).length] as const,
+);
 
 // 依台北時區的年份分組；getPosts() 已經由新到舊，所以分組後順序不變。
 const years = new Map<string, typeof posts>();
@@ -16,19 +20,21 @@ for (const post of posts) {
 
 const chipClass =
   'inline-block rounded border border-accent/40 px-2 py-1 font-mono text-sm text-accent hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-card';
+const tabClass =
+  'inline-block border-b-2 border-transparent px-1 pb-2 font-semibold text-muted-fg hover:text-accent aria-pressed:border-accent aria-pressed:text-accent';
 ---
 
-<BaseLayout title="文章" description="依年份瀏覽所有文章，也可以用標籤篩選。">
+<BaseLayout title="文章" description="依分類或標籤瀏覽所有文章。">
   <h1 class="mb-6 font-mono text-sm text-muted-fg">~/ <span class="text-accent">文章</span></h1>
 
-  <nav aria-label="依標籤篩選" class="mb-8">
-    <ul class="flex flex-wrap gap-2">
-      <li><a href="/posts" class={chipClass} data-filter="" aria-pressed="true">全部</a></li>
+  <nav aria-label="文章分類" class="mb-6 border-b border-border">
+    <ul class="flex flex-wrap gap-x-6 gap-y-2">
+      <li><a href="/posts" class={tabClass} data-category-filter="" aria-pressed="true">全部</a></li>
       {
-        tags.map(([tag, count]) => (
+        categories.map(([key, label, count]) => (
           <li>
-            <a href={`/tags/${encodeURIComponent(tag)}`} class={chipClass} data-filter={tag}>
-              #{tag} ({count})
+            <a href={`/posts?category=${key}`} class={tabClass} data-category-filter={key}>
+              {label} <span class="font-mono text-xs">({count})</span>
             </a>
           </li>
         ))
@@ -50,38 +56,69 @@ const chipClass =
       ))
     }
   </div>
+
+  <nav aria-label="依標籤篩選" class="mt-8">
+    <h2 class="mb-3 font-mono text-sm text-muted-fg">標籤</h2>
+    <ul class="flex flex-wrap gap-2">
+      <li><a href="/posts" class={chipClass} data-filter="" aria-pressed="true">全部</a></li>
+      {
+        tags.map(([tag, count]) => (
+          <li>
+            <a href={`/tags/${encodeURIComponent(tag)}`} class={chipClass} data-filter={tag}>
+              #{tag} ({count})
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </BaseLayout>
 
 <script>
   // 沒有 JavaScript 時，標籤就是一般的標籤頁連結；有 JavaScript 時改成在頁面內篩選。
-  const chips = [...document.querySelectorAll<HTMLAnchorElement>('[data-filter]')];
+  // 分類和標籤一次只套用一種，選了其中一種就清掉另一種。
+  type Kind = 'category' | 'tag';
+  const chips: Record<Kind, HTMLAnchorElement[]> = {
+    category: [...document.querySelectorAll<HTMLAnchorElement>('[data-category-filter]')],
+    tag: [...document.querySelectorAll<HTMLAnchorElement>('[data-filter]')],
+  };
+  const valueOf = (kind: Kind, chip: HTMLElement) =>
+    (kind === 'category' ? chip.dataset.categoryFilter : chip.dataset.filter) ?? '';
   const rows = [...document.querySelectorAll<HTMLElement>('[data-post]')];
   const groups = [...document.querySelectorAll<HTMLElement>('[data-year]')];
-  const known = new Set(chips.map((chip) => chip.dataset.filter).filter(Boolean));
 
-  function apply(tag: string) {
-    const active = known.has(tag) ? tag : '';
-    for (const chip of chips) {
-      if (chip.dataset.filter === active) chip.setAttribute('aria-pressed', 'true');
-      else chip.removeAttribute('aria-pressed');
+  function apply(kind: Kind, value: string) {
+    const known = chips[kind].some((chip) => valueOf(kind, chip) === value);
+    const active = { category: '', tag: '', [kind]: known ? value : '' };
+    for (const k of ['category', 'tag'] as const) {
+      for (const chip of chips[k]) {
+        if (valueOf(k, chip) === active[k]) chip.setAttribute('aria-pressed', 'true');
+        else chip.removeAttribute('aria-pressed');
+      }
     }
     for (const row of rows) {
       const tags: string[] = JSON.parse(row.dataset.tags ?? '[]');
-      row.hidden = active !== '' && !tags.includes(active);
+      row.hidden =
+        (active.tag !== '' && !tags.includes(active.tag)) ||
+        (active.category !== '' && row.dataset.category !== active.category);
     }
     for (const group of groups) {
       group.hidden = [...group.querySelectorAll<HTMLElement>('[data-post]')].every((row) => row.hidden);
     }
   }
 
-  for (const chip of chips) {
-    chip.addEventListener('click', (event) => {
-      event.preventDefault();
-      const tag = chip.dataset.filter ?? '';
-      history.replaceState(null, '', tag ? `/posts?tag=${encodeURIComponent(tag)}` : '/posts');
-      apply(tag);
-    });
+  for (const kind of ['category', 'tag'] as const) {
+    for (const chip of chips[kind]) {
+      chip.addEventListener('click', (event) => {
+        event.preventDefault();
+        const value = valueOf(kind, chip);
+        history.replaceState(null, '', value ? `/posts?${kind}=${encodeURIComponent(value)}` : '/posts');
+        apply(kind, value);
+      });
+    }
   }
 
-  apply(new URLSearchParams(location.search).get('tag') ?? '');
+  const params = new URLSearchParams(location.search);
+  if (params.has('category')) apply('category', params.get('category') ?? '');
+  else apply('tag', params.get('tag') ?? '');
 </script>

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { after, before, describe, test } from 'node:test';
 import { buildSite, textOf } from './helpers/build-site.mjs';
 
-const post = (body) => ({ data: { title: 'T', description: 'D', pubDate: '2026-01-01', tags: ['astro'] }, body });
+const post = (body) => ({ data: { title: 'T', description: 'D', pubDate: '2026-01-01', category: 'ai', tags: ['astro'] }, body });
 
 // spec「Heading hierarchy and threshold」範例表：檔名 → 內文標題與預期的目錄（[層級, 文字]）。
 const HIERARCHY = {

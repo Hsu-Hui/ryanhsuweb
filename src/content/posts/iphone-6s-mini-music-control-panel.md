@@ -2,6 +2,7 @@
 title: 用一支舊 iPhone，做出迷你音樂中控台
 description: 大家都在開箱 iPhone Duo，我用 spacedesk 將舊 iPhone 6s 變成 Windows 副螢幕，再結合 Macro Deck、YTM‑Immersion 與 Open-as-Popup，做出可觸控操作的迷你 YouTube Music 中控台。
 pubDate: 2026-10-27T00:36:34+08:00
+category: life-lab
 tags: [iphone, spacedesk, macro-deck, youtube-music, chrome-extension]
 cover: https://ryan-hsu.com/images/iphone-6s-mini-music-control-panel/cover.png
 ---

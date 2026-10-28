@@ -2,6 +2,7 @@
 title: 智能家居系列（一）：我為什麼開始用 Home Assistant
 description: 從 Aqara App、Apple Home 到 Home Assistant Green，我想解決的不是怎麼用手機開燈，而是讓燈光、感測器、空氣清淨機、除濕機與小米電視真正串在一起。
 pubDate: 2026-10-23T09:29:12+08:00
+category: smart-home
 tags: [home-assistant, smart-home, apple-home, aqara]
 cover: https://ryan-hsu.com/images/why-i-started-using-home-assistant/cover.png
 ---

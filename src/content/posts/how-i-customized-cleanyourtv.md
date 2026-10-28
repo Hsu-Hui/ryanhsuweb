@@ -2,6 +2,7 @@
 title: 智能家居系列（五）：我怎麼把 CleanYourTV 改成自己的電視首頁
 description: 電視首頁看起來有點髒，我用 CleanYourTV 保守地關掉推薦內容，換上只有常用 App 的繁中首頁，再加上一個會顯示天氣的寶可夢螢幕保護。這篇用不需要懂程式的方式，逐步整理我的實作方法。
 pubDate: 2026-10-25T12:09:16+08:00
+category: smart-home
 tags: [android-tv, smart-home, cleanyourtv, adb]
 cover: https://ryan-hsu.com/images/how-i-customized-cleanyourtv/cover.png
 ---

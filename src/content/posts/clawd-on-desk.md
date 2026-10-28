@@ -2,6 +2,7 @@
 title: 讓 Claude Code 在桌面養一隻寵物：Clawd on Desk 安裝與使用心得
 description: Clawd on Desk 是一個會跟著 AI 寫程式工具換動作的桌面寵物，還能看到每個對話的進度、直接在桌面上允許或拒絕權限請求。這篇整理我在 Windows 上的安裝過程和常用功能。
 pubDate: 2026-10-23T21:50:00+08:00
+category: ai
 tags: [claude-code, desktop-pet, windows, tools]
 cover: https://ryan-hsu.com/images/clawd-on-desk/cover.png
 ---

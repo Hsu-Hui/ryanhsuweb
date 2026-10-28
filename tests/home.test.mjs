@@ -8,7 +8,7 @@ function makePosts(count) {
   return Object.fromEntries(
     Array.from({ length: count }, (_, i) => {
       const n = String(i + 1).padStart(2, '0');
-      return [`p${n}`, { data: { title: `Post ${n}`, description: 'D', pubDate: `2026-01-${n}` } }];
+      return [`p${n}`, { data: { title: `Post ${n}`, description: 'D', pubDate: `2026-01-${n}`, category: 'ai' } }];
     }),
   );
 }
