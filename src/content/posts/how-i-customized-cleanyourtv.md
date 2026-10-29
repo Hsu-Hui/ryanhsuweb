@@ -4,11 +4,11 @@ description: 電視首頁看起來有點髒，我用 CleanYourTV 保守地關掉
 pubDate: 2026-10-25T12:09:16+08:00
 category: smart-home
 tags: [android-tv, smart-home, cleanyourtv, adb]
-cover: https://ryan-hsu.com/images/how-i-customized-cleanyourtv/cover.png
+cover: https://ryan-hsu.com/images/how-i-customized-cleanyourtv/cover.jpg
 ---
 
 <figure>
-  <img src="/images/how-i-customized-cleanyourtv/cover.png" alt="智能家居系列（五）：把充滿推薦內容的 Android TV 首頁改成自己的 CleanYourTV 首頁" width="1730" height="909" />
+  <img src="/images/how-i-customized-cleanyourtv/cover.jpg" alt="智能家居系列（五）：把充滿推薦內容的 Android TV 首頁改成自己的 CleanYourTV 首頁" width="1200" height="631" />
 </figure>
 
 突然覺得電視有點髒髒的，就開始動手 Clean 起來。
@@ -17,7 +17,7 @@ cover: https://ryan-hsu.com/images/how-i-customized-cleanyourtv/cover.png
 這裡說的「髒」指的就是每次按下 Home，眼前都有推薦影片、宣傳內容、用不到的入口和一長排 App。明明只想開某一個APP或投放手機畫面，卻要先從一堆資訊裡把它們找出來。
 
 <figure>
-  <img src="/images/how-i-customized-cleanyourtv/01-before-tv.png" alt="改造前的小米 Android TV 首頁，畫面包含大型推薦內容、通知、應用程式列與接著播放清單" width="2880" height="2160" loading="lazy" />
+  <img src="/images/how-i-customized-cleanyourtv/01-before-tv.webp" alt="改造前的小米 Android TV 首頁，畫面包含大型推薦內容、通知、應用程式列與接著播放清單" width="1600" height="1200" loading="lazy" />
   <figcaption>這是原本的電視首頁。功能都能用，但我每天真正需要的 App，只占了畫面很小的一部分。</figcaption>
 </figure>
 
@@ -171,7 +171,7 @@ android.autoinstalls.config.xiaomi.amelie
 6. 重新啟動電視，再把以上項目測一次
 
 <figure>
-  <img src="/images/how-i-customized-cleanyourtv/02-after-cleanyourtv.png" alt="改造後的 CleanYourTV 繁體中文首頁，上方顯示時間、輸入來源、Wi-Fi 與設定，第一排是四個常用 App" width="2880" height="2160" loading="lazy" />
+  <img src="/images/how-i-customized-cleanyourtv/02-after-cleanyourtv.webp" alt="改造後的 CleanYourTV 繁體中文首頁，上方顯示時間、輸入來源、Wi-Fi 與設定，第一排是四個常用 App" width="1600" height="1200" loading="lazy" />
   <figcaption>改造後首頁第一眼只剩我每天真的會用的入口</figcaption>
 </figure>
 
@@ -196,7 +196,7 @@ android.autoinstalls.config.xiaomi.amelie
 如果你也想做自己的版本，可以把準備好的圖片交給 AI，要求它「另外建立 Android TV DreamService，不要修改 CleanYourTV Launcher」，再清楚指定換圖時間、天氣城市與允許的權限。APK 安裝後，到電視的「設定 → 裝置偏好設定 → 螢幕保護程式」選取它即可。
 
 <figure>
-  <img src="/images/how-i-customized-cleanyourtv/03-charizard-screensaver.png" alt="改造後的 Android TV 螢幕保護畫面，以寶可夢桌布為背景，左下顯示天氣、時間與日期" width="2880" height="2160" loading="lazy" />
+  <img src="/images/how-i-customized-cleanyourtv/03-charizard-screensaver.webp" alt="改造後的 Android TV 螢幕保護畫面，以寶可夢桌布為背景，左下顯示天氣、時間與日期" width="1600" height="1200" loading="lazy" />
   <figcaption>完成後的螢幕保護畫面。時間和天氣留在角落，主角剛好是超帥的噴火龍。</figcaption>
 </figure>
 

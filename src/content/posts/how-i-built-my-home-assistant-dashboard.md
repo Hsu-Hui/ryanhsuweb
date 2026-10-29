@@ -4,11 +4,11 @@ description: 把設備接進 Home Assistant 之後，我沒有急著堆滿卡片
 pubDate: 2026-10-23T17:09:34+08:00
 category: smart-home
 tags: [home-assistant, dashboard, smart-home, lovelace]
-cover: https://ryan-hsu.com/images/how-i-built-my-home-assistant-dashboard/cover.png
+cover: https://ryan-hsu.com/images/how-i-built-my-home-assistant-dashboard/cover.jpg
 ---
 
 <figure>
-  <img src="/images/how-i-built-my-home-assistant-dashboard/cover.png" alt="以不同房間為入口的智能家居儀表板概念圖" width="1728" height="911" />
+  <img src="/images/how-i-built-my-home-assistant-dashboard/cover.jpg" alt="以不同房間為入口的智能家居儀表板概念圖" width="1200" height="631" />
 </figure>
 
 把設備陸續接進 Home Assistant 之後，我一度以為儀表板只是最後的整理工作。
@@ -60,7 +60,7 @@ cover: https://ryan-hsu.com/images/how-i-built-my-home-assistant-dashboard/cover
 下面這張圖就是目前房間總覽的一部分。我用客廳和臥室示範同一套排列方式：兩邊的設備不同，但都是從房間、環境一路讀到控制。
 
 <figure>
-  <img src="/images/how-i-built-my-home-assistant-dashboard/room-overview.png" alt="Home Assistant 房間總覽，以客廳與臥室示範環境資訊和設備控制的排列方式" width="1808" height="1145" loading="lazy" />
+  <img src="/images/how-i-built-my-home-assistant-dashboard/room-overview.webp" alt="Home Assistant 房間總覽，以客廳與臥室示範環境資訊和設備控制的排列方式" width="1600" height="1014" loading="lazy" />
   <figcaption>客廳與臥室只是房間式儀表板的兩個例子；每一區都先呈現環境，再放入那個空間真正需要的控制。</figcaption>
 </figure>
 

@@ -4,11 +4,11 @@ description: 當自動化、儀表板與 AppDaemon 都集中在 Home Assistant G
 pubDate: 2026-10-26T00:00:00+08:00
 category: smart-home
 tags: [home-assistant, smart-home, backup, disaster-recovery]
-cover: https://ryan-hsu.com/images/home-assistant-green-backup-recovery-plan/cover-option-1.png
+cover: https://ryan-hsu.com/images/home-assistant-green-backup-recovery-plan/cover-option-1.jpg
 ---
 
 <figure>
-  <img src="/images/home-assistant-green-backup-recovery-plan/cover-option-1.png" alt="智能家居系列（六）：Home Assistant Green 故障後，從外部備份復原到替代主機的流程" width="1730" height="909" />
+  <img src="/images/home-assistant-green-backup-recovery-plan/cover-option-1.jpg" alt="智能家居系列（六）：Home Assistant Green 故障後，從外部備份復原到替代主機的流程" width="1200" height="631" />
 </figure>
 
 前面幾篇文章裡，我把家裡不同品牌的設備接進 Home Assistant，也開始把儀表板、自動化與 AppDaemon 程式一點一點整理成自己習慣的樣子。
@@ -32,7 +32,7 @@ Home Assistant 已經有內建的備份功能。依照[官方備份說明](https
 這是我這份計畫的第一個原則：**本機備份解決設定改壞或更新失敗；外部副本才處理整台 Green 無法使用。**
 
 <figure>
-  <img src="/images/home-assistant-green-backup-recovery-plan/01-three-layer-backup-plan.png" alt="三階段備份計畫：Home Assistant Green 建立加密備份、複製到外部裝置，再把復原金鑰分開保存" width="1671" height="941" loading="lazy" />
+  <img src="/images/home-assistant-green-backup-recovery-plan/01-three-layer-backup-plan.webp" alt="三階段備份計畫：Home Assistant Green 建立加密備份、複製到外部裝置，再把復原金鑰分開保存" width="1600" height="901" loading="lazy" />
   <figcaption>備份檔、原主機與解密金鑰不應該只存在同一個地方；其中任何一項拿不到，復原都可能停在半路。</figcaption>
 </figure>
 
@@ -86,7 +86,7 @@ Home Assistant 的自動備份預設會加密。第一次設定時，介面會�
 - 手機 App、通知或外部服務如果需要重新授權，已經被列入復原步驟。
 
 <figure>
-  <img src="/images/home-assistant-green-backup-recovery-plan/02-restore-rehearsal.png" alt="復原演練流程：關閉原本主機、用備份與金鑰還原替代主機，再檢查燈光、窗簾與自動化" width="1672" height="941" loading="lazy" />
+  <img src="/images/home-assistant-green-backup-recovery-plan/02-restore-rehearsal.webp" alt="復原演練流程：關閉原本主機、用備份與金鑰還原替代主機，再檢查燈光、窗簾與自動化" width="1600" height="900" loading="lazy" />
   <figcaption>復原完成的判準不是畫面能開，而是最重要的控制與自動化經過逐項驗證。</figcaption>
 </figure>
 

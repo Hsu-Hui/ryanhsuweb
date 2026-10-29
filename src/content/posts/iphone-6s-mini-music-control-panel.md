@@ -4,11 +4,11 @@ description: 大家都在開箱 iPhone Duo，我用 spacedesk 將舊 iPhone 6s �
 pubDate: 2026-10-27T00:36:34+08:00
 category: life-lab
 tags: [iphone, spacedesk, macro-deck, youtube-music, chrome-extension]
-cover: https://ryan-hsu.com/images/iphone-6s-mini-music-control-panel/cover.png
+cover: https://ryan-hsu.com/images/iphone-6s-mini-music-control-panel/cover.jpg
 ---
 
 <figure>
-  <img src="/images/iphone-6s-mini-music-control-panel/cover.png" alt="用一支舊 iPhone，做出迷你音樂中控台" width="1672" height="941" />
+  <img src="/images/iphone-6s-mini-music-control-panel/cover.jpg" alt="用一支舊 iPhone，做出迷你音樂中控台" width="1200" height="675" />
 </figure>
 
 ## 讓 iPhone 6s 重新就業
@@ -141,7 +141,7 @@ iPhone 6s 的螢幕不大，spacedesk 一開始也不一定會自動選到最合
 ## 完成後，它真的有用嗎
 
 <figure>
-  <img src="/images/iphone-6s-mini-music-control-panel/iphone6s-mini-music-console-clean.png" alt="清潔後的 iPhone 6s 同時顯示 YTM‑Immersion 與 Macro Deck" width="1448" height="1086" loading="lazy" />
+  <img src="/images/iphone-6s-mini-music-control-panel/iphone6s-mini-music-console-clean.webp" alt="清潔後的 iPhone 6s 同時顯示 YTM‑Immersion 與 Macro Deck" width="1448" height="1086" loading="lazy" />
   <figcaption>左邊是 YTM‑Immersion，右邊是 Macro Deck。原本吃灰的手機，現在開始負責桌面值班。</figcaption>
 </figure>
 
