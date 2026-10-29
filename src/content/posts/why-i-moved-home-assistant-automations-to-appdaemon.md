@@ -4,11 +4,11 @@ description: YAML 並沒有不好，但當離家模式開始需要啟動補判�
 pubDate: 2026-10-23T16:58:54+08:00
 category: smart-home
 tags: [home-assistant, appdaemon, python, yaml, smart-home]
-cover: https://ryan-hsu.com/images/why-i-moved-home-assistant-automations-to-appdaemon/cover.png
+cover: https://ryan-hsu.com/images/why-i-moved-home-assistant-automations-to-appdaemon/cover.jpg
 ---
 
 <figure>
-  <img src="/images/why-i-moved-home-assistant-automations-to-appdaemon/cover.png" alt="智能家居系列（二）：我為什麼把 Home Assistant 自動化從 YAML 搬到 AppDaemon" width="1730" height="909" />
+  <img src="/images/why-i-moved-home-assistant-automations-to-appdaemon/cover.jpg" alt="智能家居系列（二）：我為什麼把 Home Assistant 自動化從 YAML 搬到 AppDaemon" width="1200" height="631" />
 </figure>
 
 上一篇寫到，我用 Home Assistant 把原本分散在 Aqara、Apple Home 與各家 App 裡的設備接了起來。臥室濕度過高時自動除濕，按下料理模式後，小米電視也會自己開機並播放音樂。
@@ -36,7 +36,7 @@ Home Assistant 的 YAML automation 很適合描述一條清楚的因果關係：
 問題是，自動化開始貼近真實生活後，那條原本很短的線會慢慢長出分支：先等待設備啟動、再查一次狀態、失敗時重試、成功或逾時後通知、系統重啟時重新判斷，使用者又按了一次按鈕時還要取消前一次尚未完成的排程。
 
 <figure>
-  <img src="/images/why-i-moved-home-assistant-automations-to-appdaemon/yaml-complexity-story.png" alt="Home Assistant 自動化從單一步驟逐漸增加等待、驗證與通知分支" width="1776" height="888" loading="lazy" />
+  <img src="/images/why-i-moved-home-assistant-automations-to-appdaemon/yaml-complexity-story.webp" alt="Home Assistant 自動化從單一步驟逐漸增加等待、驗證與通知分支" width="1600" height="800" loading="lazy" />
   <figcaption>需求每增加一點，原本線性的自動化就多一層狀態、等待與例外處理。</figcaption>
 </figure>
 
@@ -84,7 +84,7 @@ if self._startup_check:
 狀態進入 `armed_away` 時，程式只關閉目前還沒關閉的目標。送出指令後不直接宣告成功，而是保留一個計時器，五秒後再檢查一次。
 
 <figure>
-  <img src="/images/why-i-moved-home-assistant-automations-to-appdaemon/away-mode-story.png" alt="AppDaemon 在離家後關閉電視盒電源、等待、驗證並在需要時重試" width="1776" height="888" loading="lazy" />
+  <img src="/images/why-i-moved-home-assistant-automations-to-appdaemon/away-mode-story.webp" alt="AppDaemon 在離家後關閉電視盒電源、等待、驗證並在需要時重試" width="1600" height="800" loading="lazy" />
   <figcaption>離家只是起點；真正重要的是送出指令後，系統還會回頭確認結果。</figcaption>
 </figure>
 

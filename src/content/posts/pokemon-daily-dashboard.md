@@ -4,11 +4,11 @@ description: 因為忘記完成秋季遠足限時調查，錯過了喜歡的特�
 pubDate: 2026-10-23T09:24:39+08:00
 category: life-lab
 tags: [pokemon-go, automation, google-apps-script, github-actions, python]
-cover: https://ryan-hsu.com/images/pokemon-daily-dashboard/cover-04a-soft-gradient.png
+cover: https://ryan-hsu.com/images/pokemon-daily-dashboard/cover-04a-soft-gradient.jpg
 ---
 
 <figure>
-  <img src="/images/pokemon-daily-dashboard/cover-04a-soft-gradient.png" alt="我做了一個寶可夢每日看板：活動、任務、商品與新聞，一次整理" width="1731" height="909" />
+  <img src="/images/pokemon-daily-dashboard/cover-04a-soft-gradient.jpg" alt="我做了一個寶可夢每日看板：活動、任務、商品與新聞，一次整理" width="1200" height="630" />
 </figure>
 
 會開始做這個寶可夢每日看板，是因為沒有及時完成「秋季遠足」的限時調查。
@@ -69,7 +69,7 @@ Google 試算表在這裡不是拿來手動填資料，而是一個容易查看�
 ## 第一頁：總覽先告訴我，今天最該注意什麼
 
 <figure>
-  <img src="/images/pokemon-daily-dashboard/01-overview.png" alt="寶可夢每日看板總覽，顯示活動、任務進度、快結束項目與新商品" width="1510" height="1217" />
+  <img src="/images/pokemon-daily-dashboard/01-overview.webp" alt="寶可夢每日看板總覽，顯示活動、任務進度、快結束項目與新商品" width="1510" height="1217" />
   <figcaption>總覽不追求放進所有資料，只先回答今天最重要的幾個問題。</figcaption>
 </figure>
 
@@ -84,7 +84,7 @@ Google 試算表在這裡不是拿來手動填資料，而是一個容易查看�
 ## 第二頁：GO 活動讓我看見時間，而不是只看見標題
 
 <figure>
-  <img src="/images/pokemon-daily-dashboard/02-go-events.png" alt="Pokémon GO 活動分頁，依類型列出活動時間與剩餘天數" width="1448" height="1210" />
+  <img src="/images/pokemon-daily-dashboard/02-go-events.webp" alt="Pokémon GO 活動分頁，依類型列出活動時間與剩餘天數" width="1448" height="1210" />
   <figcaption>活動依類型、開始時間與結束時間整理，分類可以同時選擇多個。</figcaption>
 </figure>
 
@@ -101,7 +101,7 @@ Pokémon GO 的活動很多，有聚焦時刻、極巨化、團體戰、GO Pass�
 ## 第三頁：任務待辦記住進度，也在我忘記時提醒我
 
 <figure>
-  <img src="/images/pokemon-daily-dashboard/03-tasks.png" alt="任務待辦分頁，顯示限時調查進度、獎勵、到期時間與儲存按鈕" width="1422" height="1222" />
+  <img src="/images/pokemon-daily-dashboard/03-tasks.webp" alt="任務待辦分頁，顯示限時調查進度、獎勵、到期時間與儲存按鈕" width="1422" height="1222" />
   <figcaption>每項任務都能勾選，限時調查會保留順序與完成進度。</figcaption>
 </figure>
 
@@ -120,7 +120,7 @@ Pokémon GO 的活動很多，有聚焦時刻、極巨化、團體戰、GO Pass�
 ## 第四頁：既然每天都會開，就順便整理新商品
 
 <figure>
-  <img src="/images/pokemon-daily-dashboard/04-products.png" alt="新商品分頁，顯示最近上架的寶可夢商品、價格、搜尋與排序功能" width="1428" height="1223" />
+  <img src="/images/pokemon-daily-dashboard/04-products.webp" alt="新商品分頁，顯示最近上架的寶可夢商品、價格、搜尋與排序功能" width="1428" height="1223" />
   <figcaption>新商品只保留最近七天，並提供名稱搜尋與價格、時間排序。</figcaption>
 </figure>
 
@@ -133,7 +133,7 @@ Pokémon GO 的活動很多，有聚焦時刻、極巨化、團體戰、GO Pass�
 ## 第五頁：新聞只出現一次，而且知道它從哪裡來
 
 <figure>
-  <img src="/images/pokemon-daily-dashboard/05-news.png" alt="活動與新聞分頁，依官方、新聞、活動來源整理寶可夢消息" width="1420" height="1201" />
+  <img src="/images/pokemon-daily-dashboard/05-news.webp" alt="活動與新聞分頁，依官方、新聞、活動來源整理寶可夢消息" width="1420" height="1201" />
   <figcaption>官網公告、新聞與台灣活動集中在同一頁，相同事件只保留一筆。</figcaption>
 </figure>
 
@@ -146,7 +146,7 @@ Pokémon GO 的活動很多，有聚焦時刻、極巨化、團體戰、GO Pass�
 ## 第六頁：我的最愛不是一個連結，而是一份當時的快照
 
 <figure>
-  <img src="/images/pokemon-daily-dashboard/06-favorites.png" alt="我的最愛分頁，保存收藏的寶可夢新聞與商品" width="1427" height="545" />
+  <img src="/images/pokemon-daily-dashboard/06-favorites.webp" alt="我的最愛分頁，保存收藏的寶可夢新聞與商品" width="1427" height="545" />
   <figcaption>新聞與商品即使離開七天清單，收藏的內容仍會留下。</figcaption>
 </figure>
 
@@ -159,7 +159,7 @@ Pokémon GO 的活動很多，有聚焦時刻、極巨化、團體戰、GO Pass�
 ## 第七頁：封存讓結束的事情離開，也讓我記得為什麼開始
 
 <figure>
-  <img src="/images/pokemon-daily-dashboard/07-archive.png" alt="封存分頁，顯示已放棄的秋季遠足限時調查與已結束活動" width="1402" height="406" />
+  <img src="/images/pokemon-daily-dashboard/07-archive.webp" alt="封存分頁，顯示已放棄的秋季遠足限時調查與已結束活動" width="1402" height="406" />
   <figcaption>已結束的活動和任務會自動離開目前清單；放棄的任務仍可復原。</figcaption>
 </figure>
 

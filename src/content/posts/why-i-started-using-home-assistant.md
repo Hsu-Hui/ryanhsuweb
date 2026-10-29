@@ -4,11 +4,11 @@ description: 從 Aqara App、Apple Home 到 Home Assistant Green，我想解決�
 pubDate: 2026-10-23T09:29:12+08:00
 category: smart-home
 tags: [home-assistant, smart-home, apple-home, aqara]
-cover: https://ryan-hsu.com/images/why-i-started-using-home-assistant/cover.png
+cover: https://ryan-hsu.com/images/why-i-started-using-home-assistant/cover.jpg
 ---
 
 <figure>
-  <img src="/images/why-i-started-using-home-assistant/cover.png" alt="智能家居系列（一）：從 Aqara、Apple Home 到 Home Assistant 跨品牌自動化" width="1730" height="909" />
+  <img src="/images/why-i-started-using-home-assistant/cover.jpg" alt="智能家居系列（一）：從 Aqara、Apple Home 到 Home Assistant 跨品牌自動化" width="1200" height="631" />
 </figure>
 
 我原本主要使用 Aqara App 控制家裡的智能設備。
@@ -62,7 +62,7 @@ Home Assistant 可以裝在 Raspberry Pi、迷你電腦、虛擬機或其他環�
 硬體本身是一台小型、低功耗的專用主機，採用 1.8 GHz 四核心 ARM 處理器、4 GB 記憶體和 32 GB eMMC 儲存空間，並提供 Gigabit Ethernet 與兩個 USB 連接埠。對我而言，最重要的不是規格有多高，而是它把安裝環境先整理好了。
 
 <figure>
-  <img src="/images/why-i-started-using-home-assistant/green-setup-story.png" alt="Home Assistant Green 從開箱接線、手機設定到串接全屋設備的三幕故事" width="1536" height="768" loading="lazy" />
+  <img src="/images/why-i-started-using-home-assistant/green-setup-story.webp" alt="Home Assistant Green 從開箱接線、手機設定到串接全屋設備的三幕故事" width="1600" height="900" loading="lazy" />
   <figcaption>接上電源與網路、跟著手機完成設定，接下來就能把心力放在設備整合上。</figcaption>
 </figure>
 
@@ -83,7 +83,7 @@ Home Assistant Green 並不是唯一的選擇，也未必適合喜歡自己挑�
 系統開始運作後，我先把臥室的濕度感測器和除濕機接進同一套自動化。以前是我看到濕度太高，再打開另一個 App 操作；現在由 Home Assistant 接手判斷與控制。
 
 <figure>
-  <img src="/images/why-i-started-using-home-assistant/dehumidifier-story.png" alt="臥室濕度從 72% 開始自動除濕，降到 59% 後關閉並通知手機的三幕故事" width="1536" height="768" loading="lazy" />
+  <img src="/images/why-i-started-using-home-assistant/dehumidifier-story.webp" alt="臥室濕度從 72% 開始自動除濕，降到 59% 後關閉並通知手機的三幕故事" width="1600" height="600" loading="lazy" />
   <figcaption>從發現潮濕、啟動除濕，到濕度下降後關機，整段流程不需要手動操作。</figcaption>
 </figure>
 
@@ -102,7 +102,7 @@ Home Assistant Green 並不是唯一的選擇，也未必適合喜歡自己挑�
 另一個我實際做的功能是料理模式，建立一個料理模式按鈕。按下後，Home Assistant 會先開啟電視相關設備，等待五秒讓小米電視完成啟動，再透過 Android TV Remote 要求電視播放指定的 YouTube 音樂清單。
 
 <figure>
-  <img src="/images/why-i-started-using-home-assistant/cooking-mode-story.png" alt="按下料理模式後等待小米電視啟動並播放音樂清單的三幕故事" width="1536" height="768" loading="lazy" />
+  <img src="/images/why-i-started-using-home-assistant/cooking-mode-story.webp" alt="按下料理模式後等待小米電視啟動並播放音樂清單的三幕故事" width="1600" height="900" loading="lazy" />
   <figcaption>按一次料理模式，電視完成啟動後就會自動接著播放音樂。</figcaption>
 </figure>
 

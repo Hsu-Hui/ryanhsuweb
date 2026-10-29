@@ -5,10 +5,10 @@ description: PHP 核心漏洞、雲端憑證失守、電商資料庫遭攻擊，
 pubDate: 2026-10-22T22:02:06+08:00
 category: ai
 tags: [security, spectra, github-actions, firebase]
-cover: https://ryan-hsu.com/images/php2shell-zeabur-security-lessons/cover.png
+cover: https://ryan-hsu.com/images/php2shell-zeabur-security-lessons/cover.jpg
 ---
 <figure>
-  <img src="/images/php2shell-zeabur-security-lessons/cover.png" alt="三起資安事件後，我檢查了自己的網站：PHP2Shell、Zeabur 與 91APP" width="1730" height="909" />
+  <img src="/images/php2shell-zeabur-security-lessons/cover.jpg" alt="三起資安事件後，我檢查了自己的網站：PHP2Shell、Zeabur 與 91APP" width="1200" height="631" />
 </figure>
 
 其實資安事件一直發生，只是有鬧成多大的新聞和有多少人受害的差別。
