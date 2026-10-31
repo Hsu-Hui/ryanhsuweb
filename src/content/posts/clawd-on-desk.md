@@ -4,11 +4,11 @@ description: Clawd on Desk 是一個會跟著 AI 寫程式工具換動作的桌�
 pubDate: 2026-10-23T21:50:00+08:00
 category: ai
 tags: [claude-code, desktop-pet, windows, tools]
-cover: https://ryan-hsu.com/images/clawd-on-desk/cover.png
+cover: https://ryan-hsu.com/images/clawd-on-desk/cover.jpg
 ---
 
 <figure>
-  <img src="/images/clawd-on-desk/cover.png" alt="Clawd on Desk：讓 Claude Code 在桌面養一隻寵物" width="1200" height="630" />
+  <img src="/images/clawd-on-desk/cover.jpg" alt="Clawd on Desk：讓 Claude Code 在桌面養一隻寵物" width="1200" height="630" />
 </figure>
 
 我同時開好幾個 Claude Code 對話的時候，常常不知道哪一個做完了、哪一個卡在等我按允許。Claude 的桌面 App 縮小之後就什麼都看不到，切來切去很浪費時間。
@@ -22,7 +22,7 @@ cover: https://ryan-hsu.com/images/clawd-on-desk/cover.png
 Clawd 一共有 12 種動畫狀態，全部由 Claude Code 的 hooks 自動驅動，不用自己設定。
 
 <figure>
-  <img src="/images/clawd-on-desk/states.png" alt="Clawd 的幾種狀態：待機、思考、打字、蓋東西、兩個以上 subagent 時拋球、出錯、做完開心、通知、睡覺" width="1200" height="660" />
+  <img src="/images/clawd-on-desk/states.webp" alt="Clawd 的幾種狀態：待機、思考、打字、蓋東西、兩個以上 subagent 時拋球、出錯、做完開心、通知、睡覺" width="1200" height="660" />
   <figcaption>Clawd on Desk 內建的幾種狀態。動畫截取自 App 內建的 SVG 素材。</figcaption>
 </figure>
 
@@ -37,7 +37,7 @@ Clawd 一共有 12 種動畫狀態，全部由 Claude Code 的 hooks 自動驅�
 ## 它是怎麼知道 Claude 在做什麼的
 
 <figure>
-  <img src="/images/clawd-on-desk/how-it-works.png" alt="運作方式：Claude Code 的 hooks 呼叫 clawd-hook.js 通知 Clawd，權限請求透過 HTTP 送到本機 127.0.0.1:23333，再顯示成桌面上的泡泡" width="1200" height="520" />
+  <img src="/images/clawd-on-desk/how-it-works.webp" alt="運作方式：Claude Code 的 hooks 呼叫 clawd-hook.js 通知 Clawd，權限請求透過 HTTP 送到本機 127.0.0.1:23333，再顯示成桌面上的泡泡" width="1200" height="520" />
   <figcaption>Clawd 靠 Claude Code 的 hooks 收到狀態（我自己畫的示意圖）。</figcaption>
 </figure>
 
@@ -70,7 +70,7 @@ Clawd 在任何狀態下都可以用滑鼠抓著拖走，也可以拖到另一�
 Clawd 旁邊有一個小 HUD，列出目前進行中的對話。要看完整清單，在 Clawd 身上按右鍵，選 **Open Dashboard**，裡面有每個對話的狀態、最近的事件，也可以幫對話取別名。
 
 <figure>
-  <img src="/images/clawd-on-desk/dashboard.png" alt="Clawd on Desk 的工作階段視窗，列出進行中的 Codex 與 Claude Code 對話，以及跳至終端機按鈕" width="570" height="622" />
+  <img src="/images/clawd-on-desk/dashboard.webp" alt="Clawd on Desk 的工作階段視窗，列出進行中的 Codex 與 Claude Code 對話，以及跳至終端機按鈕" width="570" height="622" />
   <figcaption>右鍵 → Open Dashboard。介面設成中文時，這個視窗叫「工作階段」，Codex 和 Claude Code 的對話會列在一起。</figcaption>
 </figure>
 

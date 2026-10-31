@@ -4,11 +4,11 @@ description: 颱風假待在家，我用 AI Agent 做了這個部落格和一些
 pubDate: 2026-10-24T00:26:51+08:00
 category: ai
 tags: [ai-agent, claude-code, codex, openclaw, ollama]
-cover: https://ryan-hsu.com/images/my-ai-agent-journey/cover.png
+cover: https://ryan-hsu.com/images/my-ai-agent-journey/cover.jpg
 ---
 
 <figure>
-  <img src="/images/my-ai-agent-journey/cover.png" alt="AI Agent 使用歷程：OpenClaw、Codex 到 Claude Code，現在 Claude Code 當主力、Codex 當備援" width="1200" height="630" />
+  <img src="/images/my-ai-agent-journey/cover.jpg" alt="AI Agent 使用歷程：OpenClaw、Codex 到 Claude Code，現在 Claude Code 當主力、Codex 當備援" width="1200" height="630" />
 </figure>
 
 這次颱風假待在家，我用 AI Agent 做了不少事，這個部落格就是其中之一。
@@ -26,7 +26,7 @@ cover: https://ryan-hsu.com/images/my-ai-agent-journey/cover.png
 那段時間我主要是在 Discord 上跟它互動，例如讓它幫我整理新聞晨報。
 
 <figure>
-  <img src="/images/my-ai-agent-journey/openclaw-discord-news.png" alt="OpenClaw 在 Discord 上發出的台灣新聞晨報，列出重大頭條、重點摘要和決策性影響" width="1225" height="916" loading="lazy" />
+  <img src="/images/my-ai-agent-journey/openclaw-discord-news.webp" alt="OpenClaw 在 Discord 上發出的台灣新聞晨報，列出重大頭條、重點摘要和決策性影響" width="1225" height="916" loading="lazy" />
   <figcaption>OpenClaw 在 Discord 上整理的新聞晨報。</figcaption>
 </figure>
 
@@ -47,7 +47,7 @@ cover: https://ryan-hsu.com/images/my-ai-agent-journey/cover.png
 Plus 方案也包含 ChatGPT 的深度研究。我在研究 Home Assistant 的時候就用過，它會整理成一份附來源的報告，從架構、安裝方式到安全性都有。
 
 <figure>
-  <img src="/images/my-ai-agent-journey/chatgpt-deep-research-home-assistant.png" alt="ChatGPT 深度研究產生的 Home Assistant 研究報告，包含執行摘要與研究假設" width="1888" height="1307" loading="lazy" />
+  <img src="/images/my-ai-agent-journey/chatgpt-deep-research-home-assistant.webp" alt="ChatGPT 深度研究產生的 Home Assistant 研究報告，包含執行摘要與研究假設" width="1600" height="1108" loading="lazy" />
   <figcaption>用 ChatGPT 深度研究整理的 Home Assistant 報告。</figcaption>
 </figure>
 
@@ -93,7 +93,7 @@ Plus 方案也包含 ChatGPT 的深度研究。我在研究 Home Assistant 的�
 除了這兩個，我也申請了 Ollama 的免費雲端模型額度，接到我的 Discord 上，另外還裝了 Open WebUI 當聊天介面。
 
 <figure>
-  <img src="/images/my-ai-agent-journey/open-webui-ollama.png" alt="Open WebUI 使用 gpt-oss:120b 的對話，模型回覆無法直接讀取電腦裡的設定檔，請使用者自行貼上內容" width="1438" height="1005" loading="lazy" />
+  <img src="/images/my-ai-agent-journey/open-webui-ollama.webp" alt="Open WebUI 使用 gpt-oss:120b 的對話，模型回覆無法直接讀取電腦裡的設定檔，請使用者自行貼上內容" width="1438" height="1005" loading="lazy" />
   <figcaption>Open WebUI 接上 Ollama 的 gpt-oss:120b，但它沒辦法直接讀我電腦裡的檔案，要我自己貼上。</figcaption>
 </figure>
 

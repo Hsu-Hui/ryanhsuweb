@@ -4,11 +4,11 @@ description: 能用手機開關設備只是遙控；真正的自動化，是讓�
 pubDate: 2026-10-24T00:00:00+08:00
 category: smart-home
 tags: [smart-home, automation, routines]
-cover: https://ryan-hsu.com/images/smart-home-vs-remote-control/cover-option-1.png
+cover: https://ryan-hsu.com/images/smart-home-vs-remote-control/cover-option-1.jpg
 ---
 
 <figure>
-  <img src="/images/smart-home-vs-remote-control/cover-option-1.png" alt="智能家居系列（四）：遙控不等於自動化，讓家跟著生活節奏運作" width="1730" height="909" />
+  <img src="/images/smart-home-vs-remote-control/cover-option-1.jpg" alt="智能家居系列（四）：遙控不等於自動化，讓家跟著生活節奏運作" width="1200" height="631" />
 </figure>
 
 ###
@@ -36,7 +36,7 @@ cover: https://ryan-hsu.com/images/smart-home-vs-remote-control/cover-option-1.p
 接著，書房的夢幻簾切換成透光模式，最後開啟客廳場景。
 
 <figure>
-  <img src="/images/smart-home-vs-remote-control/01-dawn-curtains-story.png" alt="晨間窗簾自動化故事圖：平日 6:50 打開到 50%，五分鐘後全開，再讓書房透光並喚醒客廳" width="1672" height="941" loading="lazy" />
+  <img src="/images/smart-home-vs-remote-control/01-dawn-curtains-story.webp" alt="晨間窗簾自動化故事圖：平日 6:50 打開到 50%，五分鐘後全開，再讓書房透光並喚醒客廳" width="1600" height="900" loading="lazy" />
   <figcaption>一個早晨情境不只是「打開窗簾」，還包含日期、時間、開合比例、等待，以及不同空間的後續動作。</figcaption>
 </figure>
 
@@ -49,7 +49,7 @@ cover: https://ryan-hsu.com/images/smart-home-vs-remote-control/cover-option-1.p
 每天日落時，主臥布簾與紗簾關閉，書房的夢幻簾切換成遮光模式，避免我家亮著被看光光。
 
 <figure>
-  <img src="/images/smart-home-vs-remote-control/02-sunset-curtains-story.png" alt="日落窗簾自動化故事圖：夕陽成為觸發條件，紗簾與布簾依序關閉，房間轉為遮光狀態" width="1672" height="941" loading="lazy" />
+  <img src="/images/smart-home-vs-remote-control/02-sunset-curtains-story.webp" alt="日落窗簾自動化故事圖：夕陽成為觸發條件，紗簾與布簾依序關閉，房間轉為遮光狀態" width="1600" height="900" loading="lazy" />
   <figcaption>日落就關窗簾，雖然這樣我就看不到夕陽了</figcaption>
 </figure>
 
@@ -65,7 +65,7 @@ cover: https://ryan-hsu.com/images/smart-home-vs-remote-control/cover-option-1.p
 另一段「廁所省電模式」則在確認無人超過 3 分鐘，而且燈仍然開著時，把燈關掉。
 
 <figure>
-  <img src="/images/smart-home-vs-remote-control/03-bathroom-light-story.png" alt="廁所燈自動化故事圖：有人持續兩秒後開燈，空間無人三分鐘後再自動關燈" width="1672" height="941" loading="lazy" />
+  <img src="/images/smart-home-vs-remote-control/03-bathroom-light-story.webp" alt="廁所燈自動化故事圖：有人持續兩秒後開燈，空間無人三分鐘後再自動關燈" width="1600" height="900" loading="lazy" />
   <figcaption>「有人就開、沒人就關」背後仍有持續時間與燈光現況，避免每次狀態變化都直接送出指令。</figcaption>
 </figure>
 
@@ -81,7 +81,7 @@ cover: https://ryan-hsu.com/images/smart-home-vs-remote-control/cover-option-1.p
 以前定時關冷氣都要在開冷氣那一刻設定，現在多了這個自動化場景就不用擔心我又忘記設定了。
 
 <figure>
-  <img src="/images/smart-home-vs-remote-control/04-night-ac-story.png" alt="凌晨關冷氣的自動化故事圖：冷氣夜間運轉，到 4:00 後停止送風，房間維持安靜" width="1672" height="941" loading="lazy" />
+  <img src="/images/smart-home-vs-remote-control/04-night-ac-story.webp" alt="凌晨關冷氣的自動化故事圖：冷氣夜間運轉，到 4:00 後停止送風，房間維持安靜" width="1600" height="900" loading="lazy" />
   <figcaption>不是每個自動化都要複雜；只要能穩定接手一件重複而容易忘記的事，它就有價值。</figcaption>
 </figure>
 

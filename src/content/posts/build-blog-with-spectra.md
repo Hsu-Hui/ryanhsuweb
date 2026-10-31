@@ -4,11 +4,11 @@ description: 我用高見龍老師的 Spectra 搭配 Claude Code，兩天內把�
 pubDate: 2026-10-22T19:42:24+08:00
 category: ai
 tags: [spectra, SDD, claude-code, astro, firebase]
-cover: https://ryan-hsu.com/images/build-blog-with-spectra/cover.png
+cover: https://ryan-hsu.com/images/build-blog-with-spectra/cover.jpg
 ---
 
 <figure>
-  <img src="/images/build-blog-with-spectra/cover.png" alt="用 Spectra 打造部落格的流程：discuss、propose、apply、ingest、verify、archive" width="1200" height="630" />
+  <img src="/images/build-blog-with-spectra/cover.jpg" alt="用 Spectra 打造部落格的流程：discuss、propose、apply、ingest、verify、archive" width="1200" height="630" />
 </figure>
 
 這是這個網站的第一篇文章，就從這個網站本身怎麼做出來的開始寫。
