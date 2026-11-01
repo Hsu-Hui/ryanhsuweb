@@ -4,15 +4,15 @@ description: 把螢幕故障的 MacBook Pro A1502 改成 USB 開機的 Batocera 
 pubDate: 2026-11-01T00:00:00+08:00
 category: life-lab
 tags: [macbook, batocera, retro-gaming, cemu]
-cover: https://ryan-hsu.com/images/macbook-a1502-batocera/cover.png
+cover: https://ryan-hsu.com/images/macbook-a1502-batocera/cover.jpg
 ---
 
 <figure>
-  <img src="/images/macbook-a1502-batocera/cover.png" alt="把舊 MacBook 復活變成 Batocera 遊戲機：溫暖桌面風格示意封面" width="1672" height="941" />
+  <img src="/images/macbook-a1502-batocera/cover.jpg" alt="把舊 MacBook 復活變成 Batocera 遊戲機：溫暖桌面風格示意封面" width="1200" height="675" />
 </figure>
 
 <figure>
-  <img src="/images/macbook-a1502-batocera/system.png" alt="MacBook 透過 HDMI 外接螢幕，成功運行 Batocera 遊戲選單" width="2880" height="2160" />
+  <img src="/images/macbook-a1502-batocera/system.webp" alt="MacBook 透過 HDMI 外接螢幕，成功運行 Batocera 遊戲選單" width="1600" height="1200" />
   <figcaption>成功運行的 Batocera 主畫面，原本準備退休的 MacBook，現在復活了。</figcaption>
 </figure>
 
@@ -151,7 +151,7 @@ TwilightPrincessHD/
 ## 薩爾達終於出現在我看得到的螢幕上
 
 <figure>
-  <img src="/images/macbook-a1502-batocera/zelda.png" alt="MacBook 透過 Batocera 與 Cemu 成功啟動薩爾達傳說黃昏公主 HD，外接螢幕顯示遊戲場景" width="2880" height="2160" loading="lazy" />
+  <img src="/images/macbook-a1502-batocera/zelda.webp" alt="MacBook 透過 Batocera 與 Cemu 成功啟動薩爾達傳說黃昏公主 HD，外接螢幕顯示遊戲場景" width="1600" height="1200" loading="lazy" />
   <figcaption>《薩爾達傳說：黃昏公主 HD》成功進入遊戲場景，這次有聲音，也終於有畫面。</figcaption>
 </figure>
 
