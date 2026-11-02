@@ -8,18 +8,27 @@ Defines what the site provides to qualify for and serve Google AdSense: the requ
 
 ### Requirement: Required informational pages
 
-The system SHALL provide an about page at `/about` and a privacy policy page at `/privacy`. The system SHALL NOT generate a separate contact page; the about page MUST show at least one way to reach the site owner. The privacy policy MUST state that:
+The system SHALL provide an about page at `/about` and a privacy policy page at `/privacy`. The system SHALL NOT generate a separate contact page; the about page MUST show at least one way to reach the site owner.
+
+When `adsenseClientId` is set, the privacy policy MUST state that:
 
 - the site uses Google AdSense,
 - Google and its partners use cookies to serve ads based on prior visits, and
 - visitors can opt out of personalized advertising in Google Ads Settings, with a link to `https://adssettings.google.com`.
 
+When `adsenseClientId` is empty, the privacy policy SHALL NOT mention Google AdSense or link to `https://adssettings.google.com`, so that it describes only services the site actually uses.
+
 Any page text that refers readers to a way of contacting the owner SHALL link to `/about`.
 
 #### Scenario: Privacy policy content
 
-- **WHEN** `/privacy` is opened
+- **WHEN** `adsenseClientId` is `ca-pub-1234567890123456` and `/privacy` is opened
 - **THEN** the page mentions Google AdSense and cookies and links to `https://adssettings.google.com`, and its contact sentence links to `/about`
+
+#### Scenario: Privacy policy without AdSense
+
+- **WHEN** `adsenseClientId` is empty and the site is built
+- **THEN** `/privacy` still exists, does not contain `AdSense` or a link to `https://adssettings.google.com`, and its contact sentence links to `/about`; article content written by the owner is not restricted
 
 #### Scenario: No contact page
 
@@ -28,47 +37,12 @@ Any page text that refers readers to a way of contacting the owner SHALL link to
 
 
 <!-- @trace
-source: personal-tech-blog
-updated: 2026-10-22
+source: add-ga4-analytics
+updated: 2026-11-02
 code:
-  - src/pages/posts.astro
-  - src/layouts/BaseLayout.astro
-  - public/images/hello-world/grid.svg
-  - firebase.json
-  - tests/helpers/build-site.mjs
-  - src/content/posts/spectra-workflow.md
-  - .github/workflows/firebase-hosting-pull-request.yml
-  - package.json
-  - src/components/Comments.astro
-  - tests/config.test.mjs
-  - src/pages/about.astro
-  - src/lib/pagination.ts
-  - tests/site.test.mjs
-  - src/components/TagList.astro
-  - tests/redirects.test.mjs
-  - src/lib/posts.ts
-  - src/styles/global.css
-  - src/components/PostRow.astro
-  - src/pages/tags/index.astro
-  - src/pages/[slug].astro
-  - README.md
-  - src/components/Pagination.astro
-  - src/components/NavItems.astro
-  - .github/workflows/firebase-hosting-merge.yml
-  - src/content/posts/hello-world.md
-  - src/assets/about/julia.webp
-  - src/layouts/PageLayout.astro
-  - src/pages/contact.astro
-  - src/pages/index.astro
-  - src/components/Icon.astro
   - src/pages/privacy.astro
-  - src/site.config.ts
-  - src/pages/page/[page].astro
-  - src/components/PostList.astro
-  - tests/content.test.mjs
-  - src/components/Marquee.astro
-  - tests/home.test.mjs
-  - .firebaserc
+  - tests/config.test.mjs
+  - tests/site.test.mjs
 -->
 
 ---

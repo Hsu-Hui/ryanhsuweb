@@ -6,7 +6,7 @@
 ## 2. 發文
 
 - [x] 2.1 `scripts/threads/publish.mjs` 與 `threads-publish.yml`：草稿 Issue 由 repo 擁有者加上 `publish` 標籤時，發主文與回覆留言、留言貼文連結並關閉 Issue。驗證：以模擬 API 執行成功與草稿錯誤兩種情況。
-- [ ] 2.2 設定 4 個 GitHub Secrets 後，用手動執行 `Threads 草稿` 替一篇文章產生草稿並實際發文一次。
+- [x] 2.2 設定 4 個 GitHub Secrets 後，用手動執行 `Threads 草稿` 替一篇文章產生草稿並實際發文一次。
 
 ## 3. 權杖檢查
 
