@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { after, before, describe, test } from 'node:test';
 import { buildSite } from './helpers/build-site.mjs';
 
-const post = (title, pubDate, tags = []) => ({ data: { title, description: `Desc ${title}`, pubDate, tags } });
+const post = (title, pubDate, tags = []) => ({ data: { title, description: `Desc ${title}`, pubDate, category: 'ai', tags } });
 
 /** 相關文章區塊的 HTML；沒有區塊時回傳 undefined。 */
 function relatedHtml(html) {
