@@ -10,7 +10,7 @@ export const siteConfig = {
   // 關於我頁面的 GitHub 圖示連結，留空就不顯示。
   githubUrl: 'https://github.com/Hsu-Hui',
   // AdSense 發布商 ID，格式為 ca-pub- 加數字。
-  adsenseClientId: '',
+  adsenseClientId: 'ca-pub-9672117197447985',
   // Google Analytics 4 評估 ID，格式為 G- 加英數字，留空就不載入 GA。
   ga4MeasurementId: 'G-YWF0DXWYFB',
   // 到 https://giscus.app 產生設定後填入。
