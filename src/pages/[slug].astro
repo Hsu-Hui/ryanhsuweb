@@ -3,29 +3,35 @@ import { render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Comments from '../components/Comments.astro';
 import Icon from '../components/Icon.astro';
+import PostCard from '../components/PostCard.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import TagList from '../components/TagList.astro';
 import { formatDate } from '../lib/date';
-import { getPosts, type Post } from '../lib/posts';
+import { getPosts, getRelatedPosts, type Post } from '../lib/posts';
 import { blogPostingJsonLd } from '../lib/structured-data';
 import { buildToc } from '../lib/toc';
 
 export async function getStaticPaths() {
   // getPosts() 由新到舊，所以 index - 1 是較新的一篇，index + 1 是較舊的一篇。
   const posts = await getPosts();
-  return posts.map((post, index) => ({
-    params: { slug: post.id },
-    props: { post, newer: posts[index - 1], older: posts[index + 1] },
-  }));
+  return posts.map((post, index) => {
+    const newer = posts[index - 1];
+    const older = posts[index + 1];
+    return {
+      params: { slug: post.id },
+      props: { post, newer, older, related: getRelatedPosts(post, posts, [newer, older], 3) },
+    };
+  });
 }
 
 interface Props {
   post: Post;
   newer?: Post;
   older?: Post;
+  related: Post[];
 }
 
-const { post, newer, older } = Astro.props;
+const { post, newer, older, related } = Astro.props;
 const { title, description, pubDate, updatedDate, tags, cover } = post.data;
 const { Content, headings } = await render(post);
 const jsonLd = blogPostingJsonLd(post, Astro.site!);
@@ -102,6 +108,18 @@ const hasToc = toc.length > 0;
             </a>
           )}
         </nav>
+      )
+    }
+
+    {
+      related.length > 0 && (
+        <section aria-label="相關文章" class="mt-10 border-t border-border pt-6">
+          {/* 不加 id，避免和內文標題混在一起。 */}
+          <h2 class="font-mono text-sm text-muted-fg">相關文章</h2>
+          <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((item) => <PostCard post={item} />)}
+          </ul>
+        </section>
       )
     }
   </article>
