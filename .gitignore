@@ -10,3 +10,14 @@ dist/
 .firebase/
 firebase-debug.log
 .threads/
+docs/spectra/.vector-search.db*
+
+# 本機專用的寫作 skill，不推到遠端。
+.claude/skills/smart-home-article/
+
+# 本機工具、備份與產出，不進版控。
+/.agents/
+/Backups/
+/Downloads/
+/Tools/
+/graphify-out/

@@ -3,12 +3,14 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { buildSite } from './helpers/build-site.mjs';
 
-const valid = { title: 'A', description: 'D', pubDate: '2026-10-21' };
+const valid = { title: 'A', description: 'D', pubDate: '2026-10-21', category: 'ai' };
 
 const cases = [
   { name: '完整的 frontmatter 建置成功', data: valid, ok: true },
   { name: '缺少 pubDate 時失敗並指出欄位', data: { title: 'A', description: 'D' }, ok: false, field: 'pubDate' },
   { name: 'pubDate 不是日期時失敗並指出欄位', data: { ...valid, pubDate: 'not a date' }, ok: false, field: 'pubDate' },
+  { name: '缺少 category 時失敗並指出欄位', data: { title: 'A', description: 'D', pubDate: '2026-10-21' }, ok: false, field: 'category' },
+  { name: 'category 不在分類清單時失敗並指出欄位', data: { ...valid, category: 'AI' }, ok: false, field: 'category' },
   { name: 'tags 不是陣列時失敗並指出欄位', data: { ...valid, tags: 'astro' }, ok: false, field: 'tags' },
 ];
 
@@ -45,6 +47,7 @@ test('正式建置完整排除尚未到發布時間的文章', () => {
           title: '已發布文章',
           description: '已經可以公開',
           pubDate: '2020-01-01T08:00:00+08:00',
+          category: 'ai',
           tags: ['published'],
         },
       },
@@ -53,6 +56,7 @@ test('正式建置完整排除尚未到發布時間的文章', () => {
           title: '排程文章',
           description: '尚未公開',
           pubDate: '2099-01-01T08:00:00+08:00',
+          category: 'ai',
           tags: ['scheduled-only'],
         },
       },

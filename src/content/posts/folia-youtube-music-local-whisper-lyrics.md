@@ -2,12 +2,13 @@
 title: 替 YouTube Music 換上動態歌詞：Folia
 description: 我請 Codex 評估第三方播放器 Folia 能不能接 YouTube Music，一路從相容性檢查、備份、安裝到 F 槽，再接上 Ollama 雲端模型產生 AI 主題、用 OpenCC 把歌詞轉成繁體，最後替沒有歌詞的歌做了一個本機 Whisper 轉錄模組。
 pubDate: 2026-10-28T21:00:00+08:00
+category: life-lab
 tags: [folia, youtube-music, ollama, whisper, opencc]
-cover: https://ryan-hsu.com/images/folia-youtube-music-local-whisper-lyrics/cover.png
+cover: https://ryan-hsu.com/images/folia-youtube-music-local-whisper-lyrics/cover.jpg
 ---
 
 <figure>
-  <img src="/images/folia-youtube-music-local-whisper-lyrics/cover.png" alt="替 YouTube Music 換上動態歌詞：Folia" width="1730" height="909" />
+  <img src="/images/folia-youtube-music-local-whisper-lyrics/cover.jpg" alt="替 YouTube Music 換上動態歌詞：Folia" width="1200" height="631" />
 </figure>
 
 上一篇讓舊 iPhone 6s 變成桌上的音樂中控台，原因單純是我喜歡一邊聽 YouTube Music 一邊看歌詞。

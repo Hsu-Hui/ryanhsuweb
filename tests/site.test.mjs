@@ -6,12 +6,13 @@ import { buildSite, textOf } from './helpers/build-site.mjs';
 
 // 依發布日期由新到舊：B、C、A、D。由舊到新（上一篇／下一篇）：D、A、C、B。
 const POSTS = {
-  a: { data: { title: 'Post A', description: 'Desc A', pubDate: '2025-12-31', tags: ['astro'] } },
+  a: { data: { title: 'Post A', description: 'Desc A', pubDate: '2025-12-31', category: 'ai', tags: ['astro'] } },
   b: {
     data: {
       title: 'Post B',
       description: 'Desc B',
       pubDate: '2026-03-01',
+      category: 'ai',
       updatedDate: '2026-03-05',
       tags: ['css'],
       cover: 'https://example.dev/cover.png',
@@ -19,8 +20,8 @@ const POSTS = {
     body: '<figure><img src="/a.png" alt="A"><figcaption>A</figcaption></figure>\n\n```ts\nconst x = 1;\n```\n',
   },
   // UTC 20:00 是台北隔天 04:00，用來確認日期以台北時區顯示。
-  c: { data: { title: 'Post C', description: 'Desc C', pubDate: '2026-01-14T20:00:00Z', tags: ['astro'] } },
-  d: { data: { title: 'a </script> b', description: 'Desc D', pubDate: '2025-06-01' } },
+  c: { data: { title: 'Post C', description: 'Desc C', pubDate: '2026-01-14T20:00:00Z', category: 'smart-home', tags: ['astro'] } },
+  d: { data: { title: 'a </script> b', description: 'Desc D', pubDate: '2025-06-01', category: 'life-lab' } },
 };
 
 let site;
@@ -160,6 +161,22 @@ describe('文章頁 /posts 與標籤頁', () => {
 
   test('篩選按鈕沒有 JavaScript 時是標籤頁連結', () => {
     assert.match(site.read('posts.html'), /href="\/tags\/astro"[^>]*data-filter="astro"/);
+  });
+
+  test('分類導覽列依固定順序列出分類與篇數，文章列帶分類', () => {
+    const html = site.read('posts.html');
+    const order = [...html.matchAll(/data-category-filter="([^"]*)"/g)].map((m) => m[1]);
+    assert.deepEqual(order, ['', 'smart-home', 'ai', 'life-lab']);
+    assert.match(textOf(html), /AI 技術 \(2\)/);
+    assert.match(textOf(html), /智能家居 \(1\)/);
+    assert.match(html, /data-post="a"[^>]*data-category="ai"/);
+  });
+
+  test('分類導覽列在文章列表上方，標籤篩選在下方', () => {
+    const html = site.read('posts.html');
+    const at = (pattern) => html.search(pattern);
+    assert.ok(at(/aria-label="文章分類"/) < at(/data-year=/));
+    assert.ok(at(/data-post="d"/) < at(/aria-label="依標籤篩選"/));
   });
 
   test('標籤總表的篇數與各標籤頁的文章', () => {
