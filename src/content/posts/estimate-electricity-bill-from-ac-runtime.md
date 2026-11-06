@@ -1,7 +1,7 @@
 ---
 title: 智能家居系列（八）：電費到底都花去哪
 description: 上一期電費 3,674 元，Home Assistant 裡卻連一個用電感測器都沒有；我改用冷氣運轉時間、開著的燈和基本負載推算度數，套上台電累進電價，再拿帳單對帳，最後做成一個會提醒我別超過 3,000 元的儀表板。
-pubDate: 2099-01-01T00:00:00+08:00
+pubDate: 2026-11-06T23:28:00+08:00
 category: smart-home
 tags: [home-assistant, smart-home, dashboard]
 cover: https://ryan-hsu.com/images/estimate-electricity-bill-from-ac-runtime/cover.webp
