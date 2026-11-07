@@ -146,7 +146,7 @@ cover: https://ryan-hsu.com/images/transparent-lcd-floating-lyrics-video/cover.j
 
 <figure>
   <video src="/images/transparent-lcd-floating-lyrics-video/06-dance-v3.mp4" poster="/images/transparent-lcd-floating-lyrics-video/06-dance-v3-poster.jpg" width="854" height="480" controls playsinline preload="none" style="width:100%;height:auto"></video>
-  <figcaption>最終版本在倉裡播放的樣子，背景刷白之後，舞者和深色字幕留在畫面上，後面的評審隱約看得出來很高興。</figcaption>
+  <figcaption>最終版本在倉裡播放的樣子，背景刷白之後，舞者和深色字幕留在畫面上，後面的評審隱約看得出來很高興。<br />影片來源：MBC《Show! Music Core》BESTie〈Love Options〉舞台，影像與音樂版權屬 MBC 及原權利人所有；本片為我在自家透明倉播放時的實拍，僅作效果展示。</figcaption>
 </figure>
 
 回頭看，最關鍵的不是哪個去背模型，而是一開始想通的那件事，在透明 LCD 上，透明不是一種檔案格式，而是一種顏色。
